@@ -1,4 +1,9 @@
 spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/demo1?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC
+    username: root
+    password: 612915
   freemarker:
     suffix: .ftl
     settings:
@@ -9,3 +14,5 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 100MB
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**Mapper.xml

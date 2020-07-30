@@ -31,6 +31,6 @@
     layui.config({
         //base: 'assets/lay/modules/'
         base: '/'
-    }).extend(app).use(entry || 'home');
+    }).extend(app).use(entry || 'assets/js/home');
 
 })();

@@ -10,16 +10,17 @@ public class Result implements Serializable {
     private String message; //返回信息
     private Object data;   //返回数据
 
-    public static Result success(String msg,Object data){
+    public static Result success(String msg, Object data) {
         Result result = new Result();
-        result.status= 0;
+        result.status = 0;
         result.message = msg;
         result.data = data;
         return result;
     }
-    public static Result fail(String msg){
+
+    public static Result fail(String msg) {
         Result result = new Result();
-        result.status= -1;
+        result.status = -1;
         result.message = msg;
         result.data = null;
         return result;

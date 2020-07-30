@@ -1,129 +1,131 @@
 package com.lhm.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lhm.common.Result;
 import com.lhm.pojo.User;
+import com.lhm.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
+@Api(tags = "用户操作相关接口")
 public class UserController {
+
+    @Autowired
+    UserService userService;
 
     /**
      * 跳转到用户页面
+     *
      * @param
      * @return
      */
     @GetMapping("/user.html")
-    public String user(){
+    @ApiOperation("用户页面跳转")
+    public String user() {
         return "views/user/userManage";
     }
 
     /**
-     * 获取用户列表（没连数据库所以伪造了数据和分页）
-     * @param session
-     * @param request
+     * 获取用户列表（
+     *
      * @return
      */
-    @RequestMapping("/userList.json")
+    @GetMapping(value = "/userList.json")
+    @ApiOperation("获取用户列表接口")
     @ResponseBody
-    public Map<String, Object> userList(HttpSession session,HttpServletRequest request){
-        String page = request.getParameter("page");
-        String limit = request.getParameter("limit");
-        int pages = Integer.parseInt(page);
-        int rows = Integer.parseInt(limit);
-        List<User> list = (List<User>) session.getAttribute("userList");
+    public Map<String, Object> userList(User user,@RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
+        PageHelper.startPage(page,limit);
+        List<User> list = userService.selectUserByPageHelper(user);
+        PageInfo<User> info = new PageInfo<>(list);
         Map<String, Object> map = new HashMap<>();
-        if (list==null&&list.size()==0){
-            User user1 = new User(10001,"张三",18,"123456789@qq.com","张三的文件","男","浙江杭州");
-            User user2 = new User(10002,"李四",20,"123456789@qq.com","李四的文件","男","浙江杭州");
-            User user3 = new User(10003,"王五",22,"123456789@qq.com","王五的文件","男","浙江杭州");
-            User user4 = new User(10004,"孙六",15,"123456789@qq.com","孙六的文件","男","浙江杭州");
-            List<User> userList = new ArrayList<>();
-            userList.add(user1);
-            userList.add(user2);
-            userList.add(user3);
-            userList.add(user4);
-            session.setAttribute("userList",userList);
-            map.put("code",0);
-            map.put("msg", "");
-            map.put("count",userList.size());
-            List<User> returnList = new ArrayList<>();
-            if (pages==1){
-                returnList.add(userList.get(0));
-                returnList.add(userList.get(1));
-                map.put("data",returnList);
-            }else {
-                returnList.add(userList.get(2));
-                returnList.add(userList.get(3));
-                map.put("data",returnList);
-            }
-        }else {
-            List<User> returnList = new ArrayList<>();
-            map.put("code",0);
-            map.put("msg", "");
-            map.put("count",list.size());
-            if (pages==1){
-                returnList.add(list.get(0));
-                returnList.add(list.get(1));
-                map.put("data",returnList);
-            }else {
-                returnList.add(list.get(2));
-                returnList.add(list.get(3));
-                map.put("data",returnList);
-            }
-        }
+        map.put("code", 0);
+        map.put("msg", "");
+        map.put("count", info.getTotal());
+        map.put("data", info.getList());
         return map;
     }
 
     /**
      * 根据用户id修改用户年龄
-     * @param session
+     *
      * @param id
      * @param age
      * @return
      */
-    @RequestMapping("/updateAgeById.json")
+    @RequestMapping(value = "/updateAgeById.json", method = RequestMethod.POST)
+    @ApiOperation("根据用户id修改用户年龄接口")
     @ResponseBody
-    public Result  updateAgeById(HttpSession session, @RequestParam("id") Integer id,@RequestParam("age") Integer age){
-        List<User> userList = (List<User>) session.getAttribute("userList");
-        for (User user:userList) {
-            if (user.getId().equals(id)){
-                user.setAge(age);
-                session.setAttribute("userList",userList);
-                return Result.success("修改成功!",userList);
-            }
+    public Result updateAgeById(@RequestParam("id") Integer id, @RequestParam("age") Integer age) {
+        User user = new User();
+        user.setId(id);
+        user.setAge(age);
+        int key = userService.updateAgeById(user);
+        if (key!=0){
+            return Result.success("修改成功！",null);
         }
         return Result.fail("修改失败！");
     }
 
     /**
      * 跳转到添加用户页面
+     *
      * @return
      */
-    @RequestMapping("/addUserModel.html")
-    public String addUsermodel(){
+    @GetMapping("/addUserModel.html")
+    @ApiOperation("添加用户页面跳转")
+    public String addUsermodel() {
         return "views/user/addUserModal";
     }
 
     /**
      * 添加用户
-     * @param username
-     * @param filename
+     *
      * @return
      */
-    @RequestMapping("/addUser.json")
+    @RequestMapping(value = "/addUser.json", method = RequestMethod.POST)
+    @ApiOperation("添加用户接口")
     @ResponseBody
-    public Result addUser(@RequestParam("username") String username,@RequestParam("filename") String filename){
-        if (username!=null&&!username.equals("")&&filename!=null&&!filename.equals("")){
-            return Result.success("添加成功！",null);
+    public Result addUser(User user, @RequestParam("filename") String filename) {
+        if (filename != null && !filename.equals("")) {
+            user.setFile(filename);
         }
-        return Result.fail("添加失败！");
+        int key = userService.saveUser(user);
+        System.out.println(user.getId());
+        if (key != 0) {
+            return Result.success("添加成功！", null);
+        } else {
+            return Result.fail("添加失败！");
+        }
+    }
+
+    /**
+     * 删除
+     */
+    @RequestMapping(value = "/delUserById.json", method = RequestMethod.POST)
+    @ApiOperation("删除用户接口")
+    @ResponseBody
+    public Result delUserById(@RequestParam("id") int id) {
+        if (id == 0) {
+            return Result.fail("无效参数！");
+        }
+        int key = userService.delUserById(id);
+        if (key != 0) {
+            return Result.success("删除成功！", null);
+        }
+        return Result.fail("删除失败！");
     }
 }

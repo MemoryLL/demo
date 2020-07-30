@@ -1,11 +1,11 @@
 package com.lhm.controller;
 
 import com.lhm.common.Result;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -15,9 +15,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 @Controller
+@Api(tags = "文件操作相关接口")
 public class FileController {
 
-    @RequestMapping("/uploadFile.json")
+    @RequestMapping(value = "/uploadFile.json",method = RequestMethod.POST)
+    @ApiOperation("上传文件接口")
     @ResponseBody
     public Result uploadFile(@RequestParam("file") MultipartFile file){
         if (file.isEmpty()){
@@ -47,7 +49,9 @@ public class FileController {
     /**
      * 删除文件
      */
-    @RequestMapping("/delFile.json")
+    @RequestMapping(value = "/delFile.json",method = RequestMethod.POST)
+    @ApiOperation("删除文件接口")
+    @ApiImplicitParam(name = "filename", value = "上传后的文件名称")
     @ResponseBody
     public Result delFile(@RequestParam("filename") String filename){
         Result result = deleteFileByName(filename);
@@ -59,7 +63,9 @@ public class FileController {
      * @param filename
      * @return
      */
-    @GetMapping("/previewFile.json")
+    @GetMapping(value = "/previewFile.json")
+    @ApiOperation("预览文件接口")
+    @ApiImplicitParam(name = "filename", value = "预览的文件名称")
     public void previewFile(HttpServletResponse response, @RequestParam("filename")String filename) throws IOException{
         System.out.println(filename);
         String path = getPath();
