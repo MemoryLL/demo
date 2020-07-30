@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhm.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.lhm.pojo.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="file" property="file" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="TINYINT" />
+  </resultMap>
+    <insert id="saveUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.lhm.pojo.User">
+        insert into user(name,age,email,file,sex,city) values (#{name},#{age},#{email},#{file},#{sex},#{city})
+    </insert>
+    <update id="delUserBuId" parameterType="Integer">
+        update user set state=1 where id=#{id}
+    </update>
+    <update id="updateAgeById" parameterType="com.lhm.pojo.User">
+        update user set age = #{age} where id = #{id}
+    </update>
+    <select id="selectUserPage" resultType="com.lhm.pojo.User">
+        select * from user where state = 0
+    </select>
+    <select id="selectUserByPageHelper" resultType="com.lhm.pojo.User" parameterType="com.lhm.pojo.User">
+         select * from user where state = 0
+        <if test="name!=null and name!=''">and name=#{name}</if>
+        <if test="sex!=null and sex!=''">and sex=#{sex}</if>
+    </select>
+</mapper>
