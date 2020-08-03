@@ -25,6 +25,12 @@ public class ResourceController {
     @Autowired
     ResourceService resourceService;
 
+
+    @GetMapping("/resources.html")
+    public String resourcesManage(){
+        return "views/resources/resourcesManage";
+    }
+
     @GetMapping("/menuInfo.json")
     @ApiOperation("获取资源")
     @ResponseBody

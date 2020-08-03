@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../assets/css/view.css"/>
     <script src="assets/layui.all.js"></script>
     <script src="assets/layui.js"></script>
-    <script src="assets/jQuery.js"></script>
+    <script src="assets/jquery-3.5.0.js"></script>
     <title></title>
 </head>
 <body class="layui-view-body">
@@ -37,8 +37,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">上传(pdf)</label>
         <div class="layui-input-block">
-            <button type="button" class="layui-btn" id="up"
-            ">
+            <button type="button" class="layui-btn" id="up">
             <i class="layui-icon">&#xe67c;</i>上传文件
             </button>
             <input type="text" id="filename" name="filename" required lay-verify="required" readonly="readonly"
@@ -84,7 +83,10 @@
         form.render();
     });
     // rest = function () {
-    //     $("#name").val("");
+    //     var file = $("#filename").val("");
+    //     if (file!=null){
+    //         $("#filename").val("");
+    //     }
     //     $("#age").val("");
     //     $("#email").val("");
     //     $("#sex").val("");

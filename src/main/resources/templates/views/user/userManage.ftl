@@ -66,13 +66,11 @@
     </div>
 </div>
 <script src="assets/layui.all.js"></script>
-<script src="assets/jQuery.js"></script>
+<script src="assets/jquery-3.5.0.js"></script>
 <script>
-
     var element = layui.element;
     var table = layui.table;
     var form = layui.form;
-
     //查询按钮点击
     $("#findUser_btn").click(function () {
         var name = $("#name").val();
@@ -80,28 +78,27 @@
         userResult.reload({
             url: '/userList.json'
             , where: {name: name, sex: sex}
+            ,page:{curr:1}
         });
         isSearch = true;
         return false;
     });
-
     //重置按钮点击
     $("#restFindUser_btn").click(function () {
-         $("#name").val("");
-         $("#sex").val("");
-         form.render();
+        $("#name").val("");
+        $("#sex").val("");
+        form.render();
         // $("#sex option:first").prop("selected", 'selected');
         // var a = document.getElementById("sex");//mySelect是select 的Id
         // a.options[0].selected = true;
         userResult.reload({
             url: '/userList.json'
             , where: {name: "", sex: ""}
+            ,page:{curr:1}
         });
         isSearch = true;
         return false;
     });
-
-
     //添加用户按钮点击
     $('#btn-add').on('click', function () {
         layer.open({
@@ -113,7 +110,6 @@
             content: '/addUserModel.html',
         });
     });
-
     //展示已知数据
     userResult = table.render({
         elem: '#userTable'
@@ -136,7 +132,6 @@
         , limits: [2, 5, 10]
         , limit: 2 //每页默认显示的数量
     });
-
     //监听工具条
     table.on('tool(test)', function (obj) {
         var data = obj.data;
@@ -162,7 +157,6 @@
                             layer.msg("删除失败", {icon: 5});
                         }
                     }
-
                 });
             });
         } else if (obj.event === 'edit') {
@@ -189,12 +183,10 @@
                             // });
                             layer.msg(res.message, {icon: 6});
                             window.location.reload();
-
                         } else {
                             layer.msg(res.message, {icon: 5});
                         }
                     }
-
                 });
             });
         }

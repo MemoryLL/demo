@@ -1,29 +1,28 @@
 package com.lhm.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import lombok.Data;
 
 import java.util.List;
-
 public class Resource {
+    //主键id
     private Integer id;
-
+    //标题
     private String title;
-
+    //头像
     private String icon;
-
+    //地址
     private String href;
-
+    //描述
     private String description;
-
+    //父节点
     private Integer pId;
 
     private String seq;
-
+    //状态 0正常  1删除
     private Byte status;
 
     private Byte spread;
-
+    //类型  0菜单 1页面 2按钮
     private Byte resourceType;
 
     @TableField(exist = false)
