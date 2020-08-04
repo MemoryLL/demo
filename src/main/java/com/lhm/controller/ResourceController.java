@@ -27,12 +27,13 @@ public class ResourceController {
 
 
     @GetMapping("/resources.html")
+    @ApiOperation("资源页面跳转")
     public String resourcesManage(){
         return "views/resources/resourcesManage";
     }
 
     @GetMapping("/menuInfo.json")
-    @ApiOperation("获取资源")
+    @ApiOperation("获取资源接口")
     @ResponseBody
     public Result getResource(){
         List<Resource> resourceList = resourceService.getMenuInfo();
