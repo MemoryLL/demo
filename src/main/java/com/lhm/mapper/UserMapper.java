@@ -19,4 +19,6 @@ public interface UserMapper {
 
     List<User> selectUserByPageHelper(User user);
 
+    List<User> getAllUser();
+
 }

@@ -53,11 +53,11 @@
                     </div>
                     <button id="btn-add" class="layui-btn layui-btn-blue"><i class="layui-icon">&#xe654;</i>新增
                     </button>
-                    <table id="userTable" lay-filter="test">
+                    <table id="userTable" lay-filter="test1">
                         <script type="text/html" id="barDemo">
-                            <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看</a>
-                            <a class="layui-btn layui-btn-mini" lay-event="edit">编辑</a>
-                            <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
+                            <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="user_detail">查看</a>
+                            <a class="layui-btn layui-btn-mini" lay-event="user_edit">编辑</a>
+                            <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="user_del">删除</a>
                         </script>
                     </table>
                 </div>
@@ -88,9 +88,6 @@
         $("#name").val("");
         $("#sex").val("");
         form.render();
-        // $("#sex option:first").prop("selected", 'selected');
-        // var a = document.getElementById("sex");//mySelect是select 的Id
-        // a.options[0].selected = true;
         userResult.reload({
             url: '/userList.json'
             , where: {name: "", sex: ""}
@@ -129,15 +126,15 @@
         , skin: 'line' //表格风格
         , even: true
         , page: true //是否显示分页
-        , limits: [2, 5, 10]
-        , limit: 2 //每页默认显示的数量
+        , limits: [5, 10]
+        , limit: 5 //每页默认显示的数量
     });
     //监听工具条
-    table.on('tool(test)', function (obj) {
+    table.on('tool(test1)', function (obj) {
         var data = obj.data;
-        if (obj.event === 'detail') {
+        if (obj.event === 'user_detail') {
             layer.msg('ID：' + data.id + ' 的查看操作');
-        } else if (obj.event === 'del') {
+        } else if (obj.event === 'user_del') {
             layer.confirm('真的删除行么', function (index) {
                 // console.log(data);
                 // layer.msg("删除成功", {icon: 6});
@@ -159,7 +156,7 @@
                     }
                 });
             });
-        } else if (obj.event === 'edit') {
+        } else if (obj.event === 'user_edit') {
             layer.prompt({
                 formType: 2
                 , title: '修改 ID 为 [' + data.id + '] 的年龄'

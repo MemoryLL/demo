@@ -23,4 +23,19 @@ public class ResourceServiceImpl implements ResourceService {
     public List<Resource> getMenuInfo() {
         return resourceMapper.getMenuInfo();
     }
+
+    @Override
+    public List<Resource> selectResourceByPageHelper(Resource resource) {
+        return resourceMapper.selectResourceByPageHelper(resource);
+    }
+
+    @Override
+    public List<Resource> getResourceByResourceType(Integer resourceType) {
+        return resourceMapper.getResourceByResourceType(resourceType);
+    }
+
+    @Override
+    public int addResource(Resource resource) {
+        return resourceMapper.addResource(resource);
+    }
 }

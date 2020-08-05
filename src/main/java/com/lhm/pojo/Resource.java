@@ -1,8 +1,10 @@
 package com.lhm.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import lombok.Data;
 
 import java.util.List;
+@Data
 public class Resource {
     //主键id
     private Integer id;
@@ -17,11 +19,9 @@ public class Resource {
     //父节点
     private Integer pId;
 
-    private String seq;
     //状态 0正常  1删除
     private Byte status;
 
-    private Byte spread;
     //类型  0菜单 1页面 2按钮
     private Byte resourceType;
 
@@ -76,28 +76,12 @@ public class Resource {
         this.pId = pId;
     }
 
-    public String getSeq() {
-        return seq;
-    }
-
-    public void setSeq(String seq) {
-        this.seq = seq;
-    }
-
     public Byte getStatus() {
         return status;
     }
 
     public void setStatus(Byte status) {
         this.status = status;
-    }
-
-    public Byte getSpread() {
-        return spread;
-    }
-
-    public void setSpread(Byte spread) {
-        this.spread = spread;
     }
 
     public Byte getResourceType() {

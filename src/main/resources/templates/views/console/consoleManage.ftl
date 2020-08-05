@@ -18,7 +18,7 @@
                                 <div class="meta">
                                     <span>总用户数</span>
                                 </div>
-                                <div class="total">0</div>
+                                <div class="total">${user}</div>
                             </div>
                         </div>
                         <div class="chart-body">
@@ -41,9 +41,9 @@
                         <div class="chart-header">
                             <div class="metawrap">
                                 <div class="meta">
-                                    <span>总用户数</span>
+                                    <span>总菜单数</span>
                                 </div>
-                                <div class="total">0</div>
+                                <div class="total">${caidan}</div>
                             </div>
                         </div>
                         <div class="chart-body">
@@ -66,9 +66,9 @@
                         <div class="chart-header">
                             <div class="metawrap">
                                 <div class="meta">
-                                    <span>总用户数</span>
+                                    <span>总页面数</span>
                                 </div>
-                                <div class="total">0</div>
+                                <div class="total">${yemian}</div>
                             </div>
                         </div>
                         <div class="chart-body">
@@ -91,9 +91,9 @@
                         <div class="chart-header">
                             <div class="metawrap">
                                 <div class="meta">
-                                    <span>总用户数</span>
+                                    <span>总按钮数</span>
                                 </div>
-                                <div class="total">0</div>
+                                <div class="total">${anniu}</div>
                             </div>
                         </div>
                         <div class="chart-body">

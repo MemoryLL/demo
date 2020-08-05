@@ -16,3 +16,8 @@ spring:
       max-request-size: 100MB
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
+
+#logging:
+#  level:
+#    com.lhm.mapper: debug
+

@@ -12,16 +12,22 @@ import java.util.List;
  */
 public class TreeBuilder {
     public static List<Resource> bulid(List<Resource> resources) {
+        //去除按钮
+        List<Resource> resourceList = new ArrayList<>();
+        for (Resource r:resources) {
+            if (r.getResourceType()!=2){
+                resourceList.add(r);
+            }
+        }
 
         List<Resource> trees = new ArrayList<>();
-
-        for (Resource resource : resources) {
+        for (Resource resource : resourceList) {
 
             if (resource.getpId()==0) {
                 trees.add(resource);
             }
 
-            for (Resource it : resources) {
+            for (Resource it : resourceList) {
                 if (it.getpId() == resource.getId().intValue()) {
                     if (resource.getChildren() == null) {
                         resource.setChildren(new ArrayList<>());

@@ -28,4 +28,7 @@
         <if test="name!=null and name!=''">and name=#{name}</if>
         <if test="sex!=null and sex!=''">and sex=#{sex}</if>
     </select>
+    <select id="getAllUser" resultType="com.lhm.pojo.User">
+        select * from user
+    </select>
 </mapper>

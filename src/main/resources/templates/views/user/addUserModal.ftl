@@ -82,22 +82,6 @@
         //因此你需要在相应的地方，执行下述方法来手动渲染，跟这类似的还有 element.init();
         form.render();
     });
-    // rest = function () {
-    //     var file = $("#filename").val("");
-    //     if (file!=null){
-    //         $("#filename").val("");
-    //     }
-    //     $("#age").val("");
-    //     $("#email").val("");
-    //     $("#sex").val("");
-    //     //$("#city").val("");
-    //     //$("#city").empty();
-    //     //$("#city option[value=''] ").attr("selected",true)
-    //     //$("#city option:first").prop("selected", 'selected');
-    //     $("#city").each(function () {
-    //         $(this).find("option").eq("").prop("selected", true)
-    //     });
-    // }
 
     //文件上传
     layui.use('upload', function () {

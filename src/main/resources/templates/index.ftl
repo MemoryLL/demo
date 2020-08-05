@@ -21,7 +21,6 @@
                 <a href="javascript:;" class="icon-font"><i class="ai ai-menufold"></i></a>
             </li>
         </ul>
-
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">Admin</a>
