@@ -53,4 +53,9 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUser() {
         return userMapper.getAllUser();
     }
+
+    @Override
+    public int UpdateUserStateById(User user) {
+        return userMapper.UpdateUserStateById(user);
+    }
 }

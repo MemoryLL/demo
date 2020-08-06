@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,6 +80,7 @@ public class ResourceController {
      *
      */
     @GetMapping("/getPid.json")
+    @ApiOperation("根据类型查询资源")
     @ResponseBody
     public Result getPid(@RequestParam("resourceType") Integer resourceType){
         List<Resource> list = resourceService.getResourceByResourceType(resourceType);
@@ -89,6 +91,7 @@ public class ResourceController {
      *
      */
     @RequestMapping(value = "/addResource.json",method = RequestMethod.POST)
+    @ApiOperation("添加资源接口")
     @ResponseBody
     public Result addResource(Resource resource){
         if (resource.getpId()==null||resource.getpId().equals("")){
@@ -100,5 +103,40 @@ public class ResourceController {
             return Result.fail("添加失败！");
         }
         return Result.success("添加成功！",null);
+    }
+
+    /**
+     * 修改资源页面跳转
+     */
+    @GetMapping(value = "/updateResourceModel.html")
+    @ApiOperation("修改资源页面跳转")
+    public String updateResourceModel(@RequestParam("id") Integer id, HttpServletRequest request){
+        Resource resource = resourceService.getResourceById(id);
+        request.setAttribute("resource",resource);
+        return "views/resources/updateResourceModal";
+    }
+
+    /**
+     * 修改资源接口
+     */
+    @RequestMapping(value = "/updateResource.json",method = RequestMethod.POST)
+    @ApiOperation("修改资源接口")
+    @ResponseBody
+    public Result updateResource(Resource resource){
+        return Result.success("不好意思，后台接口还没写！",null);
+    }
+
+    /**
+     * 修改资源状态
+     */
+    @RequestMapping(value = "/updateResourceStatusById.json",method = RequestMethod.POST)
+    @ApiOperation("修改资源状态")
+    @ResponseBody
+    public Result updateResourceStatusById(Resource resource){
+        int key = resourceService.updateResourceStatusById(resource);
+        if (key==0){
+            return Result.fail("修改失败！");
+        }
+        return Result.success("修改成功！",null);
     }
 }

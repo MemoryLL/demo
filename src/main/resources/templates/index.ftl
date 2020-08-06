@@ -23,7 +23,7 @@
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href="javascript:;">Admin</a>
+                <a href="javascript:;"><b>${username}</b></a>
                 <dl class="layui-nav-child">
                     <dd><a href="">帮助中心</a></dd>
                     <dd><a href="/exit.html">退出</a></dd>

@@ -13,13 +13,13 @@
     <div class="login-container">
         <form class="login-form" method="post" action="/login.json">
             <div class="input-group">
-                <input type="text" id="username" class="input-field">
+                <input type="text" id="username" name="username" class="input-field">
                 <label for="username" class="input-label">
                     <span class="label-title">用户名</span>
                 </label>
             </div>
             <div class="input-group">
-                <input type="password" id="password" class="input-field">
+                <input type="password" id="password" name="password" class="input-field">
                 <label for="password" class="input-label">
                     <span class="label-title">密码</span>
                 </label>

@@ -37,6 +37,14 @@
                                     <input id="name" name="name" type="text" autocomplete="off" class="layui-input"
                                            value="">
                                 </div>
+                                <div class="layui-form-mid">状态:</div>
+                                <div class="layui-input-inline" style="width: 100px;">
+                                    <select id="state" name="state">
+                                        <option value="">全部</option>
+                                        <option value="0">正常</option>
+                                        <option value="1">禁用</option>
+                                    </select>
+                                </div>
                                 <div class="layui-form-mid">性别:</div>
                                 <div class="layui-input-inline" style="width: 100px;">
                                     <select id="sex" name="sex">
@@ -57,7 +65,7 @@
                         <script type="text/html" id="barDemo">
                             <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="user_detail">查看</a>
                             <a class="layui-btn layui-btn-mini" lay-event="user_edit">编辑</a>
-                            <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="user_del">删除</a>
+                            <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="update_user_state">修改状态</a>
                         </script>
                     </table>
                 </div>
@@ -75,9 +83,10 @@
     $("#findUser_btn").click(function () {
         var name = $("#name").val();
         var sex = $("#sex option:selected").val();
+        var state = $("#state option:selected").val();
         userResult.reload({
             url: '/userList.json'
-            , where: {name: name, sex: sex}
+            , where: {name: name,state: state,sex: sex}
             ,page:{curr:1}
         });
         isSearch = true;
@@ -87,10 +96,11 @@
     $("#restFindUser_btn").click(function () {
         $("#name").val("");
         $("#sex").val("");
+        $("#state").val("");
         form.render();
         userResult.reload({
             url: '/userList.json'
-            , where: {name: "", sex: ""}
+            , where: {name: "",state:"", sex: ""}
             ,page:{curr:1}
         });
         isSearch = true;
@@ -111,18 +121,27 @@
     userResult = table.render({
         elem: '#userTable'
         , cols: [[ //标题栏
-            {checkbox: true, fixed: true}
-            , {field: 'id', title: 'ID', width: 80, sort: true, align: 'center'}
+            {field: 'id', title: 'ID', width: 65, sort: true, align: 'center'}
             , {field: 'name', title: '用户名', width: 80, align: 'center'}
             , {field: 'age', title: '年龄', width: 80, sort: true, align: 'center'}
             , {field: 'email', title: '邮箱', width: 150, align: 'center'}
             , {field: 'file', title: '文件', width: 150, align: 'center'}
-            , {field: 'sex', title: '性别', width: 80, align: 'center'}
+            , {field: 'sex', title: '性别', width: 60, align: 'center'}
             , {field: 'city', title: '城市', width: 80, align: 'center'}
+            , {
+                field: 'state', title: '状态', width: 70, align: 'center',
+                templet: function (res) {
+                    if (res.state == 0) {
+                        return '<span class="layui-badge layui-bg-green">正常</span>';
+                    } else if (res.state == 1) {
+                        return '<span class="layui-badge">禁用</span>';
+                    }
+                }
+            }
             , {field: 'right', title: '操作', width: 280, toolbar: "#barDemo", align: 'center'}
         ]]
         , url: '/userList.json'
-        , where: {name: "", sex: ""}
+        , where: {name: "", state: "", sex: ""}
         , skin: 'line' //表格风格
         , even: true
         , page: true //是否显示分页
@@ -134,14 +153,19 @@
         var data = obj.data;
         if (obj.event === 'user_detail') {
             layer.msg('ID：' + data.id + ' 的查看操作');
-        } else if (obj.event === 'user_del') {
-            layer.confirm('真的删除行么', function (index) {
-                // console.log(data);
-                // layer.msg("删除成功", {icon: 6});
+        } else if (obj.event === 'update_user_state') {
+            layer.confirm('真的修改状态么?', function (index) {
+                var s = data.state;
+                var state;
+                if (s==0){
+                    state=1;
+                }else if(s==1){
+                    state=0;
+                }
                 $.ajax({
-                    url: "/delUserById.json",
+                    url: "/UpdateUserStateById.json",
                     type: "POST",
-                    data: {"id": data.id},
+                    data: {"id": data.id,"state":state},
                     dataType: "json",
                     success: function (res) {
                         if (res.status == 0) {
@@ -149,7 +173,9 @@
                             obj.del();
                             //关闭弹框
                             layer.close(index);
-                            layer.msg(res.message, {icon: 6});
+                            layer.alert(res.message, {icon: 6}, function (index) {
+                                location.href = "/user.html";
+                            });
                         } else {
                             layer.msg("删除失败", {icon: 5});
                         }

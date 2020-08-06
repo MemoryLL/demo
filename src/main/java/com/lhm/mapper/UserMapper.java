@@ -21,4 +21,6 @@ public interface UserMapper {
 
     List<User> getAllUser();
 
+    int UpdateUserStateById(User user);
+
 }

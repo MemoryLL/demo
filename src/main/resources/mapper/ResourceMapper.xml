@@ -23,6 +23,9 @@
         <if test="description!=null and description!=''">,#{description}</if>
         )
     </insert>
+    <update id="updateResourceStatusById" parameterType="com.lhm.pojo.Resource">
+        update resource set status = #{status} where id = #{id}
+    </update>
 
     <select id="getMenuInfo" resultType="com.lhm.pojo.Resource">
         select * from resource where status = 0
@@ -36,6 +39,9 @@
 
     <select id="getResourceByResourceType" resultType="com.lhm.pojo.Resource" parameterType="Integer">
         select * from resource where status = 0 and resource_type = #{resourceType}
+    </select>
+    <select id="getResourceById" resultType="com.lhm.pojo.Resource" parameterType="Integer">
+        select * from resource where id = #{id}
     </select>
 
 </mapper>

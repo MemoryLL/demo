@@ -20,13 +20,17 @@
     <update id="updateAgeById" parameterType="com.lhm.pojo.User">
         update user set age = #{age} where id = #{id}
     </update>
+    <update id="UpdateUserStateById" parameterType="com.lhm.pojo.User">
+        update user set state=#{state} where id = #{id}
+    </update>
     <select id="selectUserPage" resultType="com.lhm.pojo.User">
         select * from user where state = 0
     </select>
     <select id="selectUserByPageHelper" resultType="com.lhm.pojo.User" parameterType="com.lhm.pojo.User">
-         select * from user where state = 0
+         select * from user where 1 = 1
         <if test="name!=null and name!=''">and name=#{name}</if>
         <if test="sex!=null and sex!=''">and sex=#{sex}</if>
+        <if test="state!=null">and state=#{state}</if>
     </select>
     <select id="getAllUser" resultType="com.lhm.pojo.User">
         select * from user

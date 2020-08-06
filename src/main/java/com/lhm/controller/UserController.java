@@ -1,8 +1,5 @@
 package com.lhm.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lhm.common.Result;
@@ -10,12 +7,9 @@ import com.lhm.pojo.User;
 import com.lhm.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -113,19 +107,16 @@ public class UserController {
     }
 
     /**
-     * 删除
+     * 修改用户状态
      */
-    @RequestMapping(value = "/delUserById.json", method = RequestMethod.POST)
-    @ApiOperation("删除用户接口")
+    @RequestMapping(value = "/UpdateUserStateById.json", method = RequestMethod.POST)
+    @ApiOperation("修改用户状态接口")
     @ResponseBody
-    public Result delUserById(@RequestParam("id") int id) {
-        if (id == 0) {
-            return Result.fail("无效参数！");
+    public Result UpdateUserStateById(User user) {
+        int key = userService.UpdateUserStateById(user);
+        if (key == 0) {
+            return Result.fail("修改失败！");
         }
-        int key = userService.delUserById(id);
-        if (key != 0) {
-            return Result.success("删除成功！", null);
-        }
-        return Result.fail("删除失败！");
+        return Result.success("修改成功！", null);
     }
 }

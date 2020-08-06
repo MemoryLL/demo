@@ -157,6 +157,51 @@
         isSearch = true;
         return false;
     });
+    //监听工具条
+    table.on('tool(test2)', function (obj) {
+        var data = obj.data;
+        if (obj.event === 'resource_detail') {
+            layer.msg('ID：' + data.id + ' 的查看操作');
+        } else if (obj.event === 'resource_update_status') {
+            layer.confirm('真的要修改状态么?', function (index) {
+                var s = data.status;
+                var status;
+                if (s==0){
+                    status=1;
+                }else if (s==1){
+                    status=0;
+                }
+                $.ajax({
+                    url: "/updateResourceStatusById.json",
+                    type: "POST",
+                    data: {"id": data.id,"status":status},
+                    dataType: "json",
+                    success: function (res) {
+                        if (res.status == 0) {
+                            //关闭弹框
+                            layer.close(index);
+                            layer.alert(res.message, {icon: 6}, function (index) {
+                                location.href = "/resources.html";
+                            });
+                        } else {
+                            layer.msg("删除失败", {icon: 5});
+                        }
+                    }
+                });
+            });
+        } else if (obj.event === 'resource_edit') {
+            console.log(data.id);
+            layer.open({
+                type: 2,
+                title: '修改资源',
+                maxmin: true,
+                area: ['650px', '480px'],
+                shadeClose: false, //点击遮罩关闭
+                content: '/updateResourceModel.html?id='+data.id+'',
+                //content: '/updateResourceModel.html/'+data.id+'',
+            });
+        }
+    });
 </script>
 </body>
 </html>

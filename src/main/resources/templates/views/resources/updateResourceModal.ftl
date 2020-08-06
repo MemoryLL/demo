@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="../assets/css/layui.css">
-    <link rel="stylesheet" href="../assets/css/view.css"/>
+    <link rel="stylesheet" href="assets/css/layui.css">
+    <link rel="stylesheet" href="assets/css/view.css"/>
     <script src="assets/layui.all.js"></script>
     <script src="assets/layui.js"></script>
     <script src="assets/jquery-3.5.0.js"></script>
     <title></title>
 </head>
 <body class="layui-view-body">
-<form id="addResourceFrom" class="layui-form layui-card-body">
+<form id="updateResourceFrom" class="layui-form layui-card-body">
+    <input type="hidden" id="id" name="id" value="${resource.id}">
     <div class="layui-form-item">
         <label class="layui-form-label">类型</label>
         <div class="layui-input-block">
@@ -46,12 +47,6 @@
         <label class="layui-form-label">父ID</label>
         <div class="layui-input-block">
             <select id="pId" name="pId">
-            <#--<option value=""></option>-->
-            <#--<option value="北京">北京</option>-->
-            <#--<option value="上海">上海</option>-->
-            <#--<option value="广州">广州</option>-->
-            <#--<option value="深圳">深圳</option>-->
-            <#--<option value="杭州">杭州</option>-->
             </select>
         </div>
     </div>
@@ -59,7 +54,6 @@
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button type="submit" class="layui-btn layui-btn-blue" lay-submit lay-filter="formDemo">立即提交</button>
-        <#--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
         </div>
     </div>
 </form>
@@ -73,12 +67,11 @@
         //但是，如果你的HTML是动态生成的，自动渲染就会失效
         //因此你需要在相应的地方，执行下述方法来手动渲染，跟这类似的还有 element.init();
 
-
-        function getPid(tType){
+        function getPid1(rType){
             $.ajax({
                 type: "GET",
                 url: "/getPid.json",
-                data: {resourceType: tType},
+                data: {resourceType: rType},
                 dataType: "json",
                 success: function (res) {
                     if (res.status == 0) {
@@ -92,40 +85,103 @@
                 }
             });
         };
+        function getPid2(rType){
+            $.ajax({
+                type: "GET",
+                url: "/getPid.json",
+                data: {resourceType: rType},
+                dataType: "json",
+                success: function (res) {
+                    if (res.status == 0) {
+                        $("#pId").empty();//清空下拉框内容
+                        $.each(res.data, function (index, item) {
+                            //$('#pId').append(new Option(item.title, item.id));// 下拉菜单里添加元素
+                            $("#pId").append("<option value='" + item.id + "'>" + item.title + "</option>");// 下拉菜单里添加元素
+                        });
+                        // 遍历select
+                        $("#pId").each(function() {
+                            // this代表的是<option></option>，对option再进行遍历
+                            $(this).children("option").each(function() {
+                                // 判断需要对那个选项进行回显
+                                if (this.value == ${resource.pId}) {
+                                    // 进行回显
+                                    $(this).attr("selected","selected");
+                                }
+                            });
+                        });
+                        layui.form.render("select");
+                    }
+                }
+            });
+        };
 
         layer.ready(function () {
-            $("#url_div").hide();
-            $("#pid_div").hide();
+            if (${resource.resourceType}==0){
+                $("#title").val("${resource.title}");
+                $("#description").val("${resource.description}");
+                $("#url_div").hide();
+                $("#pid_div").hide();
+            }else if (${resource.resourceType}==1){
+                $("input[name=resourceType][value=0]").attr("checked", false);
+                $("input[name=resourceType][value=1]").attr("checked", true);
+                $("input[name=resourceType][value=2]").attr("checked", false);
+                $("#title").val("${resource.title}");
+                $("#description").val("${resource.description}");
+                $("#href").val("${resource.href}");
+                getPid2(0);
+                $("#url_div").show();
+                $("#pid_div").show();
+            }else if (${resource.resourceType}==2) {
+                $("input[name=resourceType][value=0]").attr("checked", false);
+                $("input[name=resourceType][value=1]").attr("checked", false);
+                $("input[name=resourceType][value=2]").attr("checked", true);
+                $("#title").val("${resource.title}");
+                $("#description").val("${resource.description}");
+                $("#href").val("${resource.href}");
+                getPid2(1);
+                $("#url_div").show();
+                $("#pid_div").show();
+            }
+
         });
 
         form.on("radio", function (data) {
             if (data.value == 0) {
-                $("#url_div").hide();
-                $("#pid_div").hide();
+                layer.confirm('确定修改类型吗?影响很大的哦!',function (index) {
+                    $("#url_div").hide();
+                    $("#pid_div").hide();
+                    layer.close(index);
+                });
             } else if (data.value == 1) {
-                getPid(0);
-                $("#url_div").show();
-                $("#pid_div").show();
+                layer.confirm('确定修改类型吗?影响很大的哦!',function (index) {
+                    getPid1(0);
+                    $("#url_div").show();
+                    $("#pid_div").show();
+                    layer.close(index);
+                });
             } else if (data.value == 2) {
-                getPid(1);
-                $("#url_div").show();
-                $("#pid_div").show();
+                layer.confirm('确定修改类型吗?影响很大的哦!',function (index) {
+                    getPid1(1);
+                    $("#url_div").show();
+                    $("#pid_div").show();
+                    layer.close(index);
+                });
             }
         });
         form.render();
     });
 
-    //添加资源方法
+    //修改资源方法
     layui.use('layer', function () {
         var layer = layui.layer;
         // 这个是在iframe里面的js代码
-        var url = '/addResource.json';
+        var url = '/updateResource.json';
         var frameindex = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
         $(document).on('click', '[type=submit]', function () {
             var index = layer.load(1, {
                 shade: [0.1, '#fff'] //0.1透明度的白色背景
             });
-                var data = $("#addResourceFrom").serialize();
+                var data = $("#updateResourceFrom").serialize();
                 $.post(url, data, function (res) {
                     if (res.status == 0) {
                         layer.alert(res.message, {icon: 6}, function (index) {

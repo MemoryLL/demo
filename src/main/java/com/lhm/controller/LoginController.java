@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.lang.invoke.MethodType;
@@ -21,7 +22,8 @@ public class LoginController {
 
     @RequestMapping(value = "/login.json",method = RequestMethod.POST)
     @ApiOperation("登录接口")
-    public String doLogin(){
+    public String doLogin(@RequestParam("username") String username,@RequestParam("password") String password,HttpSession session){
+        session.setAttribute("username",username);
         return "redirect:/index.html";
     }
 

@@ -24,4 +24,7 @@ public interface UserService {
     List<User> selectUserByPageHelper(User user);
 
     List<User> getAllUser();
+
+    int UpdateUserStateById(User user);
+
 }
