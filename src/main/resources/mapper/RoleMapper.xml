@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhm.mapper.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.lhm.pojo.Role" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="role_level" property="roleLevel" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
+    <result column="update_user_id" property="updateUserId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="update_time" jdbcType="TIMESTAMP" />
+  </resultMap>
+    <select id="selectRoleByPageHelper" resultType="com.lhm.pojo.Role" parameterType="com.lhm.pojo.Role">
+        select * from role where 1=1
+        <if test="roleName!=null and roleName!=''">and role_name=#{roleName}</if>
+        <if test="roleLevel!=null">and role_level=#{roleLevel}</if>
+        <if test="status!=null">and status=#{status}</if>
+    </select>
+
+</mapper>
