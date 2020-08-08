@@ -8,7 +8,7 @@ spring:
     suffix: .ftl
     settings:
           classic_compatible: true
-          datetime_format: yyyy-MM-dd HH:mm
+          datetime_format: yyyy-MM-dd HH:mm:ss
           number_format: 0.##
   servlet:
     multipart:

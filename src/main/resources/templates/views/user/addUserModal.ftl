@@ -21,6 +21,13 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-block">
+            <input type="password" id="password" name="password" required lay-verify="required" placeholder="请输入密码"
+                   autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">年龄</label>
         <div class="layui-input-block">
             <input type="text" id="age" name="age" required lay-verify="required" placeholder="请输入年龄" autocomplete="off"
@@ -91,7 +98,7 @@
             elem: '#up' //绑定元素
             , url: '/uploadFile.json' //上传接口
             , accept: 'file' //指定允许上传时校验的文件类型，可选值有：images（图片）、file（所有文件）、video（视频）、audio（音频）
-            , exts: 'pdf' //指定后缀名 更多参数请到这里https://www.layui.com/doc/modules/upload.html
+            , exts: 'jpg|png|gif|bmp|jpeg' //指定后缀名 更多参数请到这里https://www.layui.com/doc/modules/upload.html
             , done: function (res) {
                 if (res.status == 0) {
                     layer.msg(res.message, {icon: 6});
@@ -107,7 +114,6 @@
             }
         });
     });
-
 
     //文件删除方法
     delFile = function () {
@@ -153,18 +159,7 @@
         var url = '/addUser.json';
         var frameindex = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
         $(document).on('click', '[type=submit]', function () {
-            console.log($("#city").val());
-            if ($("#name").val() == "") {
-                layer.msg("用户名不能为空！");
-            } else if ($("#filename").val() == "") {
-                layer.msg("请上传文件！");
-            } else if ($("#age").val() == "") {
-                layer.msg("年龄不能为空！");
-            } else if ($("#email").val() == "") {
-                layer.msg("邮箱不能为空！");
-            } else if ($("#city").val() == "") {
-                layer.msg("请选择城市！");
-            } else {
+            if ($("#name").val() != ""&&$("#password").val() != ""&&$("#filename").val() != ""&&$("#age").val() != ""&&$("#email").val() != ""&&$("#city").val() != "") {
                 var index = layer.load(1, {
                     shade: [0.1, '#fff'] //0.1透明度的白色背景
                 });
@@ -178,11 +173,12 @@
                         layer.close(index);
                         layer.msg(res.message, {icon: 5});
                     }
-                }, 'json')
+                }, 'json');
+            } else{
+                layer.alert("请将信息填写完整！",{icon: 5});
             }
             return false;
         });
-
     })
 </script>
 </body>

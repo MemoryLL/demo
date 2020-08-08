@@ -74,7 +74,7 @@
         //因此你需要在相应的地方，执行下述方法来手动渲染，跟这类似的还有 element.init();
 
 
-        function getPid(tType){
+        function getPid(tType) {
             $.ajax({
                 type: "GET",
                 url: "/getPid.json",
@@ -122,9 +122,18 @@
         var url = '/addResource.json';
         var frameindex = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
         $(document).on('click', '[type=submit]', function () {
-            var index = layer.load(1, {
-                shade: [0.1, '#fff'] //0.1透明度的白色背景
-            });
+            if ($("#title").val() != "" && $("#description").val() != "" && $('input[name="resourceType"]:checked').val() == 0) {
+                addRresource();
+            } else if ($("#title").val() != "" && $("#description").val() != "" && $("#href").val() != "") {
+                addRresource();
+            } else {
+                layer.alert("请将信息填写完整！", {icon: 5});
+            }
+
+            function addRresource() {
+                var index = layer.load(1, {
+                    shade: [0.1, '#fff'] //0.1透明度的白色背景
+                });
                 var data = $("#addResourceFrom").serialize();
                 $.post(url, data, function (res) {
                     if (res.status == 0) {
@@ -136,6 +145,8 @@
                         layer.msg(res.message, {icon: 5});
                     }
                 }, 'json');
+            }
+
             return false;
         });
 

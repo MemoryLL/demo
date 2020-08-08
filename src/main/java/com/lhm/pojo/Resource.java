@@ -3,6 +3,7 @@ package com.lhm.pojo;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 @Data
 public class Resource {
@@ -24,6 +25,10 @@ public class Resource {
 
     //类型  0菜单 1页面 2按钮
     private Byte resourceType;
+
+    private Date createTime;
+
+    private Date updateTime;
 
     @TableField(exist = false)
     private List<Resource> children;

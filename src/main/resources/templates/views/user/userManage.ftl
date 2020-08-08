@@ -59,9 +59,9 @@
                             </div>
                         </form>
                     </div>
-                    <button id="btn-add" class="layui-btn layui-btn-blue"><i class="layui-icon">&#xe654;</i>新增
+                    <button id="btn_add_user" class="layui-btn layui-btn-blue"><i class="layui-icon">&#xe654;</i>新增
                     </button>
-                    <table id="userTable" lay-filter="test1">
+                    <table id="userTable" lay-filter="user_filter">
                         <script type="text/html" id="barDemo">
                             <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="user_detail">查看</a>
                             <a class="layui-btn layui-btn-mini" lay-event="user_edit">编辑</a>
@@ -107,7 +107,7 @@
         return false;
     });
     //添加用户按钮点击
-    $('#btn-add').on('click', function () {
+    $('#btn_add_user').on('click', function () {
         layer.open({
             type: 2,
             title: '添加用户',
@@ -149,7 +149,7 @@
         , limit: 5 //每页默认显示的数量
     });
     //监听工具条
-    table.on('tool(test1)', function (obj) {
+    table.on('tool(user_filter)', function (obj) {
         var data = obj.data;
         if (obj.event === 'user_detail') {
             layer.msg('ID：' + data.id + ' 的查看操作');
@@ -177,7 +177,7 @@
                                 location.href = "/user.html";
                             });
                         } else {
-                            layer.msg("删除失败", {icon: 5});
+                            layer.msg(res.message, {icon: 5});
                         }
                     }
                 });
@@ -188,7 +188,7 @@
                 , title: '修改 ID 为 [' + data.id + '] 的年龄'
                 , value: data.age
             }, function (value, index) {
-                console.log(data, value, index)
+                //console.log(data, value, index)
                 //发送修改的Ajax请求
                 //EidtAge(data,value,index,obj);
                 $.ajax({

@@ -10,14 +10,16 @@
         <result column="p_id" property="pId" jdbcType="INTEGER"/>
         <result column="status" property="status" jdbcType="TINYINT"/>
         <result column="resource_type" property="resourceType" jdbcType="TINYINT"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     </resultMap>
 
     <insert id="addResource" useGeneratedKeys="true" keyProperty="id" parameterType="com.lhm.pojo.Resource">
-        insert into resource(title,p_id,status,resource_type
+        insert into resource(title,p_id,status,resource_type,create_time
         <if test="icon!=null and icon!=''">,icon</if>
         <if test="href!=null and href!=''">,href</if>
         <if test="description!=null and description!=''">,description</if>
-        ) values (#{title},#{pId},#{status},#{resourceType}
+        ) values (#{title},#{pId},#{status},#{resourceType},#{createTime}
         <if test="icon!=null and icon!=''">,#{icon}</if>
         <if test="href!=null and href!=''">,#{href}</if>
         <if test="description!=null and description!=''">,#{description}</if>
@@ -25,6 +27,13 @@
     </insert>
     <update id="updateResourceStatusById" parameterType="com.lhm.pojo.Resource">
         update resource set status = #{status} where id = #{id}
+    </update>
+
+    <update id="updateResourceById" parameterType="com.lhm.pojo.Resource">
+        update resource set title = #{title},description=#{description}
+        <if test="href!=null and href!=''">,href=#{href}</if>
+        <if test="pId!=null">,p_id=#{pId}</if>
+        where id = #{id}
     </update>
 
     <select id="getMenuInfo" resultType="com.lhm.pojo.Resource">
@@ -42,6 +51,9 @@
     </select>
     <select id="getResourceById" resultType="com.lhm.pojo.Resource" parameterType="Integer">
         select * from resource where id = #{id}
+    </select>
+    <select id="getAllResource" resultType="com.lhm.pojo.Resource">
+        select * from resource
     </select>
 
 </mapper>

@@ -90,7 +90,7 @@
     $(document).on('click','[type=submit]',function () {
         //var data = $("#testFrom").serialize();
         var data = JSON.stringify($('#testFrom').serializeJSON());
-        console.log(data);
+        //console.log(data);
         $.ajax({
             type: "POST",
             url: "/testAdd.json",

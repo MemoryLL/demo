@@ -17,9 +17,9 @@
     <div class="layui-form-item">
         <label class="layui-form-label">类型</label>
         <div class="layui-input-block">
-            <input type="radio" lay-filter="rt" name="resourceType" value="0" title="菜单" checked>
-            <input type="radio" lay-filter="rt" name="resourceType" value="1" title="页面">
-            <input type="radio" lay-filter="rt" name="resourceType" value="2" title="按钮">
+            <input type="radio" disabled="disabled" lay-filter="rt" name="resourceType" value="0" title="菜单" checked>
+            <input type="radio" disabled="disabled" lay-filter="rt" name="resourceType" value="1" title="页面">
+            <input type="radio" disabled="disabled" lay-filter="rt" name="resourceType" value="2" title="按钮">
         </div>
     </div>
     <div class="layui-form-item">
@@ -39,7 +39,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">描述</label>
         <div class="layui-input-block">
-            <input type="text" id="description" name="description" placeholder="请输入描述"
+            <input type="text" id="description" required lay-verify="required" name="description" placeholder="请输入描述"
                    autocomplete="off" class="layui-input" value="">
         </div>
     </div>
@@ -144,30 +144,6 @@
             }
 
         });
-
-        form.on("radio", function (data) {
-            if (data.value == 0) {
-                layer.confirm('确定修改类型吗?影响很大的哦!',function (index) {
-                    $("#url_div").hide();
-                    $("#pid_div").hide();
-                    layer.close(index);
-                });
-            } else if (data.value == 1) {
-                layer.confirm('确定修改类型吗?影响很大的哦!',function (index) {
-                    getPid1(0);
-                    $("#url_div").show();
-                    $("#pid_div").show();
-                    layer.close(index);
-                });
-            } else if (data.value == 2) {
-                layer.confirm('确定修改类型吗?影响很大的哦!',function (index) {
-                    getPid1(1);
-                    $("#url_div").show();
-                    $("#pid_div").show();
-                    layer.close(index);
-                });
-            }
-        });
         form.render();
     });
 
@@ -178,9 +154,19 @@
         var url = '/updateResource.json';
         var frameindex = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
         $(document).on('click', '[type=submit]', function () {
-            var index = layer.load(1, {
-                shade: [0.1, '#fff'] //0.1透明度的白色背景
-            });
+            if (${resource.resourceType}==0) {
+                if ($("#title").val()!=""&&$("#description").val()!="") {
+                    updateResourceMethod();
+                }
+            }else if (${resource.resourceType}==1||${resource.resourceType}==2){
+                if ($("#title").val()!=""&&$("#description").val()!=""&&$("#href").val()!=""){
+                    updateResourceMethod();
+                }
+            }
+            function updateResourceMethod(){
+                var index = layer.load(1, {
+                    shade: [0.1, '#fff'] //0.1透明度的白色背景
+                });
                 var data = $("#updateResourceFrom").serialize();
                 $.post(url, data, function (res) {
                     if (res.status == 0) {
@@ -192,9 +178,9 @@
                         layer.msg(res.message, {icon: 5});
                     }
                 }, 'json');
+            };
             return false;
         });
-
     })
 </script>
 </body>

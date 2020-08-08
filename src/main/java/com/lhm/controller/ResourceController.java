@@ -3,7 +3,7 @@ package com.lhm.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lhm.common.Result;
-import com.lhm.common.TreeBuilder;
+import com.lhm.utils.TreeBuilder;
 import com.lhm.pojo.Resource;
 import com.lhm.service.ResourceService;
 import io.swagger.annotations.Api;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -98,6 +99,7 @@ public class ResourceController {
             resource.setpId(0);
         }
         resource.setStatus((byte)0);
+        resource.setCreateTime(new Date());
         int key = resourceService.addResource(resource);
         if (key==0){
             return Result.fail("添加失败！");
@@ -123,7 +125,11 @@ public class ResourceController {
     @ApiOperation("修改资源接口")
     @ResponseBody
     public Result updateResource(Resource resource){
-        return Result.success("不好意思，后台接口还没写！",null);
+        int key = resourceService.updateResourceById(resource);
+        if (key==0){
+            return Result.fail("修改失败！");
+        }
+        return Result.success("修改成功！",null);
     }
 
     /**

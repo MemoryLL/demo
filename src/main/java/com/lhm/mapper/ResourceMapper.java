@@ -18,4 +18,8 @@ public interface ResourceMapper {
 
     int updateResourceStatusById(Resource resource);
 
+    int updateResourceById(Resource resource);
+
+    List<Resource> getAllResource();
+
 }

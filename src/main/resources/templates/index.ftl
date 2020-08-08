@@ -67,7 +67,7 @@
         <#--</a>-->
         <#--<dl class="layui-nav-child">-->
         <#--<dd><a href="/user.html">用户组</a></dd>-->
-        <#--<dd><a href="/operaterule.html">权限配置</a></dd>-->
+        <#--<dd><a href="/role.html">权限配置</a></dd>-->
         <#--</dl>-->
         <#--</li>-->
         <#--</ul>-->
@@ -159,13 +159,11 @@
                 aler("发生错误：" + jqXHR.status);
             }
         });
-
         //组装子菜单的方法
         function loadchild(obj) {
             if (obj == null) {
                 return;
             }
-
             var content = "";
             if (obj.children != null && obj.children.length > 0) {
                 content += '<dl class="layui-nav-child">';
@@ -187,7 +185,7 @@
                 });
                 content += '</dl>';
             }
-            console.log(content);
+            //console.log(content);
             return content;
         }
     });

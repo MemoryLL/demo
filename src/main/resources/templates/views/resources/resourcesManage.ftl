@@ -55,9 +55,9 @@
                             </div>
                         </form>
                     </div>
-                    <button id="btn-add-resource" class="layui-btn layui-btn-blue"><i class="layui-icon">&#xe654;</i>新增
+                    <button id="btn_add_resource" class="layui-btn layui-btn-blue"><i class="layui-icon">&#xe654;</i>新增
                     </button>
-                    <table id="resourcesTable" lay-filter="test2">
+                    <table id="resourcesTable" lay-filter="resource_filter">
                         <script type="text/html" id="barDemo">
                             <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="resource_detail">查看</a>
                             <a class="layui-btn layui-btn-mini" lay-event="resource_edit">编辑</a>
@@ -81,7 +81,7 @@
                 , cols: [[ //标题栏
                     {field: 'id', title: 'ID', width: 80, sort: true, align: 'center'}
                     , {field: 'title', title: '标题', width: 120, align: 'center'}
-                    , {field: 'href', title: '地址', width: 140, sort: true, align: 'center'}
+                    , {field: 'href', title: '地址', width: 140, align: 'center'}
                     , {field: 'description', title: '描述', width: 140, align: 'center'}
                     , {field: 'pId', title: '父节点ID', width: 90, align: 'center'}
                     , {
@@ -119,7 +119,7 @@
     ,limit: 5 //每页默认显示的数量
     });
     //添加资源按钮点击
-    $('#btn-add-resource').on('click', function () {
+    $('#btn_add_resource').on('click', function () {
         layer.open({
             type: 2,
             title: '添加资源',
@@ -158,7 +158,7 @@
         return false;
     });
     //监听工具条
-    table.on('tool(test2)', function (obj) {
+    table.on('tool(resource_filter)', function (obj) {
         var data = obj.data;
         if (obj.event === 'resource_detail') {
             layer.msg('ID：' + data.id + ' 的查看操作');
@@ -190,7 +190,7 @@
                 });
             });
         } else if (obj.event === 'resource_edit') {
-            console.log(data.id);
+            //console.log(data.id);
             layer.open({
                 type: 2,
                 title: '修改资源',

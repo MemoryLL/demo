@@ -5,11 +5,14 @@ import com.github.pagehelper.PageInfo;
 import com.lhm.common.Result;
 import com.lhm.pojo.User;
 import com.lhm.service.UserService;
+import com.lhm.utils.MD5Utils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +26,6 @@ public class UserController {
 
     /**
      * 跳转到用户页面
-     *
      * @param
      * @return
      */
@@ -35,7 +37,6 @@ public class UserController {
 
     /**
      * 获取用户列表（
-     *
      * @return
      */
     @GetMapping(value = "/userList.json")
@@ -55,7 +56,6 @@ public class UserController {
 
     /**
      * 根据用户id修改用户年龄
-     *
      * @param id
      * @param age
      * @return
@@ -76,7 +76,6 @@ public class UserController {
 
     /**
      * 跳转到添加用户页面
-     *
      * @return
      */
     @GetMapping("/addUserModel.html")
@@ -87,7 +86,6 @@ public class UserController {
 
     /**
      * 添加用户
-     *
      * @return
      */
     @RequestMapping(value = "/addUser.json", method = RequestMethod.POST)
@@ -97,6 +95,8 @@ public class UserController {
         if (filename != null && !filename.equals("")) {
             user.setFile(filename);
         }
+        user.setCreateTime(new Date());
+        user.setPassword(MD5Utils.stringToMD5(user.getPassword()));
         int key = userService.saveUser(user);
         System.out.println(user.getId());
         if (key != 0) {

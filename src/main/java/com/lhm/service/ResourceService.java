@@ -21,4 +21,8 @@ public interface ResourceService {
     Resource getResourceById(Integer id);
 
     int updateResourceStatusById(Resource resource);
+
+    int updateResourceById(Resource resource);
+
+    List<Resource> getAllResource();
 }

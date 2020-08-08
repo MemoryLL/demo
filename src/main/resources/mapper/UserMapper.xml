@@ -4,15 +4,18 @@
   <resultMap id="BaseResultMap" type="com.lhm.pojo.User" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="age" property="age" jdbcType="INTEGER" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="file" property="file" jdbcType="VARCHAR" />
     <result column="sex" property="sex" jdbcType="VARCHAR" />
     <result column="city" property="city" jdbcType="VARCHAR" />
     <result column="state" property="state" jdbcType="TINYINT" />
+      <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+      <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
     <insert id="saveUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.lhm.pojo.User">
-        insert into user(name,age,email,file,sex,city) values (#{name},#{age},#{email},#{file},#{sex},#{city})
+        insert into user(name,password,age,email,file,sex,city,create_time) values (#{name},#{password},#{age},#{email},#{file},#{sex},#{city},#{createTime})
     </insert>
     <update id="delUserBuId" parameterType="Integer">
         update user set state=1 where id=#{id}
@@ -31,6 +34,7 @@
         <if test="name!=null and name!=''">and name=#{name}</if>
         <if test="sex!=null and sex!=''">and sex=#{sex}</if>
         <if test="state!=null">and state=#{state}</if>
+        order by create_time desc
     </select>
     <select id="getAllUser" resultType="com.lhm.pojo.User">
         select * from user

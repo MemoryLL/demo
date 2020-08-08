@@ -48,4 +48,14 @@ public class ResourceServiceImpl implements ResourceService {
     public int updateResourceStatusById(Resource resource) {
         return resourceMapper.updateResourceStatusById(resource);
     }
+
+    @Override
+    public int updateResourceById(Resource resource) {
+        return resourceMapper.updateResourceById(resource);
+    }
+
+    @Override
+    public List<Resource> getAllResource() {
+        return resourceMapper.getAllResource();
+    }
 }
