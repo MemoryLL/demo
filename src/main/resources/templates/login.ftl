@@ -11,15 +11,16 @@
 </head>
 <body class="login-wrap">
     <div class="login-container">
+        <p style="color: red" align="center">${msg}</p>
         <form class="login-form" method="post" action="/login.json">
             <div class="input-group">
-                <input type="text" id="username" name="username" class="input-field">
+                <input type="text" id="username" name="username" required="required" class="input-field">
                 <label for="username" class="input-label">
                     <span class="label-title">用户名</span>
                 </label>
             </div>
             <div class="input-group">
-                <input type="password" id="password" name="password" class="input-field">
+                <input type="password" id="password" name="password" required="required" class="input-field">
                 <label for="password" class="input-label">
                     <span class="label-title">密码</span>
                 </label>

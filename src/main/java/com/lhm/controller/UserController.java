@@ -91,13 +91,13 @@ public class UserController {
     @RequestMapping(value = "/addUser.json", method = RequestMethod.POST)
     @ApiOperation("添加用户接口")
     @ResponseBody
-    public Result addUser(User user, @RequestParam("filename") String filename) {
+    public Result addUser(User user, @RequestParam("filename") String filename,@RequestParam("roldId") Integer roldId) {
         if (filename != null && !filename.equals("")) {
             user.setFile(filename);
         }
         user.setCreateTime(new Date());
-        user.setPassword(MD5Utils.stringToMD5(user.getPassword()));
-        int key = userService.saveUser(user);
+        //user.setPassword(MD5Utils.stringToMD5(user.getPassword()));
+        int key = userService.saveUser(user,roldId);
         System.out.println(user.getId());
         if (key != 0) {
             return Result.success("添加成功！", null);

@@ -23,4 +23,6 @@ public interface UserMapper {
 
     int UpdateUserStateById(User user);
 
+    User findUserByName(@Param("username") String username);
+
 }

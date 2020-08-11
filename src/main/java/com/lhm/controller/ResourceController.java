@@ -37,17 +37,17 @@ public class ResourceController {
         return "views/resources/resourcesManage";
     }
 
-    @GetMapping("/menuInfo.json")
-    @ApiOperation("获取菜单接口")
-    @ResponseBody
-    public Result getResource(){
-        List<Resource> resourceList = resourceService.getMenuInfo();
-        if (resourceList!=null&&resourceList.size()>0){
-            List<Resource> tree = TreeBuilder.bulid(resourceList);
-            return Result.success("获取成功！",tree);
-        }
-        return Result.fail("数据异常");
-    }
+//    @GetMapping("/menuInfo.json")
+//    @ApiOperation("获取菜单接口")
+//    @ResponseBody
+//    public Result getResource(){
+//        List<Resource> resourceList = resourceService.getMenuInfo();
+//        if (resourceList!=null&&resourceList.size()>0){
+//            List<Resource> tree = TreeBuilder.bulid(resourceList);
+//            return Result.success("获取成功！",tree);
+//        }
+//        return Result.fail("数据异常");
+//    }
 
     /**
      * 获取资源

@@ -67,6 +67,14 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">角色</label>
+        <div class="layui-input-block">
+            <select id="roldId" name="roldId" lay-verify="required">
+
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">单选框</label>
         <div class="layui-input-block">
             <input type="radio" name="sex" value="男" title="男" checked>
@@ -81,6 +89,24 @@
     </div>
 </form>
 <script>
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/getRole.json",
+            dataType: "json",
+            success: function (res) {
+                if (res.status == 0) {
+                    $("#roldId").empty();//清空下拉框内容
+                    $.each(res.data, function (index, item) {
+                        //$('#pId').append(new Option(item.title, item.id));// 下拉菜单里添加元素
+                        $("#roldId").append("<option value='" + item.id + "'>" + item.roleName + "</option>");// 下拉菜单里添加元素
+                    });
+                    layui.form.render("select");
+                }
+            }
+        });
+    });
 
     layui.use('form', function () {
         var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功

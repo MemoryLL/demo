@@ -59,9 +59,9 @@
                     </button>
                     <table id="resourcesTable" lay-filter="resource_filter">
                         <script type="text/html" id="barDemo">
-                            <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="resource_detail">查看</a>
-                            <a class="layui-btn layui-btn-mini" lay-event="resource_edit">编辑</a>
-                            <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="resource_update_status">修改状态</a>
+                            <a class="layui-btn layui-btn-sm layui-btn-primary layui-btn-mini" lay-event="resource_detail">查看</a>
+                            <a class="layui-btn layui-btn-sm layui-btn-mini" lay-event="resource_edit">编辑</a>
+                            <a class="layui-btn layui-btn-sm layui-btn-danger layui-btn-mini" lay-event="resource_update_status">修改状态</a>
                         </script>
                     </table>
                 </div>
@@ -81,8 +81,8 @@
                 , cols: [[ //标题栏
                     {field: 'id', title: 'ID', width: 80, sort: true, align: 'center'}
                     , {field: 'title', title: '标题', width: 120, align: 'center'}
-                    , {field: 'href', title: '地址', width: 140, align: 'center'}
-                    , {field: 'description', title: '描述', width: 140, align: 'center'}
+                    , {field: 'href', title: '地址', width: 150, align: 'center'}
+                    , {field: 'description', title: '描述', width: 145, align: 'center'}
                     , {field: 'pId', title: '父节点ID', width: 90, align: 'center'}
                     , {
                         field: 'status', title: '状态', width: 80, align: 'center',

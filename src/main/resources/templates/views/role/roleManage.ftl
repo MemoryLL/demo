@@ -59,9 +59,9 @@
                     </button>
                     <table id="roleTable" lay-filter="role_filter">
                         <script type="text/html" id="barDemo">
-                            <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="role_detail">查看</a>
-                            <a class="layui-btn layui-btn-mini" lay-event="role_edit">编辑</a>
-                            <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="role_update_status">修改状态</a>
+                            <a class="layui-btn layui-btn-sm layui-btn-primary layui-btn-mini" lay-event="role_detail">查看</a>
+                            <a class="layui-btn layui-btn-sm layui-btn-mini" lay-event="role_edit">编辑</a>
+                            <a class="layui-btn layui-btn-sm layui-btn-danger layui-btn-mini" lay-event="role_update_status">修改状态</a>
                         </script>
                     </table>
                 </div>
@@ -81,9 +81,9 @@
         , cols: [[ //标题栏
             {field: 'id', title: 'ID', width: 80, sort: true, align: 'center'}
             , {field: 'roleName', title: '名称', width: 150, align: 'center'}
-            , {field: 'description', title: '描述', width: 250, align: 'center'}
+            , {field: 'description', title: '描述', width: 300, align: 'center'}
             , {
-                field: 'roleLevel', title: '级别', width: 100, align: 'center',
+                field: 'roleLevel', title: '级别', width: 110, align: 'center',
                 templet: function (res) {
                     if (res.roleLevel == 0) {
                         return '<span class="layui-badge layui-bg-blue">系统</span>';
@@ -93,7 +93,7 @@
                 }
             }
             , {
-                field: 'status', title: '状态', width: 100, align: 'center',
+                field: 'status', title: '状态', width: 114, align: 'center',
                 templet: function (res) {
                     if (res.status == 0) {
                         return '<span class="layui-badge layui-bg-green">正常</span>';

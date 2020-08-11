@@ -1,15 +1,18 @@
 package com.lhm.controller;
 
+import com.lhm.common.Result;
 import com.lhm.pojo.Resource;
 import com.lhm.pojo.User;
 import com.lhm.service.ResourceService;
 import com.lhm.service.UserService;
+import com.lhm.utils.TreeBuilder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -24,10 +27,16 @@ public class IndexController {
     @Autowired
     UserService userService;
 
-    @GetMapping({"","/"})
-    @ApiOperation("登录页面跳转")
-    public String index(){
-        return "login";
+    @GetMapping("/menuInfo.json")
+    @ApiOperation("获取菜单接口")
+    @ResponseBody
+    public Result getResource(){
+        List<Resource> resourceList = resourceService.getMenuInfo();
+        if (resourceList!=null&&resourceList.size()>0){
+            List<Resource> tree = TreeBuilder.bulid(resourceList);
+            return Result.success("获取成功！",tree);
+        }
+        return Result.fail("数据异常");
     }
 
 

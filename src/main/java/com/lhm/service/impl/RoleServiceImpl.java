@@ -2,10 +2,14 @@ package com.lhm.service.impl;
 
 import com.lhm.mapper.RoleMapper;
 import com.lhm.pojo.Role;
+import com.lhm.pojo.RoleResource;
 import com.lhm.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,5 +25,32 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<Role> selectRoleByPageHelper(Role role) {
         return roleMapper.selectRoleByPageHelper(role);
+    }
+
+    @Override
+    public int saveRole(Role role) {
+        return roleMapper.saveRole(role);
+    }
+
+    @Override
+    @Transactional
+    public int saveRoleResource(Role role, List<Integer> roleIds) {
+        roleMapper.saveRole(role);
+        List<RoleResource> roleResourceList = new ArrayList<>();
+        Date date = new Date();
+        RoleResource roleResource;
+        for (int i = 0 ; i < roleIds.size() ; i++) {
+            roleResource = new RoleResource();
+            roleResource.setRoleId(role.getId());
+            roleResource.setResourceId(roleIds.get(i));
+            roleResource.setCreateTime(date);
+            roleResourceList.add(roleResource);
+        }
+        return roleMapper.saveRoleResource(roleResourceList);
+    }
+
+    @Override
+    public List<Role> getAllRole() {
+        return roleMapper.getAllRole();
     }
 }

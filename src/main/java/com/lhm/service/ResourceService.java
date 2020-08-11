@@ -25,4 +25,6 @@ public interface ResourceService {
     int updateResourceById(Resource resource);
 
     List<Resource> getAllResource();
+
+
 }

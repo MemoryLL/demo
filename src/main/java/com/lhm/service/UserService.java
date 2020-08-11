@@ -15,7 +15,7 @@ import java.util.List;
 public interface UserService {
     IPage<User> selectUserPage(Page page);
 
-    int saveUser(User user);
+    int saveUser(User user,Integer roleId);
 
     int delUserById(int id);
 
@@ -26,5 +26,10 @@ public interface UserService {
     List<User> getAllUser();
 
     int UpdateUserStateById(User user);
+
+    User findUserByName(String username);
+
+    List<String> findPermsById(Integer userId);
+
 
 }

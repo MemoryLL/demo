@@ -75,12 +75,12 @@
         </div>
     </div>
 
-<#--<div class="layui-body">-->
-<#--<div class="layui-tab app-container" lay-allowClose="true" lay-filter="tabs">-->
-<#--<ul id="appTabs" class="layui-tab-title custom-tab"></ul>-->
-<#--<div id="appTabPage" class="layui-tab-content"></div>-->
-<#--</div>-->
-<#--</div>-->
+    <#--<div class="layui-body">-->
+        <#--<div class="layui-tab app-container" lay-allowClose="true" lay-filter="tabs">-->
+            <#--<ul id="appTabs" class="layui-tab-title custom-tab"></ul>-->
+            <#--<div id="appTabPage" class="layui-tab-content"></div>-->
+        <#--</div>-->
+    <#--</div>-->
 
     <!--页面选项卡-->
     <div class="layui-body">
@@ -159,6 +159,10 @@
                 aler("发生错误：" + jqXHR.status);
             }
         });
+        //创建iframe
+        function createIframe(url) {
+            return '<iframe src="' + url + '" scrolling="auto" frameborder="0" ></iframe>'
+        }
         //组装子菜单的方法
         function loadchild(obj) {
             if (obj == null) {

@@ -13,6 +13,12 @@
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     </resultMap>
+    <resultMap id="BaseResultMap1" type="com.lhm.pojo.RoleResource">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="role_id" property="roleId" jdbcType="INTEGER"/>
+        <result column="resource_id" property="resourceId" jdbcType="INTEGER"/>
+        <result column="create_date" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
 
     <insert id="addResource" useGeneratedKeys="true" keyProperty="id" parameterType="com.lhm.pojo.Resource">
         insert into resource(title,p_id,status,resource_type,create_time
@@ -54,6 +60,15 @@
     </select>
     <select id="getAllResource" resultType="com.lhm.pojo.Resource">
         select * from resource
+    </select>
+    <select id="findResourceByRoleId" resultType="com.lhm.pojo.RoleResource" parameterType="Integer">
+        select * from role_resource where role_id = #{roleId}
+    </select>
+    <select id="findResourceHrefById" resultType="java.lang.String" parameterType="java.util.List">
+        select href from resource where status=0 and id in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item.resourceId}
+        </foreach>
     </select>
 
 </mapper>

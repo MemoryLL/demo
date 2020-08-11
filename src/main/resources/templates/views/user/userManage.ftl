@@ -63,9 +63,9 @@
                     </button>
                     <table id="userTable" lay-filter="user_filter">
                         <script type="text/html" id="barDemo">
-                            <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="user_detail">查看</a>
-                            <a class="layui-btn layui-btn-mini" lay-event="user_edit">编辑</a>
-                            <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="update_user_state">修改状态</a>
+                            <a class="layui-btn layui-btn-sm layui-btn-primary layui-btn-mini" lay-event="user_detail">查看</a>
+                            <a class="layui-btn layui-btn-sm layui-btn-mini" lay-event="user_edit">编辑</a>
+                            <a class="layui-btn layui-btn-sm layui-btn-danger layui-btn-mini" lay-event="update_user_state">修改状态</a>
                         </script>
                     </table>
                 </div>
@@ -121,15 +121,15 @@
     userResult = table.render({
         elem: '#userTable'
         , cols: [[ //标题栏
-            {field: 'id', title: 'ID', width: 65, sort: true, align: 'center'}
+            {field: 'id', title: 'ID', width: 70, sort: true, align: 'center'}
             , {field: 'name', title: '用户名', width: 80, align: 'center'}
             , {field: 'age', title: '年龄', width: 80, sort: true, align: 'center'}
-            , {field: 'email', title: '邮箱', width: 150, align: 'center'}
-            , {field: 'file', title: '文件', width: 150, align: 'center'}
+            , {field: 'email', title: '邮箱', width: 155, align: 'center'}
+            , {field: 'file', title: '文件', width: 155, align: 'center'}
             , {field: 'sex', title: '性别', width: 60, align: 'center'}
             , {field: 'city', title: '城市', width: 80, align: 'center'}
             , {
-                field: 'state', title: '状态', width: 70, align: 'center',
+                field: 'state', title: '状态', width: 74, align: 'center',
                 templet: function (res) {
                     if (res.state == 0) {
                         return '<span class="layui-badge layui-bg-green">正常</span>';

@@ -4,12 +4,21 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.lhm.mapper.ResourceMapper;
+import com.lhm.mapper.RoleMapper;
 import com.lhm.mapper.UserMapper;
+import com.lhm.pojo.Role;
+import com.lhm.pojo.RoleResource;
 import com.lhm.pojo.User;
+import com.lhm.pojo.UserRole;
+import com.lhm.service.ResourceService;
 import com.lhm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,6 +31,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    RoleMapper roleMapper;
+    @Autowired
+    ResourceMapper resourceMapper;
 
     @Override
     public IPage<User> selectUserPage(Page page) {
@@ -29,8 +42,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int saveUser(User user) {
-        return userMapper.saveUser(user);
+    @Transactional
+    public int saveUser(User user,Integer roleId) {
+        userMapper.saveUser(user);
+        UserRole userRole = new UserRole();
+        userRole.setCreateTime(new Date());
+        userRole.setUserId(user.getId());
+        userRole.setRoleId(roleId);
+        int key = roleMapper.addUserRole(userRole);
+        return key;
     }
 
     @Override
@@ -57,5 +77,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public int UpdateUserStateById(User user) {
         return userMapper.UpdateUserStateById(user);
+    }
+
+    @Override
+    public User findUserByName(String username) {
+        return userMapper.findUserByName(username);
+    }
+
+    @Override
+    public List<String> findPermsById(Integer userId) {
+        UserRole userRole = roleMapper.findRoleByUserid(userId);
+        Role role = roleMapper.findRoleByRoleId(userRole.getRoleId());
+        if (role==null){
+            return new ArrayList<>();
+        }
+        List<RoleResource> list = resourceMapper.findResourceByRoleId(role.getId());
+        List<String> perms = resourceMapper.findResourceHrefById(list);
+        return perms;
     }
 }

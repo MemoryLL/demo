@@ -1,6 +1,7 @@
 package com.lhm.mapper;
 
 import com.lhm.pojo.Resource;
+import com.lhm.pojo.RoleResource;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -21,5 +22,9 @@ public interface ResourceMapper {
     int updateResourceById(Resource resource);
 
     List<Resource> getAllResource();
+
+    List<String> findResourceHrefById(List<RoleResource> list);
+
+    List<RoleResource> findResourceByRoleId(Integer id);
 
 }

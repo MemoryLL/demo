@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,11 +79,33 @@ public class RoleController {
     }
 
 
+    @GetMapping("/getRole.json")
+    @ApiOperation("获取角色接口")
+    @ResponseBody
+    public Result getAllRole(){
+        List<Role> roleList = roleService.getAllRole();
+        if (roleList!=null&&roleList.size()>0){
+            return Result.success("获取成功",roleList);
+        }
+        return Result.fail("还没有角色！");
+    }
+
+
     @RequestMapping(value = "/addRole.json",method = RequestMethod.POST)
     @ApiOperation("添加角色接口")
     @ResponseBody
     public Result addRole(Role role,@RequestParam("roleIds") List<Integer> roleIds){
-        System.out.println(role);
-        return Result.success("后台接口还未写完呢！",null);
+        if(role==null){
+            return Result.fail("角色信息为空！");
+        }
+        if (roleIds==null&&roleIds.size()==0){
+            return Result.fail("未给角色赋予资源！");
+        }
+        role.setCreateTime(new Date());
+        int key = roleService.saveRoleResource(role,roleIds);
+        if (key==roleIds.size()){
+            return Result.success("添加成功！",null);
+        }
+        return Result.fail("添加失败！");
     }
 }

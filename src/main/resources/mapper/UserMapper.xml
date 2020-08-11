@@ -39,4 +39,7 @@
     <select id="getAllUser" resultType="com.lhm.pojo.User">
         select * from user
     </select>
+    <select id="findUserByName" resultType="com.lhm.pojo.User" parameterType="String">
+        select * from user where name=#{username}
+    </select>
 </mapper>

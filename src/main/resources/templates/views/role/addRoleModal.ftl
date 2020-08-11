@@ -20,7 +20,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">角色名称</label>
         <div class="layui-input-block">
-            <input type="text" id="roleName" name="roleName" required lay-verify="required" placeholder="请输入标题"
+            <input type="text" id="roleName" name="roleName" required lay-verify="required" placeholder="请输入名称"
                    autocomplete="off" class="layui-input" value="">
         </div>
     </div>

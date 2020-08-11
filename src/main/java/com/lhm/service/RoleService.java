@@ -12,4 +12,10 @@ import java.util.List;
 public interface RoleService {
     List<Role> selectRoleByPageHelper(Role role);
 
+    int saveRole(Role role);
+
+    int saveRoleResource(Role role, List<Integer> roleIds);
+
+    List<Role> getAllRole();
+
 }

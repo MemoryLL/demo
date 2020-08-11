@@ -1,22 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.lhm.mapper.RoleMapper" >
-  <resultMap id="BaseResultMap" type="com.lhm.pojo.Role" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
-    <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="role_level" property="roleLevel" jdbcType="TINYINT" />
-    <result column="status" property="status" jdbcType="TINYINT" />
-    <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
-    <result column="update_user_id" property="updateUserId" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_date" property="update_time" jdbcType="TIMESTAMP" />
-  </resultMap>
+<mapper namespace="com.lhm.mapper.RoleMapper">
+    <resultMap id="BaseResultMap" type="com.lhm.pojo.Role">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="role_level" property="roleLevel" jdbcType="TINYINT"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="create_user_id" property="createUserId" jdbcType="INTEGER"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_date" property="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="BaseResultMap1" type="com.lhm.pojo.UserRole">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="role_id" property="roleId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <insert id="saveRole" useGeneratedKeys="true" keyProperty="id" parameterType="com.lhm.pojo.Role">
+        insert into role(role_name,description,role_level,create_time) values (#{roleName},#{description},#{roleLevel},#{createTime})
+    </insert>
+    <insert id="saveRoleResource" parameterType="java.util.List">
+        insert into role_resource(role_id,resource_id,create_date) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.roleId},#{item.resourceId},#{item.createTime})
+        </foreach>
+    </insert>
+    <insert id="addUserRole" useGeneratedKeys="true" keyProperty="id" parameterType="com.lhm.pojo.UserRole">
+      insert into user_role(user_id,role_id,create_time) values (#{userId},#{roleId},#{createTime})
+    </insert>
     <select id="selectRoleByPageHelper" resultType="com.lhm.pojo.Role" parameterType="com.lhm.pojo.Role">
         select * from role where 1=1
         <if test="roleName!=null and roleName!=''">and role_name=#{roleName}</if>
         <if test="roleLevel!=null">and role_level=#{roleLevel}</if>
         <if test="status!=null">and status=#{status}</if>
+    </select>
+    <select id="findRoleByUserid" resultType="com.lhm.pojo.UserRole" parameterType="Integer">
+        select * from user_role where user_id=#{userId}
+    </select>
+    <select id="findRoleByRoleId" resultType="com.lhm.pojo.Role" parameterType="Integer">
+        select * from role where id=#{roleId} and status=0
+    </select>
+    <select id="getAllRole" resultType="com.lhm.pojo.Role">
+        select * from role where status = 0
     </select>
 
 </mapper>
