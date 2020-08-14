@@ -1,6 +1,7 @@
 package com.lhm.service;
 
 import com.lhm.pojo.Resource;
+import com.lhm.pojo.RoleResource;
 
 import java.util.List;
 
@@ -26,5 +27,6 @@ public interface ResourceService {
 
     List<Resource> getAllResource();
 
+    List<RoleResource> findResourceByRoleId(Integer roleId);
 
 }

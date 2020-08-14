@@ -55,14 +55,22 @@
                             </div>
                         </form>
                     </div>
+                    <@shiro.hasPermission name="/addResource_btn">
                     <button id="btn_add_resource" class="layui-btn layui-btn-blue"><i class="layui-icon">&#xe654;</i>新增
                     </button>
+                    </@shiro.hasPermission>
                     <table id="resourcesTable" lay-filter="resource_filter">
                         <script type="text/html" id="barDemo">
+                            <@shiro.hasPermission name="/checkResource_btn">
                             <a class="layui-btn layui-btn-sm layui-btn-primary layui-btn-mini" lay-event="resource_detail">查看</a>
+                            </@shiro.hasPermission>
+                            <@shiro.hasPermission name="/editResource_btn">
                             <a class="layui-btn layui-btn-sm layui-btn-mini" lay-event="resource_edit">编辑</a>
+                            </@shiro.hasPermission>
+                            <@shiro.hasPermission name="/updateResourceStatus_btn">
                             <a class="layui-btn layui-btn-sm layui-btn-danger layui-btn-mini" lay-event="resource_update_status">修改状态</a>
-                        </script>
+                            </@shiro.hasPermission>
+</script>
                     </table>
                 </div>
             </div>

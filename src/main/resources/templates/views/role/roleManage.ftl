@@ -55,14 +55,22 @@
                             </div>
                         </form>
                     </div>
+                    <@shiro.hasPermission name="/addRole_btn">
                     <button id="btn_add_role" class="layui-btn layui-btn-blue"><i class="layui-icon">&#xe654;</i>新增
                     </button>
+                    </@shiro.hasPermission>
                     <table id="roleTable" lay-filter="role_filter">
                         <script type="text/html" id="barDemo">
+                            <@shiro.hasPermission name="/checkRole_btn">
                             <a class="layui-btn layui-btn-sm layui-btn-primary layui-btn-mini" lay-event="role_detail">查看</a>
+                            </@shiro.hasPermission>
+                            <@shiro.hasPermission name="/editRole_btn">
                             <a class="layui-btn layui-btn-sm layui-btn-mini" lay-event="role_edit">编辑</a>
+                            </@shiro.hasPermission>
+                            <@shiro.hasPermission name="/updateRoleStatus_btn">
                             <a class="layui-btn layui-btn-sm layui-btn-danger layui-btn-mini" lay-event="role_update_status">修改状态</a>
-                        </script>
+                            </@shiro.hasPermission>
+</script>
                     </table>
                 </div>
             </div>
@@ -156,9 +164,9 @@
     //监听工具条
     table.on('tool(role_filter)', function (obj) {
         var data = obj.data;
-        if (obj.event === 'resource_detail') {
+        if (obj.event === 'role_detail') {
             layer.msg('ID：' + data.id + ' 的查看操作');
-        } else if (obj.event === 'resource_update_status') {
+        } else if (obj.event === 'role_update_status') {
             layer.confirm('真的要修改状态么?', function (index) {
                 var s = data.status;
                 var status;
@@ -168,32 +176,32 @@
                     status = 0;
                 }
                 $.ajax({
-                    url: "/updateResourceStatusById.json",
+                    url: "/updateRroleStatusById.json",
                     type: "POST",
-                    data: {"id": data.id, "status": status},
+                    data: {id: data.id, status: status},
                     dataType: "json",
                     success: function (res) {
                         if (res.status == 0) {
                             //关闭弹框
                             layer.close(index);
                             layer.alert(res.message, {icon: 6}, function (index) {
-                                location.href = "/resources.html";
+                                location.href = "/role.html";
                             });
                         } else {
-                            layer.msg("删除失败", {icon: 5});
+                            layer.msg("修改失败", {icon: 5});
                         }
                     }
                 });
             });
-        } else if (obj.event === 'resource_edit') {
+        } else if (obj.event === 'role_edit') {
             //console.log(data.id);
             layer.open({
                 type: 2,
-                title: '修改资源',
+                title: '修改角色',
                 maxmin: true,
                 area: ['650px', '480px'],
                 shadeClose: false, //点击遮罩关闭
-                content: '/updateResourceModel.html?id=' + data.id + '',
+                content: '/updateRoleModel.html?id=' + data.id + '',
             });
         }
     });

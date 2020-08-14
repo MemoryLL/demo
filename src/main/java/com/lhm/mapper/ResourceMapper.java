@@ -27,4 +27,6 @@ public interface ResourceMapper {
 
     List<RoleResource> findResourceByRoleId(Integer id);
 
+    List<Resource> findResourceByListId(List<RoleResource> list);
+
 }

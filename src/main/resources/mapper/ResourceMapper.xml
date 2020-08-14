@@ -9,6 +9,7 @@
         <result column="description" property="description" jdbcType="VARCHAR"/>
         <result column="p_id" property="pId" jdbcType="INTEGER"/>
         <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="is_check" property="isCheck" jdbcType="TINYINT"/>
         <result column="resource_type" property="resourceType" jdbcType="TINYINT"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
@@ -66,6 +67,12 @@
     </select>
     <select id="findResourceHrefById" resultType="java.lang.String" parameterType="java.util.List">
         select href from resource where status=0 and id in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item.resourceId}
+        </foreach>
+    </select>
+    <select id="findResourceByListId" resultType="com.lhm.pojo.Resource" parameterType="com.lhm.pojo.RoleResource">
+        select * from resource where status=0 and id in
         <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
             #{item.resourceId}
         </foreach>

@@ -96,7 +96,6 @@ public class UserController {
             user.setFile(filename);
         }
         user.setCreateTime(new Date());
-        //user.setPassword(MD5Utils.stringToMD5(user.getPassword()));
         int key = userService.saveUser(user,roldId);
         System.out.println(user.getId());
         if (key != 0) {

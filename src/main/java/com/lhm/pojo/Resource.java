@@ -23,6 +23,11 @@ public class Resource {
     //状态 0正常  1删除
     private Byte status;
 
+    //是否选中 0是  1否
+    private Byte isCheck;
+
+
+
     //类型  0菜单 1页面 2按钮
     private Byte resourceType;
 
@@ -103,5 +108,28 @@ public class Resource {
 
     public void setChildren(List<Resource> children) {
         this.children = children;
+    }
+    public Byte getIsCheck() {
+        return isCheck;
+    }
+
+    public void setIsCheck(Byte isCheck) {
+        this.isCheck = isCheck;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

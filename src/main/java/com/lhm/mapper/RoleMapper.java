@@ -24,4 +24,6 @@ public interface RoleMapper {
 
     int addUserRole(UserRole userRole);
 
+    Role findRoleById(@Param("roleId") Integer roleId);
+
 }

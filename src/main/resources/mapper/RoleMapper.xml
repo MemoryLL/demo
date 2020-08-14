@@ -45,5 +45,8 @@
     <select id="getAllRole" resultType="com.lhm.pojo.Role">
         select * from role where status = 0
     </select>
+    <select id="findRoleById" resultType="com.lhm.pojo.Role" parameterType="Integer">
+        select * from role where id=#{roleId}
+    </select>
 
 </mapper>

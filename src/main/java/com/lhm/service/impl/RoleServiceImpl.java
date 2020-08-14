@@ -1,9 +1,12 @@
 package com.lhm.service.impl;
 
+import com.lhm.config.shiro.ShiroUser;
 import com.lhm.mapper.RoleMapper;
 import com.lhm.pojo.Role;
 import com.lhm.pojo.RoleResource;
 import com.lhm.service.RoleService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +38,9 @@ public class RoleServiceImpl implements RoleService {
     @Override
     @Transactional
     public int saveRoleResource(Role role, List<Integer> roleIds) {
+        Subject subject = SecurityUtils.getSubject();
+        ShiroUser shiroUser =(ShiroUser) subject.getPrincipal();
+        role.setCreateUserId(shiroUser.getId());
         roleMapper.saveRole(role);
         List<RoleResource> roleResourceList = new ArrayList<>();
         Date date = new Date();
@@ -52,5 +58,10 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<Role> getAllRole() {
         return roleMapper.getAllRole();
+    }
+
+    @Override
+    public Role findRoleById(Integer roleId) {
+        return roleMapper.findRoleById(roleId);
     }
 }

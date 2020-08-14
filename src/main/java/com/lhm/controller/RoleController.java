@@ -4,8 +4,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lhm.common.Result;
 import com.lhm.common.TreeNode;
+import com.lhm.common.TreeNode2;
 import com.lhm.pojo.Resource;
 import com.lhm.pojo.Role;
+import com.lhm.pojo.RoleResource;
 import com.lhm.service.ResourceService;
 import com.lhm.service.RoleService;
 import com.lhm.utils.TreeBuilder;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -108,4 +111,40 @@ public class RoleController {
         }
         return Result.fail("添加失败！");
     }
+
+    @GetMapping("/updateRoleModel.html")
+    @ApiOperation("修改角色页面跳转")
+    public String updateRoleModel(@RequestParam("id") Integer roleId, HttpServletRequest request){
+        Role role = roleService.findRoleById(roleId);
+        request.setAttribute("role",role);
+        return "views/role/updateRoleModal";
+    }
+
+    @RequestMapping(value = "/updateRole.json",method = RequestMethod.POST)
+    @ApiOperation("修改角色")
+    @ResponseBody
+    public Result updateRole(Role role,@RequestParam("roleIds") List<Integer> roleIds){
+        return Result.success("接口还没写完呢",null);
+    }
+
+    @RequestMapping(value = "/updateRroleStatusById.json",method = RequestMethod.POST)
+    @ApiOperation("根据id修改状态")
+    @ResponseBody
+    public Result updateRroleStatusById(Role role){
+        return Result.success("接口还没写玩呢",null);
+    }
+
+    @RequestMapping(value = "/getResourceByRoleId.json",method = RequestMethod.POST)
+    @ApiOperation("根据角色id获取tree")
+    @ResponseBody
+    public Result getResourceByRoleId(@RequestParam("roleId") Integer roleId){
+        List<Resource> resourceList = resourceService.getAllResource();
+        List<RoleResource> roleResourceList = resourceService.findResourceByRoleId(roleId);
+        List<TreeNode2> treeNodes = TreeBuilder.TreeNodeBulid2(resourceList,roleResourceList);
+        if (treeNodes==null){
+            return Result.fail("获取失败！");
+        }
+        return Result.success("获取成功！",treeNodes);
+    }
+
 }

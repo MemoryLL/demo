@@ -59,13 +59,22 @@
                             </div>
                         </form>
                     </div>
+                    <@shiro.hasPermission name="/addUser_btn">
                     <button id="btn_add_user" class="layui-btn layui-btn-blue"><i class="layui-icon">&#xe654;</i>新增
                     </button>
+                    </@shiro.hasPermission>
                     <table id="userTable" lay-filter="user_filter">
                         <script type="text/html" id="barDemo">
+                            <@shiro.hasPermission name="/checkUser_btn">
                             <a class="layui-btn layui-btn-sm layui-btn-primary layui-btn-mini" lay-event="user_detail">查看</a>
+                            </@shiro.hasPermission>
+                            <@shiro.hasPermission name="/editUser_btn">
                             <a class="layui-btn layui-btn-sm layui-btn-mini" lay-event="user_edit">编辑</a>
-                            <a class="layui-btn layui-btn-sm layui-btn-danger layui-btn-mini" lay-event="update_user_state">修改状态</a>
+                            </@shiro.hasPermission>
+                            <@shiro.hasPermission name="/updateUserStatus_btn">
+                            <a class="layui-btn layui-btn-sm layui-btn-danger layui-btn-mini"
+                               lay-event="update_user_state">修改状态</a>
+                            </@shiro.hasPermission>
                         </script>
                     </table>
                 </div>
@@ -86,8 +95,8 @@
         var state = $("#state option:selected").val();
         userResult.reload({
             url: '/userList.json'
-            , where: {name: name,state: state,sex: sex}
-            ,page:{curr:1}
+            , where: {name: name, state: state, sex: sex}
+            , page: {curr: 1}
         });
         isSearch = true;
         return false;
@@ -100,8 +109,8 @@
         form.render();
         userResult.reload({
             url: '/userList.json'
-            , where: {name: "",state:"", sex: ""}
-            ,page:{curr:1}
+            , where: {name: "", state: "", sex: ""}
+            , page: {curr: 1}
         });
         isSearch = true;
         return false;
@@ -157,15 +166,15 @@
             layer.confirm('真的修改状态么?', function (index) {
                 var s = data.state;
                 var state;
-                if (s==0){
-                    state=1;
-                }else if(s==1){
-                    state=0;
+                if (s == 0) {
+                    state = 1;
+                } else if (s == 1) {
+                    state = 0;
                 }
                 $.ajax({
                     url: "/UpdateUserStateById.json",
                     type: "POST",
-                    data: {"id": data.id,"state":state},
+                    data: {"id": data.id, "state": state},
                     dataType: "json",
                     success: function (res) {
                         if (res.status == 0) {

@@ -42,7 +42,7 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">上传(pdf)</label>
+        <label class="layui-form-label">上传(图片)</label>
         <div class="layui-input-block">
             <button type="button" class="layui-btn" id="up">
             <i class="layui-icon">&#xe67c;</i>上传文件

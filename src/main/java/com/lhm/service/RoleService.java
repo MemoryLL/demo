@@ -18,4 +18,6 @@ public interface RoleService {
 
     List<Role> getAllRole();
 
+    Role findRoleById(Integer roleId);
+
 }
