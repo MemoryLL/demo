@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @Api(tags = "登录操作相关接口")
 public class LoginController {
@@ -42,7 +44,7 @@ public class LoginController {
 
     @RequestMapping(value = "/login.json",method = RequestMethod.POST)
     @ApiOperation("登录接口")
-    public String doLogin(@RequestParam("username") String username, @RequestParam("password") String password, RedirectAttributes modelMap){
+    public String doLogin(@RequestParam("username") String username, @RequestParam("password") String password, RedirectAttributes modelMap, HttpSession session){
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         Subject subject = SecurityUtils.getSubject();
         try {
@@ -56,7 +58,7 @@ public class LoginController {
         }
         if (subject.isAuthenticated()){
             System.out.println("认证成功");
-            modelMap.addFlashAttribute("username",username);
+            session.setAttribute("username",username);
             return "redirect:/index.html";
         }else {
             token.clear();

@@ -1,5 +1,8 @@
 package com.lhm.utils;
 
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -23,5 +26,18 @@ public class MD5Utils {
             md5code = "0" + md5code;
         }
         return md5code;
+    }
+
+    public static String md5(String password,String salt){
+        //加密方式
+        String hashAlgorithmName = "MD5";
+        //盐：为了即使相同的密码不同的盐加密后的结果也不同
+        ByteSource byteSource = ByteSource.Util.bytes(salt);
+        //密码
+        Object source = password;
+        //加密次数
+        int hashIterations = 2;
+        SimpleHash result = new SimpleHash(hashAlgorithmName,source,byteSource,hashIterations);
+        return result.toString();
     }
 }

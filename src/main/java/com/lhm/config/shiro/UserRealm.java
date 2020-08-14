@@ -45,8 +45,6 @@ public class UserRealm extends AuthorizingRealm {
         //1.判断用户名
         UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
         System.out.println(token.getPassword());
-//        String s = token.getPassword().toString();
-//        token.setPassword(MD5Utils.stringToMD5(s).toCharArray());
         User user = userService.findUserByName(token.getUsername());
         if (user==null){
             //用户名不存在

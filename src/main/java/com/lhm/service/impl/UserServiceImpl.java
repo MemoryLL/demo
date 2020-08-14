@@ -2,9 +2,6 @@ package com.lhm.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.lhm.config.shiro.ShiroUser;
 import com.lhm.mapper.ResourceMapper;
 import com.lhm.mapper.RoleMapper;
 import com.lhm.mapper.UserMapper;
@@ -12,14 +9,10 @@ import com.lhm.pojo.Role;
 import com.lhm.pojo.RoleResource;
 import com.lhm.pojo.User;
 import com.lhm.pojo.UserRole;
-import com.lhm.service.ResourceService;
 import com.lhm.service.UserService;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
