@@ -11,7 +11,7 @@
  Target Server Version : 50723
  File Encoding         : 65001
 
- Date: 14/08/2020 12:55:53
+ Date: 17/09/2020 18:49:32
 */
 
 SET NAMES utf8mb4;
@@ -34,7 +34,7 @@ CREATE TABLE `resource`  (
   `update_time` timestamp(0) NOT NULL DEFAULT '1970-01-01 08:00:01' ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   `is_check` tinyint(255) NOT NULL DEFAULT 1 COMMENT '是否选中 0-是 1否',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 35 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 36 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of resource
@@ -60,6 +60,7 @@ INSERT INTO `resource` VALUES (31, '添加角色', NULL, '/addRole_btn', '添加
 INSERT INTO `resource` VALUES (32, '查看角色', NULL, '/checkRole_btn', '查看角色', 7, 0, 2, '2020-08-12 15:40:28', '1970-01-01 08:00:01', 1);
 INSERT INTO `resource` VALUES (33, '编辑角色', NULL, '/editRole_btn', '编辑角色', 7, 0, 2, '2020-08-12 15:41:01', '1970-01-01 08:00:01', 1);
 INSERT INTO `resource` VALUES (34, '修改角色状态', NULL, '/updateRoleStatus_btn', '修改角色状态', 7, 0, 2, '2020-08-12 15:41:36', '1970-01-01 08:00:01', 1);
+INSERT INTO `resource` VALUES (35, '系统日志', NULL, '/systemLog', '系统日志', 8, 0, 1, '2020-09-17 16:22:35', '1970-01-01 08:00:01', 1);
 
 -- ----------------------------
 -- Table structure for role
@@ -82,7 +83,7 @@ CREATE TABLE `role`  (
 -- Records of role
 -- ----------------------------
 INSERT INTO `role` VALUES (1, 'admin', '系统级角色', 0, NULL, NULL, '2020-08-12 15:56:45', '1970-01-01 08:00:01', 0);
-INSERT INTO `role` VALUES (2, 'user', '普通角色', 1, NULL, NULL, '2020-08-12 16:00:20', '1970-01-01 08:00:01', 0);
+INSERT INTO `role` VALUES (2, 'user', '普通角色', 1, NULL, 1, '2020-08-12 16:00:20', '2020-09-17 18:08:34', 0);
 
 -- ----------------------------
 -- Table structure for role_resource
@@ -94,7 +95,7 @@ CREATE TABLE `role_resource`  (
   `resource_id` int(11) DEFAULT NULL COMMENT '资源id',
   `create_date` datetime(0) DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role_resource
@@ -120,21 +121,43 @@ INSERT INTO `role_resource` VALUES (18, 1, 25, '2020-08-12 15:56:45');
 INSERT INTO `role_resource` VALUES (19, 1, 26, '2020-08-12 15:56:45');
 INSERT INTO `role_resource` VALUES (20, 1, 29, '2020-08-12 15:56:45');
 INSERT INTO `role_resource` VALUES (21, 1, 30, '2020-08-12 15:56:45');
-INSERT INTO `role_resource` VALUES (22, 2, 1, '2020-08-12 16:00:20');
-INSERT INTO `role_resource` VALUES (23, 2, 2, '2020-08-12 16:00:20');
-INSERT INTO `role_resource` VALUES (24, 2, 3, '2020-08-12 16:00:20');
-INSERT INTO `role_resource` VALUES (25, 2, 4, '2020-08-12 16:00:20');
-INSERT INTO `role_resource` VALUES (26, 2, 5, '2020-08-12 16:00:20');
-INSERT INTO `role_resource` VALUES (27, 2, 6, '2020-08-12 16:00:20');
-INSERT INTO `role_resource` VALUES (28, 2, 27, '2020-08-12 16:00:20');
-INSERT INTO `role_resource` VALUES (29, 2, 8, '2020-08-12 16:00:20');
-INSERT INTO `role_resource` VALUES (30, 2, 7, '2020-08-12 16:00:20');
-INSERT INTO `role_resource` VALUES (31, 2, 32, '2020-08-12 16:00:20');
-INSERT INTO `role_resource` VALUES (32, 2, 9, '2020-08-12 16:00:20');
-INSERT INTO `role_resource` VALUES (33, 2, 25, '2020-08-12 16:00:20');
-INSERT INTO `role_resource` VALUES (34, 2, 26, '2020-08-12 16:00:20');
-INSERT INTO `role_resource` VALUES (35, 2, 29, '2020-08-12 16:00:20');
-INSERT INTO `role_resource` VALUES (36, 2, 30, '2020-08-12 16:00:20');
+INSERT INTO `role_resource` VALUES (37, 1, 35, '2020-09-17 16:26:23');
+INSERT INTO `role_resource` VALUES (39, 2, 1, '2020-09-17 18:09:31');
+INSERT INTO `role_resource` VALUES (40, 2, 2, '2020-09-17 18:09:31');
+INSERT INTO `role_resource` VALUES (41, 2, 3, '2020-09-17 18:09:31');
+INSERT INTO `role_resource` VALUES (42, 2, 4, '2020-09-17 18:09:31');
+INSERT INTO `role_resource` VALUES (43, 2, 5, '2020-09-17 18:09:31');
+INSERT INTO `role_resource` VALUES (44, 2, 6, '2020-09-17 18:09:31');
+INSERT INTO `role_resource` VALUES (45, 2, 27, '2020-09-17 18:09:31');
+INSERT INTO `role_resource` VALUES (46, 2, 8, '2020-09-17 18:09:31');
+INSERT INTO `role_resource` VALUES (47, 2, 7, '2020-09-17 18:09:31');
+INSERT INTO `role_resource` VALUES (48, 2, 32, '2020-09-17 18:09:31');
+INSERT INTO `role_resource` VALUES (49, 2, 9, '2020-09-17 18:09:31');
+INSERT INTO `role_resource` VALUES (50, 2, 25, '2020-09-17 18:09:31');
+INSERT INTO `role_resource` VALUES (51, 2, 26, '2020-09-17 18:09:31');
+INSERT INTO `role_resource` VALUES (52, 2, 29, '2020-09-17 18:09:31');
+INSERT INTO `role_resource` VALUES (53, 2, 30, '2020-09-17 18:09:31');
+INSERT INTO `role_resource` VALUES (54, 2, 35, '2020-09-17 18:09:31');
+
+-- ----------------------------
+-- Table structure for system_log
+-- ----------------------------
+DROP TABLE IF EXISTS `system_log`;
+CREATE TABLE `system_log`  (
+  `sys_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ip_address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `c_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `created_user_id` int(11) DEFAULT NULL,
+  `create_date` datetime(0) DEFAULT NULL,
+  PRIMARY KEY (`sys_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of system_log
+-- ----------------------------
+INSERT INTO `system_log` VALUES (1, '192.168.1.2', '用户登录成功', '登录', 1, '2020-09-17 16:19:49');
+INSERT INTO `system_log` VALUES (2, '192.168.1.2', '用户登录成功', '登录', 1, '2020-09-17 18:07:24');
 
 -- ----------------------------
 -- Table structure for user
@@ -158,8 +181,8 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'system', '123456', 20, '123@qq,com', '1597219313349_小和尚.jpg', '男', '杭州', 0, '2020-08-12 16:02:01', '1970-01-01 08:00:01');
-INSERT INTO `user` VALUES (2, 'zs', '123456', 21, '789@qq.com', '1597219369904_小和尚.jpg', '女', '深圳', 0, '2020-08-12 16:02:55', '1970-01-01 08:00:01');
+INSERT INTO `user` VALUES (1, 'system', '4dab168d05369c15371c7d75844635d9', 20, '123@qq,com', '1597219313349_小和尚.jpg', '男', '杭州', 0, '2020-08-12 16:02:01', '2020-09-16 22:23:37');
+INSERT INTO `user` VALUES (2, 'zs', '4dab168d05369c15371c7d75844635d9', 21, '789@qq.com', '1597219369904_小和尚.jpg', '女', '深圳', 0, '2020-08-12 16:02:55', '2020-09-16 22:23:39');
 
 -- ----------------------------
 -- Table structure for user_role

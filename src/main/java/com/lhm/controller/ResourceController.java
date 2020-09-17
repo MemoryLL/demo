@@ -3,11 +3,18 @@ package com.lhm.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lhm.common.Result;
+import com.lhm.common.TreeNode;
+import com.lhm.config.shiro.ShiroUser;
+import com.lhm.pojo.SystemLog;
+import com.lhm.service.SystemLogService;
+import com.lhm.utils.Address;
 import com.lhm.utils.TreeBuilder;
 import com.lhm.pojo.Resource;
 import com.lhm.service.ResourceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +36,8 @@ public class ResourceController {
 
     @Autowired
     ResourceService resourceService;
+    @Autowired
+    SystemLogService systemLogService;
 
 
     @GetMapping("/resources.html")
@@ -37,20 +46,8 @@ public class ResourceController {
         return "views/resources/resourcesManage";
     }
 
-//    @GetMapping("/menuInfo.json")
-//    @ApiOperation("获取菜单接口")
-//    @ResponseBody
-//    public Result getResource(){
-//        List<Resource> resourceList = resourceService.getMenuInfo();
-//        if (resourceList!=null&&resourceList.size()>0){
-//            List<Resource> tree = TreeBuilder.bulid(resourceList);
-//            return Result.success("获取成功！",tree);
-//        }
-//        return Result.fail("数据异常");
-//    }
-
     /**
-     * 获取资源
+     * 资源分页查询
      */
     @GetMapping(value = "/resourcesList.json")
     @ApiOperation("获取资源列表接口")
@@ -68,7 +65,7 @@ public class ResourceController {
     }
 
     /**
-     *
+     * 添加资源页面跳转
      * @return
      */
     @GetMapping("/addResourceModel.html")
@@ -78,7 +75,7 @@ public class ResourceController {
     }
 
     /**
-     *
+     * 根据类型查询资源
      */
     @GetMapping("/getPid.json")
     @ApiOperation("根据类型查询资源")
@@ -89,7 +86,7 @@ public class ResourceController {
     }
 
     /**
-     *
+     * 添加资源接口
      */
     @RequestMapping(value = "/addResource.json",method = RequestMethod.POST)
     @ApiOperation("添加资源接口")
@@ -104,6 +101,15 @@ public class ResourceController {
         if (key==0){
             return Result.fail("添加失败！");
         }
+        Subject subject = SecurityUtils.getSubject();
+        ShiroUser shiroUser = (ShiroUser)subject.getPrincipal();
+        SystemLog systemLog = new SystemLog();
+        systemLog.setIpAddress(Address.getIpAddress());
+        systemLog.setCreatedUserId(shiroUser.getId());
+        systemLog.setCreateDate(new Date());
+        systemLog.setRemark("添加资源成功");
+        systemLog.setCName("添加资源");
+        systemLogService.save(systemLog);
         return Result.success("添加成功！",null);
     }
 
@@ -129,6 +135,15 @@ public class ResourceController {
         if (key==0){
             return Result.fail("修改失败！");
         }
+        Subject subject = SecurityUtils.getSubject();
+        ShiroUser shiroUser = (ShiroUser)subject.getPrincipal();
+        SystemLog systemLog = new SystemLog();
+        systemLog.setIpAddress(Address.getIpAddress());
+        systemLog.setCreatedUserId(shiroUser.getId());
+        systemLog.setCreateDate(new Date());
+        systemLog.setRemark("修改资源成功");
+        systemLog.setCName("修改资源");
+        systemLogService.save(systemLog);
         return Result.success("修改成功！",null);
     }
 
@@ -143,6 +158,15 @@ public class ResourceController {
         if (key==0){
             return Result.fail("修改失败！");
         }
+        Subject subject = SecurityUtils.getSubject();
+        ShiroUser shiroUser = (ShiroUser)subject.getPrincipal();
+        SystemLog systemLog = new SystemLog();
+        systemLog.setIpAddress(Address.getIpAddress());
+        systemLog.setCreatedUserId(shiroUser.getId());
+        systemLog.setCreateDate(new Date());
+        systemLog.setRemark("修改资源状态成功");
+        systemLog.setCName("修改资源状态");
+        systemLogService.save(systemLog);
         return Result.success("修改成功！",null);
     }
 }

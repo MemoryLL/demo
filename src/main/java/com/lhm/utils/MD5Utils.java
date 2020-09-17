@@ -28,11 +28,11 @@ public class MD5Utils {
         return md5code;
     }
 
-    public static String md5(String password,String salt){
+    public static String md5(String password){
         //加密方式
         String hashAlgorithmName = "MD5";
         //盐：为了即使相同的密码不同的盐加密后的结果也不同
-        ByteSource byteSource = ByteSource.Util.bytes(salt);
+        ByteSource byteSource = ByteSource.Util.bytes("lhm");
         //密码
         Object source = password;
         //加密次数

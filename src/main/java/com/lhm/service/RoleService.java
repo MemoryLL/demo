@@ -20,4 +20,6 @@ public interface RoleService {
 
     Role findRoleById(Integer roleId);
 
+    int updateRole(Role role, List<Integer> roleIds);
+
 }

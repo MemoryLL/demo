@@ -1,8 +1,10 @@
 package com.lhm;
 
 import com.lhm.common.TreeNode;
+import com.lhm.mapper.RoleMapper;
 import com.lhm.pojo.Resource;
 import com.lhm.pojo.Role;
+import com.lhm.pojo.RoleResource;
 import com.lhm.service.ResourceService;
 import com.lhm.service.RoleService;
 import com.lhm.service.UserService;
@@ -26,6 +28,8 @@ class DemoApplicationTests {
     RoleService roleService;
     @Autowired
     UserService userService;
+    @Autowired
+    RoleMapper roleMapper;
 
     @Test
     void testMd5() throws NoSuchAlgorithmException {
@@ -68,4 +72,22 @@ class DemoApplicationTests {
         System.out.println(perms);
     }
 
+    @Test
+    void testMd52(){
+        String password = MD5Utils.md5("123456");
+        System.out.println(password);
+        String password2 = MD5Utils.md5("123456");
+        System.out.println(password2);
+    }
+
+    @Test
+    void testdeleteResourceByRoleId(){
+        roleMapper.deleteResourceByRoleId(3);
+    }
+
+    @Test
+    void testgetRoleResourceByRoleId(){
+        List<RoleResource> roleResource = roleMapper.getRoleResourceByRoleId(1);
+        System.out.println(roleResource);
+    }
 }

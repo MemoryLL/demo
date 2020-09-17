@@ -26,4 +26,10 @@ public interface RoleMapper {
 
     Role findRoleById(@Param("roleId") Integer roleId);
 
+    int updateRole(Role role);
+
+    void deleteResourceByRoleId(@Param("id") Integer id);
+
+    List<RoleResource> getRoleResourceByRoleId(@Param("id") Integer id);
+
 }

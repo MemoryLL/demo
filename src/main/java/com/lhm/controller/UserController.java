@@ -3,11 +3,17 @@ package com.lhm.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lhm.common.Result;
+import com.lhm.config.shiro.ShiroUser;
+import com.lhm.pojo.SystemLog;
 import com.lhm.pojo.User;
+import com.lhm.service.SystemLogService;
 import com.lhm.service.UserService;
+import com.lhm.utils.Address;
 import com.lhm.utils.MD5Utils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +29,8 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    SystemLogService systemLogService;
 
     /**
      * 跳转到用户页面
@@ -92,13 +100,23 @@ public class UserController {
     @ApiOperation("添加用户接口")
     @ResponseBody
     public Result addUser(User user, @RequestParam("filename") String filename,@RequestParam("roldId") Integer roldId) {
-        if (filename != null && !filename.equals("")) {
+        if (filename != null && !"".equals(filename)) {
             user.setFile(filename);
         }
         user.setCreateTime(new Date());
+        user.setPassword(MD5Utils.md5(user.getPassword()));
         int key = userService.saveUser(user,roldId);
         System.out.println(user.getId());
         if (key != 0) {
+            Subject subject = SecurityUtils.getSubject();
+            ShiroUser shiroUser = (ShiroUser)subject.getPrincipal();
+            SystemLog systemLog = new SystemLog();
+            systemLog.setIpAddress(Address.getIpAddress());
+            systemLog.setCreatedUserId(shiroUser.getId());
+            systemLog.setCreateDate(new Date());
+            systemLog.setRemark("添加用户成功");
+            systemLog.setCName("添加用户");
+            systemLogService.save(systemLog);
             return Result.success("添加成功！", null);
         } else {
             return Result.fail("添加失败！");
@@ -116,6 +134,15 @@ public class UserController {
         if (key == 0) {
             return Result.fail("修改失败！");
         }
+        Subject subject = SecurityUtils.getSubject();
+        ShiroUser shiroUser = (ShiroUser)subject.getPrincipal();
+        SystemLog systemLog = new SystemLog();
+        systemLog.setIpAddress(Address.getIpAddress());
+        systemLog.setCreatedUserId(shiroUser.getId());
+        systemLog.setCreateDate(new Date());
+        systemLog.setRemark("修改用户状态成功");
+        systemLog.setCName("修改用户状态");
+        systemLogService.save(systemLog);
         return Result.success("修改成功！", null);
     }
 }

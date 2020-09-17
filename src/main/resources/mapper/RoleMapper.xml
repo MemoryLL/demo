@@ -30,6 +30,12 @@
     <insert id="addUserRole" useGeneratedKeys="true" keyProperty="id" parameterType="com.lhm.pojo.UserRole">
       insert into user_role(user_id,role_id,create_time) values (#{userId},#{roleId},#{createTime})
     </insert>
+    <update id="updateRole" parameterType="com.lhm.pojo.Role">
+      update role set role_name=#{roleName},description=#{description},role_level=#{roleLevel},update_user_id=#{updateUserId} where id=#{id}
+    </update>
+    <delete id="deleteResourceByRoleId" parameterType="Integer">
+        delete from role_resource where role_id=#{id}
+    </delete>
     <select id="selectRoleByPageHelper" resultType="com.lhm.pojo.Role" parameterType="com.lhm.pojo.Role">
         select * from role where 1=1
         <if test="roleName!=null and roleName!=''">and role_name=#{roleName}</if>
@@ -47,6 +53,9 @@
     </select>
     <select id="findRoleById" resultType="com.lhm.pojo.Role" parameterType="Integer">
         select * from role where id=#{roleId}
+    </select>
+    <select id="getRoleResourceByRoleId" resultType="com.lhm.pojo.RoleResource" parameterType="Integer">
+        select * from role_resource where role_id = #{id}
     </select>
 
 </mapper>
