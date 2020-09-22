@@ -105,7 +105,7 @@ public class ResourceController {
         systemLog.setCreatedUserId(shiroUser.getId());
         systemLog.setCreateDate(new Date());
         systemLog.setRemark("添加资源成功");
-        systemLog.setCName("添加资源");
+        systemLog.setResourceName("添加资源");
         systemLogService.save(systemLog);
         return Result.success("添加成功！",null);
     }
@@ -139,7 +139,7 @@ public class ResourceController {
         systemLog.setCreatedUserId(shiroUser.getId());
         systemLog.setCreateDate(new Date());
         systemLog.setRemark("修改资源成功");
-        systemLog.setCName("修改资源");
+        systemLog.setResourceName("修改资源");
         systemLogService.save(systemLog);
         return Result.success("修改成功！",null);
     }
@@ -162,7 +162,7 @@ public class ResourceController {
         systemLog.setCreatedUserId(shiroUser.getId());
         systemLog.setCreateDate(new Date());
         systemLog.setRemark("修改资源状态成功");
-        systemLog.setCName("修改资源状态");
+        systemLog.setResourceName("修改资源状态");
         systemLogService.save(systemLog);
         return Result.success("修改成功！",null);
     }

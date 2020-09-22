@@ -90,7 +90,7 @@ public class LoginController {
             ShiroUser shiroUser = (ShiroUser) subject.getPrincipal();
             SystemLog systemLog = new SystemLog();
             systemLog.setRemark("用户"+shiroUser.getLoginName()+"登录成功");
-            systemLog.setCName("用户登录");
+            systemLog.setResourceName("用户登录");
             systemLog.setCreateDate(new Date());
             systemLog.setCreatedUserId(shiroUser.getId());
             systemLog.setIpAddress(Address.getIpAddress());

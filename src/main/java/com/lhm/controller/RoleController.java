@@ -121,7 +121,7 @@ public class RoleController {
             systemLog.setCreatedUserId(shiroUser.getId());
             systemLog.setCreateDate(new Date());
             systemLog.setRemark("添加角色成功");
-            systemLog.setCName("添加角色");
+            systemLog.setResourceName("添加角色");
             systemLogService.save(systemLog);
             return Result.success("添加成功！",null);
         }
@@ -161,7 +161,7 @@ public class RoleController {
             systemLog.setCreatedUserId(shiroUser.getId());
             systemLog.setCreateDate(new Date());
             systemLog.setRemark("修改角色成功");
-            systemLog.setCName("修改角色");
+            systemLog.setResourceName("修改角色");
             systemLogService.save(systemLog);
             return Result.success("修改成功!",null);
         }

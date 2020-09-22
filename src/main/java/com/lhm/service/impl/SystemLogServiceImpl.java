@@ -6,6 +6,8 @@ import com.lhm.service.SystemLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Author: lhm
  * @Date: 2020/9/17 16:13
@@ -20,5 +22,10 @@ public class SystemLogServiceImpl implements SystemLogService {
     @Override
     public void save(SystemLog systemLog) {
         systemLogMapper.save(systemLog);
+    }
+
+    @Override
+    public List<SystemLog> selectSysLogByPageHelper() {
+        return systemLogMapper.selectSysLogByPageHelper();
     }
 }

@@ -114,7 +114,7 @@ public class UserController {
             systemLog.setCreatedUserId(shiroUser.getId());
             systemLog.setCreateDate(new Date());
             systemLog.setRemark("添加用户成功");
-            systemLog.setCName("添加用户");
+            systemLog.setResourceName("添加用户");
             systemLogService.save(systemLog);
             return Result.success("添加成功！", null);
         } else {
@@ -140,7 +140,7 @@ public class UserController {
         systemLog.setCreatedUserId(shiroUser.getId());
         systemLog.setCreateDate(new Date());
         systemLog.setRemark("修改用户状态成功");
-        systemLog.setCName("修改用户状态");
+        systemLog.setResourceName("修改用户状态");
         systemLogService.save(systemLog);
         return Result.success("修改成功！", null);
     }
