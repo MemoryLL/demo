@@ -7,13 +7,13 @@
 Idea 2018.1
 
 # 开发环境
-JDK:1.8
-Maven:3.3.9
-SpringBoot:2.3.1.RELEASE
-Mysql:5.7
+JDK:1.8  
+Maven:3.3.9  
+SpringBoot:2.3.1.RELEASE  
+Mysql:5.7  
 
 # 启动说明
-1、注意修改一下application.yml中的数据库的用户名和密码
+1、注意修改一下application.yml中的数据库的用户名和密码  
 2、登录地址：http://localhost:8080/login.html
 
 
