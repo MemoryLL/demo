@@ -1,6 +1,6 @@
 # 说明
-基于SpringBoot+Layui+Freemarker+Swagger+Shiro写的一个后台管理系统模板,
-****如果resources目录下没有file文件夹则需要创建一个file文件夹，用来存储上传的文件。
+基于SpringBoot+Layui+Freemarker+Swagger+Shiro写的一个后台管理系统模板。   
+****如果resources目录下没有file文件夹则需要创建一个file文件夹，用来存储上传的文件。  
 ****数据库的sql文件位于resources下
 
 # 开发工具
