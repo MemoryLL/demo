@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "表单操作相关接口")
 public class FormController {
 
-    @GetMapping("/form.html")
+    @GetMapping("/student.html")
     @ApiOperation("表单页面跳转")
     public String form(){
         return "views/form/formManage";

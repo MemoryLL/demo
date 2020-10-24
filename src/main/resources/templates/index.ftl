@@ -10,6 +10,7 @@
     <script type="text/javascript" src="assets/layui.js"></script>
     <script type="text/javascript" src="assets/jquery-3.5.0.js"></script>
     <script type="text/javascript" src="assets/js/index.js" data-main="assets/js/home"></script>
+    <script type="text/javascript" src="assets/js/datetime.js"></script>
     <title>管理后台</title>
 </head>
 <body class="layui-layout-body">
@@ -22,6 +23,12 @@
             </li>
         </ul>
         <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <div id="dateTime">
+
+                </div>
+            </li>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <li class="layui-nav-item">
                 <a href="javascript:;"><b>${username}</b></a>
                 <dl class="layui-nav-child">
@@ -39,48 +46,9 @@
                 <img src="/assets/images/logo.jpg" alt=""/>
                 <h1>Admin Pro</h1>
             </div>
-        <#--<ul id="Nav" class="layui-nav layui-nav-tree">-->
-        <#--<li class="layui-nav-item">-->
-        <#--<a href="javascript:;">-->
-        <#--<i class="layui-icon">&#xe609;</i>-->
-        <#--<em>主页</em>-->
-        <#--</a>-->
-        <#--<dl class="layui-nav-child">-->
-        <#--<dd><a href="/console.html">控制台</a></dd>-->
-        <#--</dl>-->
-        <#--</li>-->
-        <#--<li class="layui-nav-item">-->
-        <#--<a href="javascript:;">-->
-        <#--<i class="layui-icon">&#xe857;</i>-->
-        <#--<em>页面</em>-->
-        <#--</a>-->
-        <#--<dl class="layui-nav-child">-->
-        <#--<dd><a href="/form.html">表单</a></dd>-->
-
-        <#--</dd>-->
-        <#--</dl>-->
-        <#--</li>-->
-        <#--<li class="layui-nav-item">-->
-        <#--<a href="javascript:;">-->
-        <#--<i class="layui-icon">&#xe612;</i>-->
-        <#--<em>用户</em>-->
-        <#--</a>-->
-        <#--<dl class="layui-nav-child">-->
-        <#--<dd><a href="/user.html">用户组</a></dd>-->
-        <#--<dd><a href="/role.html">权限配置</a></dd>-->
-        <#--</dl>-->
-        <#--</li>-->
-        <#--</ul>-->
             <ul class="layui-nav layui-nav-tree" lay-filter="demo"></ul>
         </div>
     </div>
-
-    <#--<div class="layui-body">-->
-        <#--<div class="layui-tab app-container" lay-allowClose="true" lay-filter="tabs">-->
-            <#--<ul id="appTabs" class="layui-tab-title custom-tab"></ul>-->
-            <#--<div id="appTabPage" class="layui-tab-content"></div>-->
-        <#--</div>-->
-    <#--</div>-->
 
     <!--页面选项卡-->
     <div class="layui-body">
@@ -91,13 +59,15 @@
     </div>
 
     <div class="layui-footer">
-        <p>© 2018 更多模板：<a href="http://www.mycodes.net/" target="_blank">源码之家</a></p>
+        <#--<p>© 2018 更多模板：<a href="http://www.mycodes.net/" target="_blank">源码之家</a></p>-->
+            <p>© 开发人员：<a href="https://github.com/MemoryLL/demo" target="_blank">LHM</a></p>
     </div>
 
     <div class="mobile-mask"></div>
 </div>
 
 <script>
+
     //注意：导航 依赖 element 模块，否则无法进行功能性操作
     layui.use('element', function () {
         var $ = layui.jquery;
@@ -105,12 +75,7 @@
         //定义ids数组，用来记录已经打开的tab选项卡
         var ids = [];
 
-        element.on('nav(demo)', function () {
-            var id = $(this).attr("data-id");
-            var title = $(this).attr("data-title");
-            var url = $(this).attr("data-url");
-            // console.log(id);
-            // console.log(title);
+        function createTab(id,title,url) {
             //判断是否为以及菜单，如果不是一级菜单则创建tab
             if (typeof(id) != "undefined") {
                 //判断选项卡是否已经被打开 下标为-1则未打开
@@ -122,6 +87,7 @@
                         , id: id
                     });
                     ids.push(id);
+                    console.log(ids);
                     //console.log(ids.indexOf(id));
                 }
                 //已经打开的tab直接切换
@@ -132,11 +98,20 @@
                     ids.splice(index, 1);
                 });
             }
-
             //创建iframe
             function createIframe(url) {
                 return '<iframe src="' + url + '" scrolling="auto" frameborder="0" ></iframe>'
             }
+        }
+
+        element.on('nav(demo)', function () {
+            var id = $(this).attr("data-id");
+            var title = $(this).attr("data-title");
+            var url = $(this).attr("data-url");
+            // console.log(id);
+            // console.log(title);
+            createTab(id,title,url);
+
         });
         //获取所有的菜单
         $.ajax({
@@ -160,6 +135,9 @@
             }
         });
         //创建iframe
+        function createIframe2(url) {
+            return '<iframe src="' + url + '" scrolling="auto" frameborder="0" ></iframe>'
+        }
         function createIframe(url) {
             return '<iframe src="' + url + '" scrolling="auto" frameborder="0" ></iframe>'
         }
@@ -177,7 +155,10 @@
 
             if (obj.children != null && obj.children.length > 0) {
                 $.each(obj.children, function (i, note) {
-                    //console.log(note.title);
+                    if (note.id==2){
+                        var id = note.id.toFixed(0);
+                        createTab(id,note.title,note.href);
+                    }
                     content += '<dd>';
                     content += "<a href=\"javascript:;\" data-id=\"" + note.id + "\" data-title=\"" + note.title + "\" data-url=\"" + note.href + "\">" + note.title + "</a>";
                     //subStr += "<a href=\"javascript:;\" data-src=\"" + note.url + "\" data-menuid=\"" + subMenu.menuId + "\" data-title=\"" + subMenu.name + "\">" + subMenu.name + "</a>";

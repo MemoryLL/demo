@@ -56,7 +56,6 @@
             $("html").css({fontSize: whei / 24})
         });
     });
-
     // layui.use(['form', 'jquery', 'layer'], function () {
     //     var layer = layui.layer;
     //     var $ = layui.$;

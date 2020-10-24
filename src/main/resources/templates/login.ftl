@@ -25,10 +25,31 @@
                     <span class="label-title">密码</span>
                 </label>
             </div>
+            <div class="input-group">
+                <input type="password" id="password" name="password" required="required" class="input-field">
+                <label for="password" class="input-label">
+                    <span class="label-title">验证码</span>
+                </label>
+                <img src="/getCheckCode" style="width: 80px; height: 30px;" alt="验证码"  id="checkcode"/>
+            </div>
             <button type="submit" class="login-button">登录<i class="ai ai-enter"></i></button>
         </form>
     </div>
 </body>
 <script src="assets/layui.js"></script>
+<script type="text/javascript" src="assets/jquery-3.5.0.js"></script>
 <script src="assets/js/index.js" data-main="assets/js/login"></script>
+<script>
+    $(document).ready(function () {
+        $('#checkcode').click(function () {
+            $.ajax({
+                url: '/getCheckCode',
+                type: 'get',
+                success: function (data, status, xhr) {
+                    $('#checkcode').attr('src', 'getCheckCode');
+                },
+            });
+        });
+    });
+</script>
 </html>

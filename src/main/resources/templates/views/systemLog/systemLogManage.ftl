@@ -33,9 +33,9 @@
                 </div>
             </div>
         </div>
-<script src="assets/layui.all.js"></script>
-<script src="assets/jquery-3.5.0.js"></script>
-<script>
+        <script src="assets/layui.all.js"></script>
+        <script src="assets/jquery-3.5.0.js"></script>
+        <script>
             var table = layui.table;
             var util = layui.util;
             //展示已知数据
@@ -47,14 +47,18 @@
                     , {field: 'resourceName', title: '资源名称', width: 145, align: 'center'}
                     , {field: 'remark', title: '备注', width: 250, align: 'center'}
                     , {field: 'createdUserId', title: '操作Id', width: 90, align: 'center'}
-                    , {field: 'createDate', title: '时间', width: 250, align: 'center', templet:function(d){return util.toDateString(d.createDate, "yyyy-MM-dd HH:mm:ss");}}
+                    , {
+                        field: 'createDate', title: '时间', width: 250, align: 'center', templet: function (d) {
+                            return util.toDateString(d.createDate, "yyyy-MM-dd HH:mm:ss");
+                        }
+                    }
                 ]]
-                ,url: '/systemLogList.json'
-                ,skin: 'line' //表格风格
-                ,even: true
-                ,page: true //是否显示分页
-                ,limits: [10, 20]
-                ,limit: 10 //每页默认显示的数量
+                , url: '/systemLogList.json'
+                , skin: 'line' //表格风格
+                , even: true
+                , page: true //是否显示分页
+                , limits: [10, 20]
+                , limit: 10 //每页默认显示的数量
             });
         </script>
 </body>

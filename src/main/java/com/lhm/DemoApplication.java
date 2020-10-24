@@ -10,5 +10,4 @@ public class DemoApplication {
         SpringApplication.run(DemoApplication.class, args);
         System.out.println("http://localhost:8080/login.html");
     }
-
 }
