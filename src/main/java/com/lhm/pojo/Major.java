@@ -5,17 +5,16 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class Department {
+public class Major {
     private Integer id;
 
-    private String depName;
+    private Integer depId;
+
+    private String majorName;
 
     private String description;
-
-    private String departmentHeadName;
 
     private Date createTime;
 
     private Date updateTime;
-
 }

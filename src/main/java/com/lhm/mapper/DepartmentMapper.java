@@ -8,4 +8,8 @@ public interface DepartmentMapper {
 
     List<Department> selectDepartmentByPageHelper(Department department);
 
+    int saveDepartment(Department department);
+
+    List<Department> getAllDep();
+
 }

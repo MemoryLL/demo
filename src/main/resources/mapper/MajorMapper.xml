@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhm.mapper.MajorMapper" >
+  <resultMap id="BaseResultMap" type="com.lhm.pojo.Major" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="dep_id" property="depId" jdbcType="INTEGER" />
+    <result column="major_name" property="majorName" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+    <insert id="saveMajor" parameterType="com.lhm.pojo.Major" useGeneratedKeys="true" keyProperty="id">
+        insert into major(dep_id,major_name,description,create_time) values (#{depId},#{majorName},#{description},#{createTime})
+    </insert>
+
+    <select id="getAllMajor" resultMap="BaseResultMap">
+        select * from major
+    </select>
+
+    <select id="selectMajorByPageHelper" resultMap="BaseResultMap">
+        select * from major where 1 = 1
+        <if test="majorName!=null and majorName!=''">and major_name like "%"#{majorName,jdbcType=VARCHAR}"%"</if>
+        order by create_time desc
+    </select>
+
+</mapper>

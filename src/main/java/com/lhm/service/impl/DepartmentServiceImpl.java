@@ -6,6 +6,7 @@ import com.lhm.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,5 +23,16 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public List<Department> selectDepartmentByPageHelper(Department department) {
         return departmentMapper.selectDepartmentByPageHelper(department);
+    }
+
+    @Override
+    public int saveDepartment(Department department) {
+        department.setCreateTime(new Date());
+        return departmentMapper.saveDepartment(department);
+    }
+
+    @Override
+    public List<Department> getAllDep() {
+        return departmentMapper.getAllDep();
     }
 }

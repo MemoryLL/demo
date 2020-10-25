@@ -4,16 +4,24 @@
   <resultMap id="BaseResultMap" type="com.lhm.pojo.Department" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="dep_name" property="depName" jdbcType="VARCHAR" />
-    <result column="desc" property="desc" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="department_head_name" property="departmentHeadName" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
 
+    <insert id="saveDepartment" parameterType="com.lhm.pojo.Department" useGeneratedKeys="true" keyProperty="id">
+        insert into department(dep_name,description,department_head_name,create_time) values (#{depName},#{description},#{departmentHeadName},#{createTime})
+    </insert>
+
     <select id="selectDepartmentByPageHelper" parameterType="com.lhm.pojo.Department" resultMap="BaseResultMap">
         select * from department where 1 = 1
-        <if test="depName!=null and depName!=''">and dep_name=#{depName}</if>
+        <if test="depName!=null and depName!=''">and dep_name like "%"#{depName,jdbcType=VARCHAR}"%"</if>
         order by create_time desc
+    </select>
+
+    <select id="getAllDep" resultMap="BaseResultMap">
+        select * from department
     </select>
 
 </mapper>

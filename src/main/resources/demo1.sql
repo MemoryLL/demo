@@ -11,7 +11,7 @@
  Target Server Version : 50723
  File Encoding         : 65001
 
- Date: 24/10/2020 19:17:58
+ Date: 25/10/2020 18:51:50
 */
 
 SET NAMES utf8mb4;
@@ -38,17 +38,18 @@ DROP TABLE IF EXISTS `department`;
 CREATE TABLE `department`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '系部id',
   `dep_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '系部名称',
-  `desc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '描述',
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '描述',
+  `department_head_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '系主任',
   `create_time` datetime(0) DEFAULT NULL,
   `update_time` timestamp(0) NOT NULL DEFAULT '1970-01-01 08:00:01' ON UPDATE CURRENT_TIMESTAMP(0),
-  `department_head_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '系主任',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系部表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系部表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of department
 -- ----------------------------
-INSERT INTO `department` VALUES (1, '信息技术(网监)系', '信息技术(网监)系是本校王牌系，曾多次荣获国家级奖励', '2020-10-24 15:28:39', '1970-01-01 08:00:01', '王五');
+INSERT INTO `department` VALUES (1, '信息技术(网监)系', '信息技术(网监)系是本校王牌系，曾多次荣获国家级奖励', '王五', '2020-10-24 15:28:39', '1970-01-01 08:00:01');
+INSERT INTO `department` VALUES (2, '侦查系', '主要担负侦查学、禁毒学两个本科专业课程的理论与实训教学', '王五', '2020-10-25 18:18:19', '1970-01-01 08:00:01');
 
 -- ----------------------------
 -- Table structure for floor
@@ -71,11 +72,16 @@ CREATE TABLE `major`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '专业id',
   `dep_id` int(11) DEFAULT NULL COMMENT '所属系部id',
   `major_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '专业名称',
-  `desc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '描述',
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '描述',
   `create_time` datetime(0) DEFAULT NULL,
   `update_time` timestamp(0) NOT NULL DEFAULT '1970-01-01 08:00:01' ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '专业表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '专业表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of major
+-- ----------------------------
+INSERT INTO `major` VALUES (1, 1, '计算机科学与技术', '计算机科学与技术计算机科学与技术计算机科学与技术', '2020-10-25 18:32:50', '1970-01-01 08:00:01');
 
 -- ----------------------------
 -- Table structure for resource
@@ -94,7 +100,7 @@ CREATE TABLE `resource`  (
   `update_time` timestamp(0) NOT NULL DEFAULT '1970-01-01 08:00:01' ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   `is_check` tinyint(255) NOT NULL DEFAULT 1 COMMENT '是否选中 0-是 1否',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 44 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '资源表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '资源表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of resource
@@ -127,7 +133,12 @@ INSERT INTO `resource` VALUES (38, '系部管理', NULL, '/department.html', '�
 INSERT INTO `resource` VALUES (40, '楼层管理', NULL, '/floor.html', '楼层管理', 36, 0, 1, '2020-10-23 19:19:49', '1970-01-01 08:00:01', 1);
 INSERT INTO `resource` VALUES (41, '专业管理', NULL, '/major.html', '专业管理', 36, 0, 1, '2020-10-23 19:20:18', '1970-01-01 08:00:01', 1);
 INSERT INTO `resource` VALUES (42, '寝室管理', NULL, '/room.html', '寝室管理', 36, 0, 1, '2020-10-23 19:20:57', '1970-01-01 08:00:01', 1);
-INSERT INTO `resource` VALUES (43, '新增系部', NULL, '/addDepartment_btn', '新增系部', 38, 0, 2, '2020-10-24 15:36:08', '1970-01-01 08:00:01', 1);
+INSERT INTO `resource` VALUES (43, '新增系部按钮', NULL, '/addDepartment_btn', '新增系部按钮', 38, 0, 2, '2020-10-24 15:36:08', '2020-10-25 17:40:34', 1);
+INSERT INTO `resource` VALUES (44, '查看系部按钮', NULL, '/checkDep_btn', '查看系部按钮', 38, 0, 2, '2020-10-25 17:37:52', '2020-10-25 17:40:14', 1);
+INSERT INTO `resource` VALUES (45, '编辑系部按钮', NULL, '/editDep_btn', '编辑系部按钮', 38, 0, 2, '2020-10-25 17:38:20', '2020-10-25 17:39:41', 1);
+INSERT INTO `resource` VALUES (46, '新增专业按钮', NULL, '/addMajor_btn', '新增专业按钮', 41, 0, 2, '2020-10-25 17:39:12', '1970-01-01 08:00:01', 1);
+INSERT INTO `resource` VALUES (47, '查看专业按钮', NULL, '/checkMajor_btn', '查看专业按钮', 41, 0, 2, '2020-10-25 17:41:31', '1970-01-01 08:00:01', 1);
+INSERT INTO `resource` VALUES (48, '修改专业按钮', NULL, '/editMajor_btn', '修改专业按钮', 41, 0, 2, '2020-10-25 17:42:12', '1970-01-01 08:00:01', 1);
 
 -- ----------------------------
 -- Table structure for role
@@ -162,7 +173,7 @@ CREATE TABLE `role_resource`  (
   `resource_id` int(11) DEFAULT NULL COMMENT '资源id',
   `create_date` datetime(0) DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 114 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色资源表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 148 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色资源表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role_resource
@@ -183,35 +194,40 @@ INSERT INTO `role_resource` VALUES (51, 2, 26, '2020-09-17 18:09:31');
 INSERT INTO `role_resource` VALUES (52, 2, 29, '2020-09-17 18:09:31');
 INSERT INTO `role_resource` VALUES (53, 2, 30, '2020-09-17 18:09:31');
 INSERT INTO `role_resource` VALUES (54, 2, 35, '2020-09-17 18:09:31');
-INSERT INTO `role_resource` VALUES (84, 1, 1, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (85, 1, 2, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (86, 1, 3, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (87, 1, 4, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (88, 1, 5, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (89, 1, 6, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (90, 1, 23, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (91, 1, 24, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (92, 1, 27, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (93, 1, 28, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (94, 1, 8, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (95, 1, 7, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (96, 1, 31, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (97, 1, 32, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (98, 1, 33, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (99, 1, 34, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (100, 1, 9, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (101, 1, 25, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (102, 1, 26, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (103, 1, 29, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (104, 1, 30, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (105, 1, 35, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (106, 1, 36, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (107, 1, 37, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (108, 1, 38, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (109, 1, 43, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (111, 1, 40, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (112, 1, 41, '2020-10-24 15:36:28');
-INSERT INTO `role_resource` VALUES (113, 1, 42, '2020-10-24 15:36:28');
+INSERT INTO `role_resource` VALUES (114, 1, 1, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (115, 1, 2, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (116, 1, 3, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (117, 1, 4, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (118, 1, 5, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (119, 1, 6, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (120, 1, 23, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (121, 1, 24, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (122, 1, 27, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (123, 1, 28, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (124, 1, 8, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (125, 1, 7, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (126, 1, 31, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (127, 1, 32, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (128, 1, 33, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (129, 1, 34, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (130, 1, 9, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (131, 1, 25, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (132, 1, 26, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (133, 1, 29, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (134, 1, 30, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (135, 1, 35, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (136, 1, 36, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (137, 1, 37, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (138, 1, 38, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (139, 1, 43, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (140, 1, 44, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (141, 1, 45, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (142, 1, 40, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (143, 1, 41, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (144, 1, 46, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (145, 1, 47, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (146, 1, 48, '2020-10-25 17:42:43');
+INSERT INTO `role_resource` VALUES (147, 1, 42, '2020-10-25 17:42:43');
 
 -- ----------------------------
 -- Table structure for room
@@ -259,7 +275,7 @@ CREATE TABLE `system_log`  (
   `created_user_id` int(11) DEFAULT NULL,
   `create_date` datetime(0) DEFAULT NULL,
   PRIMARY KEY (`sys_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 66 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '日志表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 87 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '日志表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of system_log
@@ -329,6 +345,27 @@ INSERT INTO `system_log` VALUES (62, '192.168.1.5', '用户system登录成功', 
 INSERT INTO `system_log` VALUES (63, '192.168.1.5', '用户system登录成功', '用户登录', 1, '2020-10-24 16:08:37');
 INSERT INTO `system_log` VALUES (64, '192.168.1.5', '用户system登录成功', '用户登录', 1, '2020-10-24 18:37:01');
 INSERT INTO `system_log` VALUES (65, '192.168.1.5', '用户system登录成功', '用户登录', 1, '2020-10-24 19:15:08');
+INSERT INTO `system_log` VALUES (66, '192.168.1.5', '用户system登录成功', '用户登录', 1, '2020-10-25 17:36:37');
+INSERT INTO `system_log` VALUES (67, '192.168.1.5', '添加资源成功', '添加资源', 1, '2020-10-25 17:37:52');
+INSERT INTO `system_log` VALUES (68, '192.168.1.5', '添加资源成功', '添加资源', 1, '2020-10-25 17:38:20');
+INSERT INTO `system_log` VALUES (69, '192.168.1.5', '添加资源成功', '添加资源', 1, '2020-10-25 17:39:12');
+INSERT INTO `system_log` VALUES (70, '192.168.1.5', '修改资源成功', '修改资源', 1, '2020-10-25 17:39:41');
+INSERT INTO `system_log` VALUES (71, '192.168.1.5', '修改资源成功', '修改资源', 1, '2020-10-25 17:40:15');
+INSERT INTO `system_log` VALUES (72, '192.168.1.5', '修改资源成功', '修改资源', 1, '2020-10-25 17:40:34');
+INSERT INTO `system_log` VALUES (73, '192.168.1.5', '添加资源成功', '添加资源', 1, '2020-10-25 17:41:31');
+INSERT INTO `system_log` VALUES (74, '192.168.1.5', '添加资源成功', '添加资源', 1, '2020-10-25 17:42:12');
+INSERT INTO `system_log` VALUES (75, '192.168.1.5', '修改角色成功', '修改角色', 1, '2020-10-25 17:42:43');
+INSERT INTO `system_log` VALUES (76, '192.168.1.5', '用户system登录成功', '用户登录', 1, '2020-10-25 17:45:01');
+INSERT INTO `system_log` VALUES (77, '192.168.1.5', '用户system登录成功', '用户登录', 1, '2020-10-25 17:52:31');
+INSERT INTO `system_log` VALUES (78, '192.168.1.5', '用户system登录成功', '用户登录', 1, '2020-10-25 17:54:58');
+INSERT INTO `system_log` VALUES (79, '192.168.1.5', '用户system登录成功', '用户登录', 1, '2020-10-25 17:58:19');
+INSERT INTO `system_log` VALUES (80, '192.168.1.5', '用户system登录成功', '用户登录', 1, '2020-10-25 18:03:38');
+INSERT INTO `system_log` VALUES (81, '192.168.1.5', '用户system登录成功', '用户登录', 1, '2020-10-25 18:13:28');
+INSERT INTO `system_log` VALUES (82, '192.168.1.5', '用户system登录成功', '用户登录', 1, '2020-10-25 18:17:59');
+INSERT INTO `system_log` VALUES (83, '192.168.1.5', '用户system登录成功', '用户登录', 1, '2020-10-25 18:30:19');
+INSERT INTO `system_log` VALUES (84, '192.168.1.5', '用户system登录成功', '用户登录', 1, '2020-10-25 18:32:18');
+INSERT INTO `system_log` VALUES (85, '192.168.1.5', '用户system登录成功', '用户登录', 1, '2020-10-25 18:37:19');
+INSERT INTO `system_log` VALUES (86, '192.168.1.5', '用户system登录成功', '用户登录', 1, '2020-10-25 18:43:01');
 
 -- ----------------------------
 -- Table structure for user

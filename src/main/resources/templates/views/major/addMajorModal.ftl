@@ -14,11 +14,11 @@
     <title></title>
 </head>
 <body class="layui-view-body">
-<form id="addDepartmentFrom" class="layui-form layui-card-body">
+<form id="addMajorFrom" class="layui-form layui-card-body">
     <div class="layui-form-item">
-        <label class="layui-form-label">系名</label>
+        <label class="layui-form-label">专业名</label>
         <div class="layui-input-block">
-            <input type="text" id="depName" name="depName" required lay-verify="required" placeholder="请输入系名"
+            <input type="text" id="majorName" name="majorName" required lay-verify="required" placeholder="请输入专业名"
                    autocomplete="off" class="layui-input">
         </div>
     </div>
@@ -29,11 +29,12 @@
                    autocomplete="off" class="layui-input">
         </div>
     </div>
-    <div class="layui-form-item">
-        <label for="departmentHeadName" class="layui-form-label">系主任</label>
+    <div class="layui-form-item" id="dep_div">
+        <label class="layui-form-label">所属系部</label>
         <div class="layui-input-block">
-            <input id="departmentHeadName" name="departmentHeadName" required lay-verify="required" placeholder="请输入系主任"
-                   autocomplete="off" class="layui-input">
+            <select id="depId" name="depId">
+                <option value=""></option>
+            </select>
         </div>
     </div>
     <div class="layui-form-item">
@@ -44,16 +45,21 @@
     </div>
 </form>
 <script>
-
     $( function() {
-        var availableTags = [
-            "张三",
-            "李四",
-            "王五",
-            "赵六"
-        ];
-        $( "#departmentHeadName" ).autocomplete({
-            source: availableTags
+        $.ajax({
+            type: "GET",
+            url: "/getAllDepartment.json",
+            dataType: "json",
+            success: function (res) {
+                if (res.status == 0) {
+                    //$("#depId").empty();//清空下拉框内容
+                    $.each(res.data, function (index, item) {
+                        //$('#pId').append(new Option(item.title, item.id));// 下拉菜单里添加元素
+                        $("#depId").append("<option value='" + item.id + "'>" + item.depName + "</option>");// 下拉菜单里添加元素
+                    });
+                    layui.form.render("select");
+                }
+            }
         });
     } );
 
@@ -67,21 +73,21 @@
 
 
 
-    //添加用户方法
+    //添加专业方法
     layui.use('layer', function () {
         var layer = layui.layer;
         // 这个是在iframe里面的js代码
-        var url = '/addDepartment.json';
+        var url = '/addMajor.json';
         $(document).on('click', '[type=submit]', function () {
-            if ($("#depName").val() != ""&&$("#description").val() != ""&&$("#departmentHeadName").val() != "") {
+            if ($("#majorName").val() != ""&&$("#description").val() != ""&&$("#depId").val() != "") {
                 var index = layer.load(1, {
                     shade: [0.1, '#fff'] //0.1透明度的白色背景
                 });
-                var data = $("#addDepartmentFrom").serialize();
+                var data = $("#addMajorFrom").serialize();
                 $.post(url, data, function (res) {
                     if (res.status == 0) {
                         layer.alert(res.message, {icon: 6}, function (index) {
-                            parent.location.href = "/department.html";
+                            parent.location.href = "/major.html";
                         });
                     } else {
                         layer.close(index);

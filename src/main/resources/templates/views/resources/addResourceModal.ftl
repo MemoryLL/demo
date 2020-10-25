@@ -46,12 +46,6 @@
         <label class="layui-form-label">父ID</label>
         <div class="layui-input-block">
             <select id="pId" name="pId">
-            <#--<option value=""></option>-->
-            <#--<option value="北京">北京</option>-->
-            <#--<option value="上海">上海</option>-->
-            <#--<option value="广州">广州</option>-->
-            <#--<option value="深圳">深圳</option>-->
-            <#--<option value="杭州">杭州</option>-->
             </select>
         </div>
     </div>

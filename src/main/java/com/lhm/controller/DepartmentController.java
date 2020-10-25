@@ -29,8 +29,16 @@ public class DepartmentController {
 
     @GetMapping("/department.html")
     @ApiOperation("系部页面跳转")
-    public String form(){
+    public String departmentManage(){
         return "views/department/departmentManage";
+    }
+
+    @GetMapping("/getAllDepartment.json")
+    @ApiOperation("获取所有系部")
+    @ResponseBody
+    public Result getAllDep(){
+        List<Department> list = departmentService.getAllDep();
+        return Result.success("获取成功",list);
     }
 
     /**
@@ -66,6 +74,10 @@ public class DepartmentController {
     @ApiOperation("添加系部接口")
     @ResponseBody
     public Result addDeparment(Department department) {
-            return Result.success("抱歉，业务逻辑还没写！", null);
+        int result = departmentService.saveDepartment(department);
+        if (result >= 1){
+            return Result.success("添加成功!",null);
+        }
+        return Result.fail("添加失败!");
     }
 }
