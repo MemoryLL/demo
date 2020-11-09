@@ -37,10 +37,18 @@
         delete from role_resource where role_id=#{id}
     </delete>
     <select id="selectRoleByPageHelper" resultType="com.lhm.pojo.Role" parameterType="com.lhm.pojo.Role">
-        select * from role where 1=1
-        <if test="roleName!=null and roleName!=''">and role_name=#{roleName}</if>
-        <if test="roleLevel!=null">and role_level=#{roleLevel}</if>
-        <if test="status!=null">and status=#{status}</if>
+        select * from role
+        <where>
+            <if test="roleName!=null and roleName!=''">
+                role_name=#{roleName}
+            </if>
+            <if test="roleLevel!=null">
+                and role_level=#{roleLevel}
+            </if>
+            <if test="status!=null">
+                and status=#{status}
+            </if>
+        </where>
     </select>
     <select id="findRoleByUserid" resultType="com.lhm.pojo.UserRole" parameterType="Integer">
         select * from user_role where user_id=#{userId}

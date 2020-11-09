@@ -4,11 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lhm.common.Result;
 import com.lhm.config.shiro.ShiroUser;
-import com.lhm.pojo.Department;
-import com.lhm.pojo.Major;
+import com.lhm.pojo.Staff;
 import com.lhm.pojo.SystemLog;
-import com.lhm.service.DepartmentService;
-import com.lhm.service.MajorService;
+import com.lhm.service.StaffService;
 import com.lhm.service.SystemLogService;
 import com.lhm.utils.Address;
 import io.swagger.annotations.Api;
@@ -26,44 +24,40 @@ import java.util.Map;
 
 /**
  * @Author: lhm
- * @Date: 2020/10/24 14:27
+ * @Date: 2020/10/26 19:29
  * 4
  */
 @Controller
-@Api(tags = "专业操作相关接口")
-public class MajorController {
+@Api(tags = "教职工操作相关接口")
+public class StaffController {
 
     @Autowired
-    private MajorService majorService;
+    private StaffService staffService;
 
     @Autowired
     private SystemLogService systemLogService;
 
-    @GetMapping("/major.html")
-    @ApiOperation("专业页面跳转")
+    @GetMapping("/staff.html")
+    @ApiOperation("教职工页面跳转")
     public String majorManage(){
-        return "views/major/majorManage";
+        return "views/staff/staffManage";
     }
 
-    @GetMapping("/getAllMajor.json")
-    @ApiOperation("查询所有专业")
+    @GetMapping("/getAllStaff.json")
+    @ApiOperation("获取所有教职工")
     @ResponseBody
-    public Result getAllMajor(){
-        List<Major> list = majorService.getAllMajor();
+    public Result getAllStaff(){
+        List<Staff> list = staffService.getAllStaff();
         return Result.success("获取成功",list);
     }
 
-    /**
-     * 分页获取专业列表（
-     * @return
-     */
-    @GetMapping(value = "/majorList.json")
-    @ApiOperation("分页获取专业列表接口")
+    @GetMapping("/staffList.json")
+    @ApiOperation("分页获取教职工列表接口")
     @ResponseBody
-    public Map<String, Object> majorPageHelper(Major major, @RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
+    public Map<String, Object> userList(Staff staff, @RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
         PageHelper.startPage(page,limit);
-        List<Major> list = majorService.selectMajorByPageHelper(major);
-        PageInfo<Major> info = new PageInfo<>(list);
+        List<Staff> list = staffService.selectStaffByPageHelper(staff);
+        PageInfo<Staff> info = new PageInfo<>(list);
         Map<String, Object> map = new HashMap<>();
         map.put("code", 0);
         map.put("msg", "获取成功");
@@ -72,25 +66,25 @@ public class MajorController {
         return map;
     }
 
-    @GetMapping("/addMajorModel.html")
-    @ApiOperation("添加专业页面跳转")
-    public String addMajorModel() {
-        return "views/major/addMajorModal";
+    @GetMapping("/addStaffModel.html")
+    @ApiOperation("添加教职工页面跳转")
+    public String addStaffModel() {
+        return "views/staff/addStaffModal";
     }
 
     /**
-     * 添加专业
+     * 添加教职工
      * @return
      */
-    @RequestMapping(value = "/addMajor.json", method = RequestMethod.POST)
-    @ApiOperation("添加专业接口")
+    @RequestMapping(value = "/addStaff.json", method = RequestMethod.POST)
+    @ApiOperation("添加教职工接口")
     @ResponseBody
-    public Result addMajor(Major major) {
-        int result = majorService.saveMajor(major);
+    public Result addStaff(Staff staff) {
+        int result = staffService.saveStaff(staff);
         if (result >= 1){
             Subject subject = SecurityUtils.getSubject();
             ShiroUser shiroUser = (ShiroUser) subject.getPrincipal();
-            SystemLog systemLog = new SystemLog(Address.getIpAddress(),"添加专业成功","添加专业",shiroUser.getId(),new Date());
+            SystemLog systemLog = new SystemLog(Address.getIpAddress(),"添加教职工成功","添加教职工",shiroUser.getId(),new Date());
             systemLogService.save(systemLog);
             return Result.success("添加成功!",null);
         }

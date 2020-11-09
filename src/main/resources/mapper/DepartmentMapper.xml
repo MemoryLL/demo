@@ -15,8 +15,12 @@
     </insert>
 
     <select id="selectDepartmentByPageHelper" parameterType="com.lhm.pojo.Department" resultMap="BaseResultMap">
-        select * from department where 1 = 1
-        <if test="depName!=null and depName!=''">and dep_name like "%"#{depName,jdbcType=VARCHAR}"%"</if>
+        select * from department
+        <where>
+            <if test="depName!=null and depName!=''">
+                dep_name like "%"#{depName,jdbcType=VARCHAR}"%"
+            </if>
+        </where>
         order by create_time desc
     </select>
 

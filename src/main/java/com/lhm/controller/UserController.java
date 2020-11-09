@@ -109,12 +109,7 @@ public class UserController {
         if (key != 0) {
             Subject subject = SecurityUtils.getSubject();
             ShiroUser shiroUser = (ShiroUser)subject.getPrincipal();
-            SystemLog systemLog = new SystemLog();
-            systemLog.setIpAddress(Address.getIpAddress());
-            systemLog.setCreatedUserId(shiroUser.getId());
-            systemLog.setCreateDate(new Date());
-            systemLog.setRemark("添加用户成功");
-            systemLog.setResourceName("添加用户");
+            SystemLog systemLog = new SystemLog(Address.getIpAddress(),"添加用户成功","添加用户",shiroUser.getId(),new Date());
             systemLogService.save(systemLog);
             return Result.success("添加成功！", null);
         } else {
@@ -135,12 +130,7 @@ public class UserController {
         }
         Subject subject = SecurityUtils.getSubject();
         ShiroUser shiroUser = (ShiroUser)subject.getPrincipal();
-        SystemLog systemLog = new SystemLog();
-        systemLog.setIpAddress(Address.getIpAddress());
-        systemLog.setCreatedUserId(shiroUser.getId());
-        systemLog.setCreateDate(new Date());
-        systemLog.setRemark("修改用户状态成功");
-        systemLog.setResourceName("修改用户状态");
+        SystemLog systemLog = new SystemLog(Address.getIpAddress(),"修改用户状态成功","修改用户状态",shiroUser.getId(),new Date());
         systemLogService.save(systemLog);
         return Result.success("修改成功！", null);
     }

@@ -14,26 +14,38 @@
     <title></title>
 </head>
 <body class="layui-view-body">
-<form id="addDepartmentFrom" class="layui-form layui-card-body">
+<form id="addStaffFrom" class="layui-form layui-card-body">
     <div class="layui-form-item">
-        <label class="layui-form-label">系名</label>
+        <label class="layui-form-label">姓名</label>
         <div class="layui-input-block">
-            <input type="text" id="depName" name="depName" required lay-verify="required" placeholder="请输入系名"
+            <input type="text" id="staffName" name="staffName" required lay-verify="required" placeholder="请输入姓名"
                    autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">描述</label>
+        <label class="layui-form-label">电话</label>
         <div class="layui-input-block">
-            <input type="text" id="description" name="description" required lay-verify="required" placeholder="请输入描述"
+            <input type="text" id="telephone" name="telephone" required lay-verify="required" placeholder="请输入电话"
                    autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label for="departmentHeadName" class="layui-form-label">系主任</label>
+        <label for="departmentHeadName" class="layui-form-label">地址</label>
         <div class="layui-input-block">
-            <input id="departmentHeadName" name="departmentHeadName" required lay-verify="required" placeholder="请输入系主任"
+            <input type="text" id="address" name="address" required lay-verify="required" placeholder="请输入地址"
                    autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">选择职称</label>
+        <div class="layui-input-block">
+            <select name="title" lay-verify="required">
+                <option value=""></option>
+                <option value="助教">助教</option>
+                <option value="讲师">讲师</option>
+                <option value="副教授">副教授</option>
+                <option value="教授">教授</option>
+            </select>
         </div>
     </div>
     <div class="layui-form-item">
@@ -44,57 +56,6 @@
     </div>
 </form>
 <script>
-    $(function () {
-        {
-            //var cusname = $('#tags').val();
-            $.ajax
-            ({
-                url: "/getAllStaff.json",
-                dataType: "json",
-                type: "get",
-                data: {},
-                success: function (res) {
-                    //console.log(res);  //在console中查看数据
-                    if (res.status == 0) {
-                        showCusnames(res.data);
-                    }
-                },
-                error: function () {
-                    //console.log(data);
-                    alert('查询失败！请检查你的网络或稍后重试');
-                },
-            });
-        }
-    });
-
-    function showCusnames(res) {
-        var arrCusnames = new Array();
-        if (res.length === 0) {
-        }
-        else {
-            var data = res;
-            for (var i = 0; i < data.length; i++) {
-                arrCusnames.push(data[i].staffName);
-            }
-            var availableTags = arrCusnames;
-            $("#departmentHeadName").autocomplete({
-                source: availableTags
-            });
-        }
-    }
-
-    // $( function() {
-    //     var availableTags = [
-    //         "张三",
-    //         "李四",
-    //         "王五",
-    //         "赵六"
-    //     ];
-    //     $( "#departmentHeadName" ).autocomplete({
-    //         source: availableTags
-    //     });
-    // } );
-
     layui.use('form', function () {
         var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
         //……
@@ -108,17 +69,17 @@
     layui.use('layer', function () {
         var layer = layui.layer;
         // 这个是在iframe里面的js代码
-        var url = '/addDepartment.json';
+        var url = '/addStaff.json';
         $(document).on('click', '[type=submit]', function () {
-            if ($("#depName").val() != "" && $("#description").val() != "" && $("#departmentHeadName").val() != "") {
+            if ($("#staffName").val() != "" && $("#telephone").val() != "" && $("#address").val() != "" && $("#title option:selected").val() != "") {
                 var index = layer.load(1, {
                     shade: [0.1, '#fff'] //0.1透明度的白色背景
                 });
-                var data = $("#addDepartmentFrom").serialize();
+                var data = $("#addStaffFrom").serialize();
                 $.post(url, data, function (res) {
                     if (res.status == 0) {
                         layer.alert(res.message, {icon: 6}, function (index) {
-                            parent.location.href = "/department.html";
+                            parent.location.href = "/staff.html";
                         });
                     } else {
                         layer.close(index);

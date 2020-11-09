@@ -13,8 +13,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+ * 这里上传后的文件是存储在项目的resources/file目录下的
+ */
+
 @Controller
-@Api(tags = "文件操作相关接口")
+@Api(tags = "服务器本地文件操作相关接口")
 public class FileController {
 
     @RequestMapping(value = "/uploadFile.json",method = RequestMethod.POST)

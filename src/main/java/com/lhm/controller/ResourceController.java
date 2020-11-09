@@ -100,12 +100,7 @@ public class ResourceController {
         }
         Subject subject = SecurityUtils.getSubject();
         ShiroUser shiroUser = (ShiroUser)subject.getPrincipal();
-        SystemLog systemLog = new SystemLog();
-        systemLog.setIpAddress(Address.getIpAddress());
-        systemLog.setCreatedUserId(shiroUser.getId());
-        systemLog.setCreateDate(new Date());
-        systemLog.setRemark("添加资源成功");
-        systemLog.setResourceName("添加资源");
+        SystemLog systemLog = new SystemLog(Address.getIpAddress(),"添加资源成功","添加资源",shiroUser.getId(),new Date());
         systemLogService.save(systemLog);
         return Result.success("添加成功！",null);
     }
@@ -134,12 +129,7 @@ public class ResourceController {
         }
         Subject subject = SecurityUtils.getSubject();
         ShiroUser shiroUser = (ShiroUser)subject.getPrincipal();
-        SystemLog systemLog = new SystemLog();
-        systemLog.setIpAddress(Address.getIpAddress());
-        systemLog.setCreatedUserId(shiroUser.getId());
-        systemLog.setCreateDate(new Date());
-        systemLog.setRemark("修改资源成功");
-        systemLog.setResourceName("修改资源");
+        SystemLog systemLog = new SystemLog(Address.getIpAddress(),"修改资源成功","修改资源",shiroUser.getId(),new Date());
         systemLogService.save(systemLog);
         return Result.success("修改成功！",null);
     }
@@ -157,12 +147,7 @@ public class ResourceController {
         }
         Subject subject = SecurityUtils.getSubject();
         ShiroUser shiroUser = (ShiroUser)subject.getPrincipal();
-        SystemLog systemLog = new SystemLog();
-        systemLog.setIpAddress(Address.getIpAddress());
-        systemLog.setCreatedUserId(shiroUser.getId());
-        systemLog.setCreateDate(new Date());
-        systemLog.setRemark("修改资源状态成功");
-        systemLog.setResourceName("修改资源状态");
+        SystemLog systemLog = new SystemLog(Address.getIpAddress(),"修改资源状态成功","修改资源状态",shiroUser.getId(),new Date());
         systemLogService.save(systemLog);
         return Result.success("修改成功！",null);
     }

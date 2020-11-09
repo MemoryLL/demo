@@ -88,12 +88,7 @@ public class LoginController {
             System.out.println("认证成功");
             session.setAttribute("username", username);
             ShiroUser shiroUser = (ShiroUser) subject.getPrincipal();
-            SystemLog systemLog = new SystemLog();
-            systemLog.setRemark("用户"+shiroUser.getLoginName()+"登录成功");
-            systemLog.setResourceName("用户登录");
-            systemLog.setCreateDate(new Date());
-            systemLog.setCreatedUserId(shiroUser.getId());
-            systemLog.setIpAddress(Address.getIpAddress());
+            SystemLog systemLog = new SystemLog(Address.getIpAddress(),"用户"+shiroUser.getLoginName()+"登录成功","用户登录",shiroUser.getId(),new Date());
             systemLogService.save(systemLog);
             return "redirect:/index.html";
         } else {

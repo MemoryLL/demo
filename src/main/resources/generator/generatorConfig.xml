@@ -46,7 +46,7 @@
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
         <!-- 指定数据库表 -->
-        <table schema="" tableName="major"></table>
+        <table schema="" tableName="staff"></table>
         <!--<table schema="" tableName="success_killed"></table>-->
     </context>
 </generatorConfiguration>

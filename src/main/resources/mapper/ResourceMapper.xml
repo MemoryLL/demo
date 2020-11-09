@@ -47,10 +47,18 @@
         select * from resource where status = 0
     </select>
     <select id="selectResourceByPageHelper" resultType="com.lhm.pojo.Resource" parameterType="com.lhm.pojo.Resource">
-        select * from resource where 1 = 1
-        <if test="title!=null and title!=''">and title=#{title}</if>
-        <if test="status!=null">and status=#{status}</if>
-        <if test="resourceType!=null">and resource_type=#{resourceType}</if>
+        select * from resource
+        <where>
+            <if test="title!=null and title!=''">
+                title=#{title}
+            </if>
+            <if test="status!=null">
+                and status=#{status}
+            </if>
+            <if test="resourceType!=null">
+                and resource_type=#{resourceType}
+            </if>
+        </where>
     </select>
 
     <select id="getResourceByResourceType" resultType="com.lhm.pojo.Resource" parameterType="Integer">

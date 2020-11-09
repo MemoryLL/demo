@@ -18,8 +18,12 @@
     </select>
 
     <select id="selectMajorByPageHelper" resultMap="BaseResultMap">
-        select * from major where 1 = 1
-        <if test="majorName!=null and majorName!=''">and major_name like "%"#{majorName,jdbcType=VARCHAR}"%"</if>
+        select * from major
+        <where>
+            <if test="majorName!=null and majorName!=''">
+                major_name like "%"#{majorName,jdbcType=VARCHAR}"%"
+            </if>
+        </where>
         order by create_time desc
     </select>
 

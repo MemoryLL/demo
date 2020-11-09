@@ -116,12 +116,7 @@ public class RoleController {
         if (key==roleIds.size()){
             Subject subject = SecurityUtils.getSubject();
             ShiroUser shiroUser = (ShiroUser)subject.getPrincipal();
-            SystemLog systemLog = new SystemLog();
-            systemLog.setIpAddress(Address.getIpAddress());
-            systemLog.setCreatedUserId(shiroUser.getId());
-            systemLog.setCreateDate(new Date());
-            systemLog.setRemark("添加角色成功");
-            systemLog.setResourceName("添加角色");
+            SystemLog systemLog = new SystemLog(Address.getIpAddress(),"添加角色成功","添加角色",shiroUser.getId(),new Date());
             systemLogService.save(systemLog);
             return Result.success("添加成功！",null);
         }
@@ -156,12 +151,7 @@ public class RoleController {
         if (key==roleIds.size()||key>0){
             Subject subject = SecurityUtils.getSubject();
             ShiroUser shiroUser = (ShiroUser)subject.getPrincipal();
-            SystemLog systemLog = new SystemLog();
-            systemLog.setIpAddress(Address.getIpAddress());
-            systemLog.setCreatedUserId(shiroUser.getId());
-            systemLog.setCreateDate(new Date());
-            systemLog.setRemark("修改角色成功");
-            systemLog.setResourceName("修改角色");
+            SystemLog systemLog = new SystemLog(Address.getIpAddress(),"修改角色成功","修改角色",shiroUser.getId(),new Date());
             systemLogService.save(systemLog);
             return Result.success("修改成功!",null);
         }

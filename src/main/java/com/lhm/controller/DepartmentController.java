@@ -3,14 +3,21 @@ package com.lhm.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lhm.common.Result;
+import com.lhm.config.shiro.ShiroUser;
 import com.lhm.pojo.Department;
+import com.lhm.pojo.SystemLog;
 import com.lhm.service.DepartmentService;
+import com.lhm.service.SystemLogService;
+import com.lhm.utils.Address;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +33,8 @@ public class DepartmentController {
 
     @Autowired
     private DepartmentService departmentService;
+    @Autowired
+    private SystemLogService systemLogService;
 
     @GetMapping("/department.html")
     @ApiOperation("系部页面跳转")
@@ -76,6 +85,10 @@ public class DepartmentController {
     public Result addDeparment(Department department) {
         int result = departmentService.saveDepartment(department);
         if (result >= 1){
+            Subject subject = SecurityUtils.getSubject();
+            ShiroUser shiroUser = (ShiroUser) subject.getPrincipal();
+            SystemLog systemLog = new SystemLog(Address.getIpAddress(),"添加系部成功","添加系部",shiroUser.getId(),new Date());
+            systemLogService.save(systemLog);
             return Result.success("添加成功!",null);
         }
         return Result.fail("添加失败!");
