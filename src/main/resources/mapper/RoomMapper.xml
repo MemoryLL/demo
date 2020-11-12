@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhm.mapper.RoomMapper" >
+  <resultMap id="BaseResultMap" type="com.lhm.pojo.Room" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="floor_id" property="floorId" jdbcType="INTEGER" />
+    <result column="room_name" property="roomName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+    <insert id="addRoom" parameterType="com.lhm.pojo.Room" useGeneratedKeys="true" keyProperty="id">
+        insert into room(floor_id,room_name,create_time) values (#{floorId},#{roomName},#{createTime})
+    </insert>
+    <select id="getAllRoom" resultMap="BaseResultMap">
+        select * from room
+    </select>
+    <select id="selectRoomByPageHelper" resultMap="BaseResultMap" parameterType="com.lhm.pojo.Room">
+        select * from room
+        <where>
+            <if test="roomName!=null and roomName!=''">
+                room_name like "%"#{roomName,jdbcType=VARCHAR}"%"
+            </if>
+            <if test="floorId!=null and floorId!=''">
+                and floor_id = #{floorId}
+            </if>
+        </where>
+    </select>
+    <select id="selectRoomByRoomNameAndFloorId" resultMap="BaseResultMap" parameterType="com.lhm.pojo.Room">
+        select * from room where floor_id = #{floorId} and room_name = #{roomName}
+    </select>
+
+</mapper>

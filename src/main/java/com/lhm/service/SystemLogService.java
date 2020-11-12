@@ -1,5 +1,6 @@
 package com.lhm.service;
 
+import com.lhm.pojo.Class;
 import com.lhm.pojo.SystemLog;
 
 import java.util.List;

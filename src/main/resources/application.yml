@@ -1,3 +1,5 @@
+server:
+  port: 8083
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -17,6 +19,7 @@ spring:
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
+
 
 #控制台打印sql语句
 #logging:

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhm.mapper.ClassMapper" >
+  <resultMap id="BaseResultMap" type="com.lhm.pojo.Class" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="class_name" property="className" jdbcType="VARCHAR" />
+    <result column="major_id" property="majorId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT"/>
+  </resultMap>
+    <insert id="addClass" parameterType="com.lhm.pojo.Class" useGeneratedKeys="true" keyProperty="id">
+        insert into class(class_name,major_id,create_time) values(#{className},#{majorId},#{createTime})
+    </insert>
+    <select id="selectClassByPageHelper" resultMap="BaseResultMap" parameterType="com.lhm.pojo.Class">
+        select * from class
+            <where>
+                <if test="className!=null and className!=''">
+                    class_name like "%"#{className,jdbcType=VARCHAR}"%"
+                </if>
+                <if test="status!=null and status!=''">
+                    and status = #{status}
+                </if>
+            </where>
+    </select>
+    <select id="getAllClass" resultMap="BaseResultMap">
+        select * from class where status = 0
+    </select>
+
+</mapper>
