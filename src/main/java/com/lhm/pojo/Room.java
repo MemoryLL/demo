@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Data
 public class Room {
-    private Integer id;
+    private Integer roomId;
 
     private Integer floorId;
 

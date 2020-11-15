@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Data
 public class Major {
-    private Integer id;
+    private Integer majorId;
 
     private Integer depId;
 

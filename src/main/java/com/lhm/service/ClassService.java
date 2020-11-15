@@ -18,4 +18,5 @@ public interface ClassService {
 
     Result getAllClass();
 
+    Result getClassByMajorId(Integer majorId);
 }

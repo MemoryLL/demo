@@ -1,5 +1,6 @@
 package com.lhm.service;
 
+import com.lhm.common.Result;
 import com.lhm.pojo.Major;
 
 import java.util.List;
@@ -16,5 +17,7 @@ public interface MajorService {
 
 
     int saveMajor(Major major);
+
+    Result getMajorByDepId(Integer depId);
 
 }

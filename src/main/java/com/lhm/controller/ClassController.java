@@ -47,6 +47,13 @@ public class ClassController {
         return classService.getAllClass();
     }
 
+    @GetMapping("/getClassByMajorId.json")
+    @ApiOperation("根据专业id获取班级")
+    @ResponseBody
+    public Result getClassByMajorId(@RequestParam("majorId") Integer majorId){
+        return classService.getClassByMajorId(majorId);
+    }
+
     /**
      * 分页获取专业列表
      * @return

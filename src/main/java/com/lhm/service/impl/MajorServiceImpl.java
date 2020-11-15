@@ -1,5 +1,6 @@
 package com.lhm.service.impl;
 
+import com.lhm.common.Result;
 import com.lhm.mapper.MajorMapper;
 import com.lhm.pojo.Major;
 import com.lhm.service.MajorService;
@@ -34,5 +35,11 @@ public class MajorServiceImpl implements MajorService {
     public int saveMajor(Major major) {
         major.setCreateTime(new Date());
         return majorMapper.saveMajor(major);
+    }
+
+    @Override
+    public Result getMajorByDepId(Integer depId) {
+        List<Major> list = majorMapper.getMajorByDepId(depId);
+        return Result.success("获取成功",list);
     }
 }

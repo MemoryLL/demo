@@ -107,7 +107,7 @@
     floorResult = table.render({
         elem: '#floorTable'
         , cols: [[ //标题栏
-            {field: 'id', title: 'ID', width: 70, sort: true, align: 'center'}
+            {field: 'floorId', title: 'ID', width: 70, sort: true, align: 'center'}
             , {field: 'floorName', title: '宿舍楼名', width: 180, align: 'center'}
             , {field: 'descr', title: '描述', width: 150, align: 'center'}
             , {field: 'createTime', title: '创建时间', width: 200, align: 'center', templet:function(d){return util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");}}
@@ -125,9 +125,9 @@
     table.on('tool(floor_filter)', function (obj) {
         var data = obj.data;
         if (obj.event === 'floor_detail') {
-            layer.msg('ID：' + data.id + ' 的查看操作');
+            layer.msg('ID：' + data.floorId + ' 的查看操作');
         } else if (obj.event === 'floor_edit') {
-            layer.msg('ID：' + data.id + ' 的修改操作');
+            layer.msg('ID：' + data.floorId + ' 的修改操作');
         }
     });
 </script>

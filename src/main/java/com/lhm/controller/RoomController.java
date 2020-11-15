@@ -41,8 +41,16 @@ public class RoomController {
 
     @GetMapping("/getAllRoom.json")
     @ApiOperation("获取所有宿舍接口")
+    @ResponseBody
     public Result getAllRoom(){
         return roomService.getAllRoom();
+    }
+
+    @GetMapping("/getRoomByFloorId.json")
+    @ApiOperation("根据宿舍楼id获取宿舍接口")
+    @ResponseBody
+    public Result getRoomByFloorId(@RequestParam("floorId") Integer floorId){
+        return roomService.getRoomByFloorId(floorId);
     }
 
     @GetMapping("/roomList.json")

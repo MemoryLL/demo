@@ -107,7 +107,7 @@
     userResult = table.render({
         elem: '#departmentTable'
         , cols: [[ //标题栏
-            {field: 'id', title: 'ID', width: 70, sort: true, align: 'center'}
+            {field: 'depId', title: 'ID', width: 70, sort: true, align: 'center'}
             , {field: 'depName', title: '系名', width: 180, align: 'center'}
             , {field: 'description', title: '描述', width: 250, align: 'center'}
             , {field: 'departmentHeadName', title: '系主任', width: 80, align: 'center'}
@@ -126,9 +126,9 @@
     table.on('tool(dep_filter)', function (obj) {
         var data = obj.data;
         if (obj.event === 'dep_detail') {
-            layer.msg('ID：' + data.id + ' 的查看操作');
+            layer.msg('ID：' + data.depId + ' 的查看操作');
         } else if (obj.event === 'dep_edit') {
-            layer.msg('ID：' + data.id + ' 的修改操作');
+            layer.msg('ID：' + data.depId + ' 的修改操作');
         }
     });
 </script>

@@ -45,4 +45,10 @@ public class RoomServiceImpl implements RoomService {
         }
         return Result.fail("添加失败");
     }
+
+    @Override
+    public Result getRoomByFloorId(Integer floorId) {
+        List<Room> list = roomMapper.getRoomByFloorId(floorId);
+        return Result.success("获取成功",list);
+    }
 }

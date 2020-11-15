@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Data
 public class Class {
-    private Integer id;
+    private Integer classId;
 
     private String className;
 

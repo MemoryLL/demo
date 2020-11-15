@@ -1,5 +1,6 @@
 package com.lhm.controller;
 
+import com.lhm.common.Result;
 import com.lhm.config.shiro.ShiroUser;
 import com.lhm.pojo.SystemLog;
 import com.lhm.service.SystemLogService;
@@ -7,6 +8,7 @@ import com.lhm.utils.Address;
 import com.lhm.utils.MD5Utils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.logging.log4j.message.ReusableMessage;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -15,10 +17,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -72,16 +71,20 @@ public class LoginController {
      */
     @RequestMapping(value = "/login.json", method = RequestMethod.POST)
     @ApiOperation("登录接口")
-    public String doLogin(@RequestParam("username") String username, @RequestParam("password") String password, RedirectAttributes modelMap, HttpSession session) {
-        UsernamePasswordToken token = new UsernamePasswordToken(username, MD5Utils.md5(password));
+    public String doLogin(@RequestParam("username") String username, @RequestParam("password") String password,
+                          @RequestParam(value = "rememberMe",defaultValue = "false") Boolean rememberMe, RedirectAttributes modelMap, HttpSession session) {
+        UsernamePasswordToken token = new UsernamePasswordToken(username, MD5Utils.md5(password),rememberMe);
         Subject subject = SecurityUtils.getSubject();
         try {
             subject.login(token);
         } catch (IncorrectCredentialsException ice) {
+            token.clear();
             modelMap.addFlashAttribute("msg", "密码不正确");
         } catch (UnknownAccountException uae) {
+            token.clear();
             modelMap.addFlashAttribute("msg", "账号不存在");
         } catch (AuthenticationException ae) {
+            token.clear();
             modelMap.addFlashAttribute("msg", "该用户被禁用");
         }
         if (subject.isAuthenticated()) {
@@ -104,7 +107,11 @@ public class LoginController {
     @GetMapping("/index.html")
     @ApiOperation("首页跳转")
     public String toIndex() {
-        return "index";
+        Subject user = SecurityUtils.getSubject();
+        if (user.isAuthenticated()) {
+            return "index";
+        }
+        return "login2";
     }
 
 }

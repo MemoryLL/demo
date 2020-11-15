@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Data
 public class Floor {
-    private Integer id;
+    private Integer floorId;
 
     private String floorName;
 

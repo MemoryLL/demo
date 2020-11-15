@@ -80,6 +80,9 @@
     var table = layui.table;
     var form = layui.form;
     var util = layui.util;
+
+
+
     //查询按钮点击
     $("#findClass_btn").click(function () {
         var className = $("#className").val();
@@ -120,7 +123,7 @@
     classResult = table.render({
         elem: '#classTable'
         , cols: [[ //标题栏
-            {field: 'id', title: 'ID', width: 70, sort: true, align: 'center'}
+            {field: 'classId', title: 'ID', width: 70, sort: true, align: 'center'}
             , {field: 'className', title: '班级名', width: 180, align: 'center'}
             , {field: 'majorId', title: '所属专业ID', width: 150, align: 'center'}
             , {
@@ -148,11 +151,11 @@
     table.on('tool(class_filter)', function (obj) {
         var data = obj.data;
         if (obj.event === 'class_detail') {
-            layer.msg('ID：' + data.id + ' 的查看操作');
+            layer.msg('ID：' + data.classId + ' 的查看操作');
         } else if (obj.event === 'class_edit') {
-            layer.msg('ID：' + data.id + ' 的修改操作');
+            layer.msg('ID：' + data.classId + ' 的修改操作');
         } else if (obj.event === 'class_update_status') {
-            layer.msg('ID：' + data.id + ' 的状态操作');
+            layer.msg('ID：' + data.classId + ' 的状态操作');
         }
     });
 </script>

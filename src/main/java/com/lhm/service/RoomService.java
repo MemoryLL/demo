@@ -17,4 +17,6 @@ public interface RoomService {
 
     Result addRoom(Room room);
 
+    Result getRoomByFloorId(Integer floorId);
+
 }

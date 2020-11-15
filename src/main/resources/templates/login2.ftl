@@ -26,7 +26,7 @@
         </div>
         <div class="content-right">
             <div class="right-infp">
-                <form method="post" action="/login.json">
+                <form action="/login.json" method="post">
                     <p style="color: red" align="center">${msg}</p>
                     <div class="right-infp-name">
                         <input type="text" id="username" name="username" placeholder="请输入用户名" maxlength="12"
@@ -35,6 +35,9 @@
                     <div class="right-infp-name">
                         <input type="password" id="password" name="password" required="required" placeholder="请输入密码"
                                autocomplete="off" value="">
+                    </div>
+                    <div class="layui-form-item">
+                        <input type="checkbox" id="rememberMe" name="rememberMe" />  记住我<br>
                     </div>
                     <div class="right-infp-btn">
                         <button class="btn" type="submit">登录</button>
@@ -56,33 +59,29 @@
             $("html").css({fontSize: whei / 24})
         });
     });
-    // layui.use(['form', 'jquery', 'layer'], function () {
-    //     var layer = layui.layer;
-    //     var $ = layui.$;
-    //     $(document).on('click', '[type=submit]', function () {
-    //         var username = $("#username").val();
-    //         var password = $("#password").val();
-    //         //alert(username+password);
-    //         if (username == "") {
-    //             layer.alert("未填写用户名！", {icon: 5});
-    //         } else if (password == "") {
-    //             layer.alert("未填写密码！", {icon: 5});
-    //         } else if (username != "" && password != "") {
-    //             $.ajax({
-    //                 type: "POST",
-    //                 url: "/login.json",
-    //                 data: {username: username, password: password},
-    //                 dataType: "json",
-    //                 success: function (res) {
-    //                     if (res.status == 0) {
-    //                         layer.alert(res.message, {icon: 6});
-    //                         location.href = "/index.html";
-    //                     } else {
-    //                         layer.alert(res.message, {icon: 6});
-    //                         location.href = "/login.html";
-    //                     }
-    //                 }
-    //             })
+    // $(document).on('click','[type=submit]',function () {
+    //     var username = $("#username").val();
+    //     var password = $("#password").val();
+    //     var rememberMe = $("#rememberMe").is(":checked");
+        // $.post('/login.json', {username:username,password:password,rememberMe:rememberMe}, function (result) {
+        //     console.log(result);
+        //     if(result.status==0){
+        //         window.location.href="http://localhost:8083/index.html" ;
+        //     }
+        // }, "JSON");
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "/login.json",
+    //         data: {username:username,password:password,rememberMe:rememberMe},
+    //         dataType: "json",
+    //         async: false,
+    //         success:function (res) {
+    //             console.log(res);
+    //             if (res.status==0){
+    //                 window.location.href="http://localhost:8083/index.html";
+    //             }else {
+    //                 window.location.href="http://localhost:8083";
+    //             }
     //         }
     //     });
     // });

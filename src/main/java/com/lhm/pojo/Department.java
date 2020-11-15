@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Data
 public class Department {
-    private Integer id;
+    private Integer depId;
 
     private String depName;
 

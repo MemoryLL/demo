@@ -1,9 +1,13 @@
 package com.lhm.config.shiro;
 
 import com.google.common.collect.Maps;
+import org.apache.shiro.codec.Base64;
+import org.apache.shiro.mgt.RememberMeManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.authc.AnonymousFilter;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -45,7 +49,7 @@ public class ShiroConfig {
         Map<String,String> filterMap = new LinkedHashMap<String,String>();
         filterMap.put("/login.json","anon");
         filterMap.put("/login.html","anon");
-        filterMap.put("/*","authc");
+        filterMap.put("/*","user");
         bean.setFilterChainDefinitionMap(filterMap);
         return bean;
     }
@@ -54,10 +58,31 @@ public class ShiroConfig {
      * 创建DefauleWebSecurityManager
      */
     @Bean(name="securityManager")
-    public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("userRealm") UserRealm userRealm){
+    public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("userRealm") UserRealm userRealm,
+                                                                  @Qualifier("rememberMeManager") RememberMeManager rememberMeManager){
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
         manager.setRealm(userRealm);
+        manager.setRememberMeManager(rememberMeManager);
         return manager;
+    }
+
+    //记住我
+    @Bean(name = "rememberMeManager")
+    public CookieRememberMeManager rememberMeManager(){
+        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+        cookieRememberMeManager.setCookie(rememberMeCookie());
+        //这个地方有点坑，不是所有的base64编码都可以用，长度过大过小都不行，没搞明白，官网给出的要么0x开头十六进制，要么base64
+        cookieRememberMeManager.setCipherKey(Base64.decode("4AvVhmFLUs0KTA3Kprsdag=="));
+        return cookieRememberMeManager;
+    }
+
+    //cookie管理
+    @Bean
+    public SimpleCookie rememberMeCookie() {
+        SimpleCookie cookie = new SimpleCookie("demo_rememberMe");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(1 * 60 * 60);
+        return cookie;
     }
 
     @Bean(name = "shiroRequestUrl")

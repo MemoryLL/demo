@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.lhm.mapper.MajorMapper" >
   <resultMap id="BaseResultMap" type="com.lhm.pojo.Major" >
-    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="id" property="majorId" jdbcType="INTEGER" />
     <result column="dep_id" property="depId" jdbcType="INTEGER" />
     <result column="major_name" property="majorName" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
@@ -25,6 +25,9 @@
             </if>
         </where>
         order by create_time desc
+    </select>
+    <select id="getMajorByDepId" resultMap="BaseResultMap" parameterType="Integer">
+       select id,major_name from major where dep_id = #{depId}
     </select>
 
 </mapper>

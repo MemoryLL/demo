@@ -53,4 +53,10 @@ public class ClassServiceImpl implements ClassService {
         List<Class> list = classMapper.getAllClass();
         return Result.success("获取成功",list);
     }
+
+    @Override
+    public Result getClassByMajorId(Integer majorId) {
+        List<Class> list = classMapper.getClassByMajorId(majorId);
+        return Result.success("获取成功",list);
+    }
 }

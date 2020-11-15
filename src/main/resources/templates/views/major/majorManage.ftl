@@ -107,7 +107,7 @@
     majorResult = table.render({
         elem: '#majorTable'
         , cols: [[ //标题栏
-            {field: 'id', title: 'ID', width: 70, sort: true, align: 'center'}
+            {field: 'majorId', title: 'ID', width: 70, sort: true, align: 'center'}
             , {field: 'majorName', title: '专业名', width: 180, align: 'center'}
             , {field: 'description', title: '描述', width: 250, align: 'center'}
             , {field: 'depId', title: '系部id', width: 80, align: 'center'}
@@ -126,9 +126,9 @@
     table.on('tool(major_filter)', function (obj) {
         var data = obj.data;
         if (obj.event === 'major_detail') {
-            layer.msg('ID：' + data.id + ' 的查看操作');
+            layer.msg('ID：' + data.majorId + ' 的查看操作');
         } else if (obj.event === 'major_edit') {
-            layer.msg('ID：' + data.id + ' 的修改操作');
+            layer.msg('ID：' + data.majorId + ' 的修改操作');
         }
     });
 </script>

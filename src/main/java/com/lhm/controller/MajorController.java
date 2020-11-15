@@ -53,6 +53,13 @@ public class MajorController {
         return Result.success("获取成功",list);
     }
 
+    @GetMapping("/getMajorByDepId.json")
+    @ApiOperation("根据系部id查询专业")
+    @ResponseBody
+    public Result getMajorByDepId(@RequestParam("depId") Integer depId){
+        return majorService.getMajorByDepId(depId);
+    }
+
     /**
      * 分页获取专业列表（
      * @return
