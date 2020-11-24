@@ -2,10 +2,11 @@ package com.lhm.pojo;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class User {
+public class User  implements Serializable {
     private Integer id;
 
     private String password;
@@ -27,5 +28,7 @@ public class User {
     private Date createTime;
 
     private Date updateTime;
+
+    private Integer roleId;
 
 }

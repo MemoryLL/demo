@@ -5,12 +5,14 @@ import com.github.pagehelper.PageInfo;
 import com.lhm.common.Result;
 import com.lhm.pojo.Stu;
 import com.lhm.service.StuService;
+import com.lhm.vo.StuVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,5 +75,14 @@ public class StudentController {
     @ResponseBody
     public Result addStudent(Stu student) {
         return stuService.save(student);
+    }
+
+    @GetMapping(value = "/detailStudentModel.html")
+    @ApiOperation("学生详情页面跳转")
+    public String detailStudentModel(@RequestParam("stuNumber") String stuNumber, HttpServletRequest request){
+        StuVo stuVo = stuService.getStuDatailByStuNumber(stuNumber);
+        //根据其他的
+        request.setAttribute("stu",stuVo);
+        return "views/student/detailStudentModal";
     }
 }

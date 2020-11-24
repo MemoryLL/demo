@@ -1,6 +1,10 @@
 package com.lhm.pojo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 /**
  * @Author: lhm
@@ -8,7 +12,9 @@ import lombok.Data;
  * 4
  */
 @Data
-public class Form {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Form implements Serializable {
     private String title;
     private String password;
     private String city;

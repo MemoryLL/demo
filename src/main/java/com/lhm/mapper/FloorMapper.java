@@ -13,4 +13,6 @@ public interface FloorMapper {
 
     int addFloor(Floor floor);
 
+    Floor getFloorById(Integer floorId);
+
 }

@@ -22,5 +22,8 @@
             </if>
         </where>
     </select>
+    <select id="getFloorById" resultType="com.lhm.pojo.Floor">
+        select floor_name from floor where id = #{floorId}
+    </select>
 
 </mapper>

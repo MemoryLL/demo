@@ -1,0 +1,36 @@
+@charset "utf-8";
+*{font-family:"微软雅黑"; margin:0; padding:0; border:0;}
+input{margin:0; padding:0; border:none; outline:none; }
+div{ display:block;}
+.clearfix{clear:both;}
+.left{ float:left;}
+.right{ float:right;}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #999; opacity:1; }
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #999;opacity:1;}
+input:-ms-input-placeholder{ color: #999;opacity:1;}
+input::-webkit-input-placeholder{ color: #999;opacity:1;}
+/* 登录界面*/
+/*---------------------header----------------------*/
+.header{ width: 97%; height:135px;position:relative;z-index: 100; margin:0 auto; background:url(../images/header-bg.png) no-repeat top left; overflow: hidden; margin-left: 3%;}
+.header .logo{ margin-top:30px; margin-left: 90px;}
+/*---------------------banner---------------------*/
+.banner{ width:100%;  position:relative; height:565px; overflow:hidden;background:url(../images/banner-bg.jpg) #000 center 0 no-repeat; background-size: cover; right:0; left:0; overflow: hidden;}
+/*---------------login--------------*/
+.login-aside{position:absolute; width:343px; height:367px; z-index:9999999; left:58%; top:20%; background:rgba(0,0,0,0.1); }
+#o-box-down{width:317px; height:341px;background: #fff; margin: 12px auto; box-shadow: 2px 2px 5px rgba(0,0,0,0.2);}
+.login-name{ width:90%; margin: 0 auto; font-size: 16px; font-weight: bold; color: #393939; padding: 18px 0 10px 0; margin-bottom: 18px; border-bottom:solid 2px #EBEBEB; }
+.fm-item{width:90%; margin: 0 auto; margin-bottom: 18px;}
+#o-box-up { background-color:#fff; filter:alpha(opacity:50); opacity:0.5;}
+.fm-item input{width:90%; margin-left: 5%; line-height:34px;  border:1px solid #e9e6da;  background:#f4f4f4;  color:#999; font-size:14px; text-indent:1em;}
+#username{ background:url(../images/username.png) no-repeat left #fff; text-indent:2em;}
+#password{ background:url(../images/password.png) no-repeat left #fff; text-indent:2em;}
+.yzm{ width: 90%; overflow: hidden;}
+.yzm input{ width:50%!important; float: left; margin-right: 10px;}
+.remember{width:90%; color: #0ea6fc;}
+.remember input{ width:18px; height:18px; line-height:18px;}
+.remember p{margin-left:5px; font-size:14px; line-height:16px;}
+.login-btn{ width:80%; margin: 18px auto;background:#f9a705; text-align: center;font-size: 16px; color: #fff; padding: 10px 0; cursor: pointer;}
+/*---------------------footer--------------------*/
+.footer{width: 100%; padding:18px 0; text-align:center; font-size: 14px; color:#666; display:block; position:absolute; right:0; left:0;}

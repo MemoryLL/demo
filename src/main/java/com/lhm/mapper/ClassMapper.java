@@ -15,4 +15,7 @@ public interface ClassMapper {
     List<Class> getAllClass();
 
     List<Class> getClassByMajorId(@Param("majorId") Integer majorId);
+
+    Class getClassById(Integer classId);
+
 }

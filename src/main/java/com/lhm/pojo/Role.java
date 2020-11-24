@@ -1,11 +1,16 @@
 package com.lhm.pojo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class Role {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Role implements Serializable {
     private Integer id;
 
     private String roleName;

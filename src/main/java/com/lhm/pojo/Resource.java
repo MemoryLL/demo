@@ -1,12 +1,17 @@
 package com.lhm.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 @Data
-public class Resource {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Resource implements Serializable {
     //主键id
     private Integer id;
     //标题

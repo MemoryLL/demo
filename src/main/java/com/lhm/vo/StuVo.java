@@ -1,17 +1,20 @@
-package com.lhm.pojo;
+package com.lhm.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.shiro.util.ByteSource;
 
 import java.io.Serializable;
-import java.util.Date;
 
+/**
+ * @Author: lhm
+ * @Date: 2020/11/24 13:38
+ * 4
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Stu  implements Serializable {
+public class StuVo implements Serializable {
     private Integer stuNumber;
 
     private String stuName;
@@ -32,7 +35,13 @@ public class Stu  implements Serializable {
 
     private Byte status;
 
-    private Date createTime;
+    private String depName;
 
-    private Date updateTime;
+    private String majorName;
+
+    private String className;
+
+    private String floorName;
+
+    private String roomName;
 }

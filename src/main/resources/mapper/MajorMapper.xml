@@ -29,5 +29,8 @@
     <select id="getMajorByDepId" resultMap="BaseResultMap" parameterType="Integer">
        select id,major_name from major where dep_id = #{depId}
     </select>
+    <select id="getMajorById" resultType="com.lhm.pojo.Major" parameterType="Integer">
+        select major_name from major where id = #{majorId}
+    </select>
 
 </mapper>

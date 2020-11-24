@@ -27,5 +27,8 @@
     <select id="getAllDep" resultMap="BaseResultMap">
         select * from department
     </select>
+    <select id="getDepById" resultType="com.lhm.pojo.Department" parameterType="Integer">
+        SELECT dep_name from department where id= #{depId}
+    </select>
 
 </mapper>

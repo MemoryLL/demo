@@ -1,11 +1,16 @@
 package com.lhm.pojo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class Class {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Class  implements Serializable {
     private Integer classId;
 
     private String className;

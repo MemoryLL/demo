@@ -39,13 +39,13 @@
                                            value="">
                                 </div>
                                 <div class="layui-form-mid">系部:</div>
-                                <div class="layui-input-inline" style="width: 100px;">
+                                <div class="layui-input-inline" style="width: 130px;">
                                     <select id="depId" name="depId" lay-filter="depChange">
                                         <option value=""></option>
                                     </select>
                                 </div>
                                 <div class="layui-form-mid">专业:</div>
-                                <div class="layui-input-inline" style="width: 100px;">
+                                <div class="layui-input-inline" style="width: 140px;">
                                     <select id="majorId" name="majorId" lay-filter="majorChange">
                                         <option value=""></option>
                                     </select>
@@ -129,7 +129,9 @@
                 success: function (res) {
                     if (res.status == 0) {
                         $("#majorId").empty();//清空下拉框内容
-                        form.render();
+                        $('#majorId').append(new Option("", ""));
+                        $("#classId").empty();//清空下拉框内容
+                        $('#classId').append(new Option("", ""));
                         $.each(res.data, function (index, item) {
                             //$('#majorId').append(new Option(item.title, item.id));// 下拉菜单里添加元素
                             $("#majorId").append("<option value='" + item.majorId + "'>" + item.majorName + "</option>");// 下拉菜单里添加元素
@@ -149,6 +151,7 @@
                 success: function (res) {
                     if (res.status == 0) {
                         $("#classId").empty();//清空下拉框内容
+                        $('#classId').append(new Option("", ""));
                         $.each(res.data, function (index, item) {
                             //$('#classId').append(new Option(item.title, item.id));// 下拉菜单里添加元素
                             $("#classId").append("<option value='" + item.classId + "'>" + item.className + "</option>");// 下拉菜单里添加元素
@@ -206,10 +209,10 @@
     studentResult = table.render({
         elem: '#studentTable'
         , cols: [[ //标题栏
-            {field: 'stuNumber', title: '学号', width: 70, sort: true, align: 'center'}
-            , {field: 'stuName', title: '姓名', width: 180, align: 'center'}
-            , {field: 'telephone', title: '电话', width: 80, align: 'center'}
-            , {field: 'address', title: '地址', width: 80, align: 'center'}
+            {field: 'stuNumber', title: '学号', width: 110, sort: true, align: 'center'}
+            , {field: 'stuName', title: '姓名', width: 80, align: 'center'}
+            , {field: 'telephone', title: '电话', width: 120, align: 'center'}
+            , {field: 'address', title: '地址', width: 200, align: 'center'}
             , {
                 field: 'status', title: '状态', width: 80, align: 'center',
                 templet: function (res) {
@@ -223,7 +226,7 @@
                 }
             }
             , {
-                field: 'createTime', title: '创建时间', width: 200, align: 'center', templet: function (d) {
+                field: 'createTime', title: '创建时间', width: 160, align: 'center', templet: function (d) {
                     return util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
                 }
             }
@@ -241,7 +244,15 @@
     table.on('tool(student_filter)', function (obj) {
         var data = obj.data;
         if (obj.event === 'student_detail') {
-            layer.msg('学号：' + data.stuNumber + ' 的查看操作');
+            layer.open({
+                type: 2,
+                title: '学生详情',
+                maxmin: true,
+                area: ['650px', '480px'],
+                shadeClose: false, //点击遮罩关闭
+                content: '/detailStudentModel.html?stuNumber='+data.stuNumber
+            });
+            //layer.msg('学号：' + data.stuNumber + ' 的查看操作');
         } else if (obj.event === 'student_edit') {
             layer.msg('学号：' + data.stuNumber + ' 的修改操作');
         }

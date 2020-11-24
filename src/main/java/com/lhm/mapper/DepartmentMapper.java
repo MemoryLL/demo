@@ -12,4 +12,6 @@ public interface DepartmentMapper {
 
     List<Department> getAllDep();
 
+    Department getDepById(Integer depId);
+
 }

@@ -2,6 +2,7 @@ package com.lhm.pojo;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
  * 4
  */
 @Data
-public class UserRole {
+public class UserRole  implements Serializable {
 
     private Integer id;
     private Integer userId;

@@ -13,6 +13,7 @@
     <result column="state" property="state" jdbcType="TINYINT" />
       <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
       <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+      <result column="role_id" property="roleId" jdbcType="INTEGER" />
   </resultMap>
     <insert id="saveUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.lhm.pojo.User">
         insert into user(name,password,age,email,file,sex,city,create_time) values (#{name},#{password},#{age},#{email},#{file},#{sex},#{city},#{createTime})

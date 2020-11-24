@@ -149,6 +149,7 @@
                 success: function (res) {
                     if (res.status == 0) {
                         $("#majorId").empty();//清空下拉框内容
+                        $("#classId").empty();//清空下拉框内容
                         $.each(res.data, function (index, item) {
                             //$('#majorId').append(new Option(item.title, item.id));// 下拉菜单里添加元素
                             $("#majorId").append("<option value='" + item.majorId + "'>" + item.majorName + "</option>");// 下拉菜单里添加元素

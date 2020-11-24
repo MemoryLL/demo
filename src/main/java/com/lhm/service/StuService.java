@@ -2,6 +2,7 @@ package com.lhm.service;
 
 import com.lhm.common.Result;
 import com.lhm.pojo.Stu;
+import com.lhm.vo.StuVo;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface StuService {
     List<Stu> selectStuByPageHelper(Stu student);
 
     Result save(Stu student);
+
+    StuVo getStuDatailByStuNumber(String stuNumber);
 }

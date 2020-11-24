@@ -15,4 +15,7 @@ public interface RoomMapper {
     Room selectRoomByRoomNameAndFloorId(Room room);
 
     List<Room> getRoomByFloorId(@Param("floorId") Integer floorId);
+
+    Room getRoomById(Integer roomId);
+
 }

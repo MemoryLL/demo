@@ -31,5 +31,8 @@
     <select id="getRoomByFloorId" resultMap="BaseResultMap" parameterType="Integer">
         select id,room_name from room where floor_id=#{floorId}
     </select>
+    <select id="getRoomById" resultType="com.lhm.pojo.Room" parameterType="Integer">
+        select floor_id,room_name from room where id = #{roomId}
+    </select>
 
 </mapper>

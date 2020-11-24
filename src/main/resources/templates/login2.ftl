@@ -28,6 +28,11 @@
             <div class="right-infp">
                 <form action="/login.json" method="post">
                     <p style="color: red" align="center">${msg}</p>
+                        <select id="identity" name="identity">
+                            <option value="学生">学生</option>
+                            <option value="教师">教师</option>
+                            <option value="教务">教务</option>
+                        </select>
                     <div class="right-infp-name">
                         <input type="text" id="username" name="username" placeholder="请输入用户名" maxlength="12"
                                required value="" autocomplete="off">

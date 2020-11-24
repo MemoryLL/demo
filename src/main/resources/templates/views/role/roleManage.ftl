@@ -38,7 +38,8 @@
                                     <select id="roleLevel" name="roleLevel">
                                         <option value="">全部</option>
                                         <option value="0">系统</option>
-                                        <option value="1">普通</option>
+                                        <option value="1">教师</option>
+                                        <option value="2">学生</option>
                                     </select>
                                 </div>
                                 <div class="layui-form-mid">状态:</div>
@@ -96,7 +97,9 @@
                     if (res.roleLevel == 0) {
                         return '<span class="layui-badge layui-bg-blue">系统</span>';
                     } else if (res.roleLevel == 1) {
-                        return '<span class="layui-badge layui-bg-orange">普通</span>';
+                        return '<span class="layui-badge layui-bg-orange">教师</span>';
+                    } else if (res.roleLevel == 2) {
+                        return '<span class="layui-badge layui-bg-green">学生</span>';
                     }
                 }
             }

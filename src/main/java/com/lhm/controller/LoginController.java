@@ -1,14 +1,13 @@
 package com.lhm.controller;
 
-import com.lhm.common.Result;
 import com.lhm.config.shiro.ShiroUser;
 import com.lhm.pojo.SystemLog;
 import com.lhm.service.SystemLogService;
 import com.lhm.utils.Address;
 import com.lhm.utils.MD5Utils;
+import com.lhm.utils.RandomValidateCodeUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.logging.log4j.message.ReusableMessage;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -19,6 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 
@@ -36,7 +38,7 @@ public class LoginController {
     @GetMapping({"", "/", "/login.html"})
     @ApiOperation("登录页面跳转")
     public String index() {
-        return "login2";
+        return "login3";
     }
 
     /**
@@ -62,6 +64,25 @@ public class LoginController {
     }
 
     /**
+     * 图片验证码
+     */
+    @GetMapping(value = "/getImageCode.json")
+    @ApiOperation("图片验证码")
+    public void getImageCode(HttpServletRequest request,HttpServletResponse response){
+        try {
+            response.setContentType("image/jpeg");//设置相应类型,告诉浏览器输出的内容为图片
+            response.setHeader("Pragma", "No-cache");//设置响应头信息，告诉浏览器不要缓存此内容
+            response.setHeader("Cache-Control", "no-cache");
+            response.setDateHeader("Expire", 0);
+            RandomValidateCodeUtil.getRandcode(request, response);//输出验证码图片方法
+        } catch (Exception e) {
+            //logger.error("获取验证码失败>>>>   ", e);
+            System.out.println("获取验证码失败>>>>   "+e);
+        }
+
+    }
+
+    /**
      * 用户登录
      * @param username
      * @param password
@@ -71,8 +92,12 @@ public class LoginController {
      */
     @RequestMapping(value = "/login.json", method = RequestMethod.POST)
     @ApiOperation("登录接口")
-    public String doLogin(@RequestParam("username") String username, @RequestParam("password") String password,
+    public String doLogin(@RequestParam("username") String username, @RequestParam("password") String password,@RequestParam("imgCode") String imgCode,
                           @RequestParam(value = "rememberMe",defaultValue = "false") Boolean rememberMe, RedirectAttributes modelMap, HttpSession session) {
+        if (!session.getAttribute("VALIDATECODE").equals(imgCode.toUpperCase())){
+            modelMap.addFlashAttribute("msg", "验证码不正确");
+            return "redirect:/login.html";
+        }
         UsernamePasswordToken token = new UsernamePasswordToken(username, MD5Utils.md5(password),rememberMe);
         Subject subject = SecurityUtils.getSubject();
         try {

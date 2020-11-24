@@ -16,4 +16,5 @@ public interface MajorMapper {
 
     List<Major> getMajorByDepId(@Param("depId") Integer depId);
 
+    Major getMajorById(Integer majorId);
 }

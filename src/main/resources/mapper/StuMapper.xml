@@ -45,4 +45,7 @@
             </if>
         </where>
     </select>
+    <select id="getStuByStuNumber" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select * from stu where stu_number = #{stuNumber}
+    </select>
 </mapper>
