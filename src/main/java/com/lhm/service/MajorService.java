@@ -1,6 +1,7 @@
 package com.lhm.service;
 
 import com.lhm.common.Result;
+import com.lhm.pojo.Class;
 import com.lhm.pojo.Major;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * 4
  */
 public interface MajorService {
+
     List<Major> getAllMajor();
 
     List<Major> selectMajorByPageHelper(Major major);

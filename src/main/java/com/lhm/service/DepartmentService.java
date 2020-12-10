@@ -1,5 +1,6 @@
 package com.lhm.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.lhm.pojo.Department;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  * @Date: 2020/10/24 14:37
  * 4
  */
-public interface DepartmentService {
+public interface DepartmentService extends IService<Department> {
 
     List<Department> selectDepartmentByPageHelper(Department department);
 

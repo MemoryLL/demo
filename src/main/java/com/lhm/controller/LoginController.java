@@ -8,6 +8,7 @@ import com.lhm.utils.MD5Utils;
 import com.lhm.utils.RandomValidateCodeUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -29,7 +30,9 @@ import java.util.Date;
 public class LoginController {
 
     @Autowired
-    SystemLogService systemLogService;
+    private SystemLogService systemLogService;
+    @Autowired
+    private HttpServletRequest request;
 
     /**
      * 登录页面跳转
@@ -70,13 +73,15 @@ public class LoginController {
     @ApiOperation("图片验证码")
     public void getImageCode(HttpServletRequest request,HttpServletResponse response){
         try {
-            response.setContentType("image/jpeg");//设置相应类型,告诉浏览器输出的内容为图片
-            response.setHeader("Pragma", "No-cache");//设置响应头信息，告诉浏览器不要缓存此内容
+            //设置相应类型,告诉浏览器输出的内容为图片
+            response.setContentType("image/jpeg");
+            //设置响应头信息，告诉浏览器不要缓存此内容
+            response.setHeader("Pragma", "No-cache");
             response.setHeader("Cache-Control", "no-cache");
             response.setDateHeader("Expire", 0);
-            RandomValidateCodeUtil.getRandcode(request, response);//输出验证码图片方法
+            //输出验证码图片方法
+            RandomValidateCodeUtil.getRandcode(request, response);
         } catch (Exception e) {
-            //logger.error("获取验证码失败>>>>   ", e);
             System.out.println("获取验证码失败>>>>   "+e);
         }
 
@@ -94,8 +99,16 @@ public class LoginController {
     @ApiOperation("登录接口")
     public String doLogin(@RequestParam("username") String username, @RequestParam("password") String password,@RequestParam("imgCode") String imgCode,
                           @RequestParam(value = "rememberMe",defaultValue = "false") Boolean rememberMe, RedirectAttributes modelMap, HttpSession session) {
+        if (!StringUtils.isNotBlank(imgCode)){
+            modelMap.addFlashAttribute("msg", "请输入验证码");
+            return "redirect:/login.html";
+        }
         if (!session.getAttribute("VALIDATECODE").equals(imgCode.toUpperCase())){
             modelMap.addFlashAttribute("msg", "验证码不正确");
+            return "redirect:/login.html";
+        }
+        if (!StringUtils.isNotBlank(username)||!StringUtils.isNotBlank(password)){
+            modelMap.addFlashAttribute("msg", "账号或密码为空");
             return "redirect:/login.html";
         }
         UsernamePasswordToken token = new UsernamePasswordToken(username, MD5Utils.md5(password),rememberMe);
@@ -112,8 +125,9 @@ public class LoginController {
             token.clear();
             modelMap.addFlashAttribute("msg", "该用户被禁用");
         }
+        //无论是否登录成功都要移除掉session的随机验证码字符串
+        RandomValidateCodeUtil.removeRandomString(request);
         if (subject.isAuthenticated()) {
-            System.out.println("认证成功");
             session.setAttribute("username", username);
             ShiroUser shiroUser = (ShiroUser) subject.getPrincipal();
             SystemLog systemLog = new SystemLog(Address.getIpAddress(),"用户"+shiroUser.getLoginName()+"登录成功","用户登录",shiroUser.getId(),new Date());

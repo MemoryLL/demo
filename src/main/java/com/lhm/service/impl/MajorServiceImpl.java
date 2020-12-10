@@ -2,7 +2,9 @@ package com.lhm.service.impl;
 
 import com.lhm.common.Result;
 import com.lhm.mapper.MajorMapper;
+import com.lhm.pojo.Class;
 import com.lhm.pojo.Major;
+import com.lhm.service.ClassService;
 import com.lhm.service.MajorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

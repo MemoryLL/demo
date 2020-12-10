@@ -12,7 +12,7 @@ import java.util.List;
  * 4
  */
 public interface StuService {
-    Result getAllStduent();
+    List<Stu> getAllStduent();
 
     List<Stu> selectStuByPageHelper(Stu student);
 

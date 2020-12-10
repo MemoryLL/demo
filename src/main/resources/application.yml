@@ -2,11 +2,12 @@ server:
   port: 8083
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://139.196.193.154:3306/demo?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/demo1?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8
     username: root
-    #password: 612915
-    password: NewPassWord1.!!
+    password: 612915
+
   freemarker:
     suffix: .ftl
     settings:
@@ -20,11 +21,12 @@ spring:
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
+  type-aliases-package: com.lhm.pojo
 
 
 #控制台打印sql语句
-#logging:
-#  level:
-#    com:
-#      lhm:
-#        mapper: debug
+logging:
+  level:
+    com:
+      lhm:
+        mapper: debug

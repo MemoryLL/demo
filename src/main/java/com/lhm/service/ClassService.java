@@ -2,6 +2,7 @@ package com.lhm.service;
 
 import com.lhm.common.Result;
 import com.lhm.pojo.Class;
+import com.lhm.pojo.Major;
 
 import java.util.List;
 
@@ -11,12 +12,12 @@ import java.util.List;
  * 4
  */
 public interface ClassService {
-    List<Class> selectClassByPageHelper(Class c);
 
+    List<Class> selectClassByPageHelper(Class c);
 
     Result addClass(Class c);
 
-    Result getAllClass();
+    List<Class> getAllClass();
 
     Result getClassByMajorId(Integer majorId);
 }

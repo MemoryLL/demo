@@ -5,8 +5,10 @@ import com.lhm.config.shiro.ShiroUser;
 import com.lhm.mapper.ClassMapper;
 import com.lhm.mapper.SystemLogMapper;
 import com.lhm.pojo.Class;
+import com.lhm.pojo.Major;
 import com.lhm.pojo.SystemLog;
 import com.lhm.service.ClassService;
+import com.lhm.service.MajorService;
 import com.lhm.utils.Address;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -49,9 +51,8 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public Result getAllClass() {
-        List<Class> list = classMapper.getAllClass();
-        return Result.success("获取成功",list);
+    public List<Class> getAllClass() {
+        return classMapper.getAllClass();
     }
 
     @Override

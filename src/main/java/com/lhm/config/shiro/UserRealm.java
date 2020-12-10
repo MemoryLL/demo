@@ -24,7 +24,7 @@ public class UserRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        System.out.println("执行授权逻辑");
+        //System.out.println("执行授权逻辑");
         ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         //添加资源授权的字符串
@@ -41,7 +41,7 @@ public class UserRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        System.out.println("执行认证逻辑");
+        //System.out.println("执行认证逻辑");
         //1.判断用户名
         UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
         System.out.println(token.getPassword());
@@ -61,6 +61,7 @@ public class UserRealm extends AuthorizingRealm {
         }
         ShiroUser shiroUser = new ShiroUser(user.getId(),user.getName());
         shiroUser.setUrlSet(urlSet);
+        //如果用户状态为1，则代表该用户被禁用了
         if (user.getState()==1){
             throw new AuthenticationException();
         }

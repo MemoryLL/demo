@@ -1,5 +1,6 @@
 package com.lhm.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lhm.mapper.DepartmentMapper;
 import com.lhm.pojo.Department;
 import com.lhm.service.DepartmentService;
@@ -15,7 +16,7 @@ import java.util.List;
  * 4
  */
 @Service
-public class DepartmentServiceImpl implements DepartmentService {
+public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper,Department> implements DepartmentService {
 
     @Autowired
     private DepartmentMapper departmentMapper;

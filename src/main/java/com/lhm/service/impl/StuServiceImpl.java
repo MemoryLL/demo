@@ -33,9 +33,8 @@ public class StuServiceImpl implements StuService {
     private RoomMapper roomMapper;
 
     @Override
-    public Result getAllStduent() {
-        List<Stu> list = stuMapper.getAllStudent();
-        return Result.success("获取成功",list);
+    public List<Stu> getAllStduent() {
+        return stuMapper.getAllStudent();
     }
 
     @Override

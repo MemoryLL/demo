@@ -1,6 +1,5 @@
 package com.lhm.mapper;
 
-import com.lhm.common.Result;
 import com.lhm.pojo.Class;
 import org.apache.ibatis.annotations.Param;
 

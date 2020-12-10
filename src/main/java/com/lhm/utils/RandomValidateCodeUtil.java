@@ -67,7 +67,7 @@ public class RandomValidateCodeUtil {
             randomString = drowString(g, randomString, i);
         }
         //将生成的随机字符串保存到session中
-        System.out.println("验证码："+randomString);
+        //System.out.println("验证码："+randomString);
         session.removeAttribute(RANDOMCODEKEY);
         session.setAttribute(RANDOMCODEKEY, randomString);
         g.dispose();
@@ -111,5 +111,13 @@ public class RandomValidateCodeUtil {
      */
     public static String getRandomString(int num) {
         return String.valueOf(randString.charAt(num));
+    }
+
+    /**
+     * 移除session中生成的随机字符串
+     */
+    public static void removeRandomString(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.removeAttribute(RANDOMCODEKEY);
     }
 }

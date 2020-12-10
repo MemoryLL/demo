@@ -7,6 +7,7 @@ import com.lhm.pojo.Class;
 import com.lhm.service.ClassService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ import java.util.Map;
  */
 @Controller
 @Api(tags = "班级管理操作相关接口")
+@Slf4j
 public class ClassController {
     @Autowired
     private ClassService classService;
@@ -44,7 +46,8 @@ public class ClassController {
     @ApiOperation("获取所有的班级列表接口")
     @ResponseBody
     public Result getAllClass(){
-        return classService.getAllClass();
+        List<Class> allClass = classService.getAllClass();
+        return Result.success("获取成功",allClass);
     }
 
     @GetMapping("/getClassByMajorId.json")

@@ -2,12 +2,12 @@ package com.lhm;
 
 import com.lhm.common.TreeNode;
 import com.lhm.mapper.RoleMapper;
+import com.lhm.pojo.Class;
+import com.lhm.pojo.Major;
 import com.lhm.pojo.Resource;
 import com.lhm.pojo.Role;
 import com.lhm.pojo.RoleResource;
-import com.lhm.service.ResourceService;
-import com.lhm.service.RoleService;
-import com.lhm.service.UserService;
+import com.lhm.service.*;
 import com.lhm.utils.MD5Utils;
 import com.lhm.utils.TreeBuilder;
 import org.junit.jupiter.api.Test;

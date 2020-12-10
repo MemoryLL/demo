@@ -75,6 +75,10 @@
                     <button id="btn_add_student" class="layui-btn layui-btn-blue"><i class="layui-icon">&#xe654;</i>新增
                     </button>
                     </@shiro.hasPermission>
+                    <@shiro.hasPermission name="/exportStudent_btn">
+                    <button id="btn_export_student" class="layui-btn layui-btn-blue"><i class="layui-icon">&#xe654;</i>导出
+                    </button>
+                    </@shiro.hasPermission>
                     <table id="studentTable" lay-filter="student_filter">
                         <script type="text/html" id="barDemo">
                             <@shiro.hasPermission name="/checkStudent_btn">
@@ -99,7 +103,7 @@
     var form = layui.form;
     var util = layui.util;
 
-    $( function() {
+    $(function () {
         $.ajax({
             type: "GET",
             url: "/getAllDepartment.json",
@@ -115,7 +119,7 @@
                 }
             }
         });
-    } );
+    });
 
     layui.use(['form'], function () {
         var form = layui.form;
@@ -161,6 +165,19 @@
                 }
             });
         });
+    });
+
+    //导出按钮点击
+    $("#btn_export_student").click(function () {
+        var stuName = $("#stuName").val();
+        var depId = $("#depId option:selected").val();
+        var majorId = $("#majorId option:selected").val();
+        var classId = $("#classId option:selected").val();
+        var status = $("#status option:selected").val();
+
+        parent.location.href = encodeURI("/exportStu.json?stuName="+stuName+"&depId="+depId+"&majorId="+majorId+"&classId="+classId+"&status="+status);
+        //可以根据条件查询后再导出
+        //var data = $("#studentForm").serialize();
     });
 
     //查询按钮点击
@@ -250,7 +267,7 @@
                 maxmin: true,
                 area: ['650px', '480px'],
                 shadeClose: false, //点击遮罩关闭
-                content: '/detailStudentModel.html?stuNumber='+data.stuNumber
+                content: '/detailStudentModel.html?stuNumber=' + data.stuNumber
             });
             //layer.msg('学号：' + data.stuNumber + ' 的查看操作');
         } else if (obj.event === 'student_edit') {
